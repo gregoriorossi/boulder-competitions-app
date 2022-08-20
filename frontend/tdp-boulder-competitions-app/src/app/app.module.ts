@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { CompetitionsComponent } from './components/competitions/competitions.component';
 import { AthletesComponent } from './components/athletes/athletes.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -14,14 +15,16 @@ import { AthletesComponent } from './components/athletes/athletes.component';
     CompetitionsComponent,
     HeaderComponent,
     CompetitionsComponent,
-    AthletesComponent
+    AthletesComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
       { path: '', component: CompetitionsComponent },
-      { path: 'atleti', component: AthletesComponent }
+      { path: 'atleti', component: AthletesComponent },
+      { path: '**', component: PageNotFoundComponent }
     ])
   ],
   providers: [],
