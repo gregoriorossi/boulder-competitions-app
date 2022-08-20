@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ICompetitionDetails } from '../../../models/competitions.models';
+import { CompetitionsUtils } from '../../../utils/competitions.utils';
 
 @Component({
   selector: 'app-competition-problems',
@@ -9,6 +10,8 @@ import { ICompetitionDetails } from '../../../models/competitions.models';
 export class CompetitionProblemsComponent implements OnInit {
 
   @Input() competition: ICompetitionDetails | undefined;
+
+  CompetitionsUtils = CompetitionsUtils;
 
   constructor() { }
 

@@ -23,8 +23,19 @@ export enum CompetitionStateType {
 export interface IBoulderProblem {
   Id: number;
   Title: string;
+  Color: BoulderProblemsColors;
+  Score: number;
 }
 
 export interface ICompetitionAthlete extends IAthlete {
   BoulderProblemsSent: number[];
+}
+
+export enum BoulderProblemsColors {
+  WHITE,
+  BLUE,
+  GREEN,
+  YELLOW,
+  RED,
+  BLACK
 }

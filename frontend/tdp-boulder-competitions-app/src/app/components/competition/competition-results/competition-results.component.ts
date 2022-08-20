@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
+import { Gender } from '../../../models/athletes.models';
 import { IBoulderProblem, ICompetitionAthlete, ICompetitionDetails } from '../../../models/competitions.models';
+import { CompetitionsUtils } from '../../../utils/competitions.utils';
 
 @Component({
   selector: 'app-competition-results',
@@ -10,6 +12,7 @@ import { IBoulderProblem, ICompetitionAthlete, ICompetitionDetails } from '../..
 export class CompetitionResultsComponent implements OnInit {
 
   @Input() competition: ICompetitionDetails | undefined;
+  CompetitionsUtils = CompetitionsUtils;
 
   constructor() { }
 
@@ -26,7 +29,18 @@ export class CompetitionResultsComponent implements OnInit {
     return athlete.BoulderProblemsSent.indexOf(problem.Id) > -1;
   }
 
-  CalculateScore = (athlete: ICompetitionAthlete): number => {
-    return athlete.BoulderProblemsSent.length;
+  CalculateScore = (athlete: ICompetitionAthlete, boulderProblems: IBoulderProblem[]): number => {
+    return athlete.BoulderProblemsSent.reduce((prev, current) => {
+      const currBoulder = boulderProblems.find(p => p.Id === current);
+      if (currBoulder) {
+        return prev + currBoulder.Score;
+      }
+
+      return prev;
+    }, 0);
+  }
+
+  GetGenderClass = (gender: Gender): string => {
+    return gender === Gender.FEMALE ? "female-row" : "male-row";
   }
 }

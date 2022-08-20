@@ -1,3 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.css';
+
+
+.bg-white {
+  background-color: white;
+  border: 1px solid #CCC;
+  color: black;
+}
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.bg-yellow {
+    background-color: rgb(255, 193, 7);
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-black {
+  background-color: green;
+}

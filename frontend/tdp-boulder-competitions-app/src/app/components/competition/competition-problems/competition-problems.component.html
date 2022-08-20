@@ -14,13 +14,15 @@
     <thead>
       <tr>
         <th>Blocco</th>
-        <th>Tipo</th>
+        <th>Punteggio</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let problem of competition.BoulderProblems">
-        <td>{{problem.Title}}</td>
-        <td></td>
+        <td>
+          <span class="badge {{CompetitionsUtils.BoulderProblemColorToCssClass(problem.Color)}}">{{problem.Title}}</span>
+        </td>
+        <td>{{problem.Score}}</td>
         <td>
           <div class="btn-group float-end" role="group">
             <button type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>&nbsp;
