@@ -1,1 +1,20 @@
-<p>competitions works!</p>
+<table class="table table-striped">
+  <tbody>
+      <tr *ngFor="let competition of competitions">
+        <td>{{competition.Title}}</td>
+        <td>{{FormatDate(competition.Date)}}</td>
+        <td>
+          <span class="badge {{CompetitionsUtils.StateToCssClass(competition.State)}}">
+            {{CompetitionsUtils.StateToString(competition.State)}}
+          </span>
+        </td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+            <button type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
+            <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+          </div>
+        </td>
+      </tr>
+  </tbody>
+</table>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { CompetitionStateType, ICompetition } from '../../models/competitions.models';
+import { CompetitionsService } from '../../services/competitions.service';
+import { CompetitionsUtils } from '../../utils/competitions.utils';
 
 @Component({
   selector: 'app-competitions',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompetitionsComponent implements OnInit {
 
-  constructor() { }
+  CompetitionsUtils = CompetitionsUtils;
 
-  ngOnInit(): void {
+  competitions: ICompetition[] = [];
+
+  constructor(private competitionsService: CompetitionsService) { }
+
+  async ngOnInit(): Promise<void> {
+    this.competitions = await this.competitionsService.GetCompetitions();
   }
 
+  FormatDate = (date: Date): string => {
+    return moment(date).format("DD-MM-YYYY");
+  }
 }
