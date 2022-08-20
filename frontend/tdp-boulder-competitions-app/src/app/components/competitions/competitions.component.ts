@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { CompetitionStateType, ICompetition } from '../../models/competitions.models';
+import { ICompetition } from '../../models/competitions.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { CompetitionsUtils } from '../../utils/competitions.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-competitions',
@@ -15,10 +16,16 @@ export class CompetitionsComponent implements OnInit {
 
   competitions: ICompetition[] = [];
 
-  constructor(private competitionsService: CompetitionsService) { }
+  constructor(
+    private router: Router,
+    private competitionsService: CompetitionsService) { }
 
   async ngOnInit(): Promise<void> {
     this.competitions = await this.competitionsService.GetCompetitions();
+  }
+
+  OnViewCompetitionClick = (competition: ICompetition) => {
+    this.router.navigateByUrl('/gara');
   }
 
   FormatDate = (date: Date): string => {
