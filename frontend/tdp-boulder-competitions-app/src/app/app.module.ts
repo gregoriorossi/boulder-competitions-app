@@ -9,6 +9,8 @@ import { CompetitionsComponent } from './components/competitions/competitions.co
 import { AthletesComponent } from './components/athletes/athletes.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CompetitionComponent } from './components/competition/competition.component';
+import { CompetitionResultsComponent } from './components/competition/competition-results/competition-results.component';
+import { CompetitionProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { CompetitionComponent } from './components/competition/competition.compo
     CompetitionsComponent,
     AthletesComponent,
     PageNotFoundComponent,
-    CompetitionComponent
+    CompetitionComponent,
+    CompetitionResultsComponent,
+    CompetitionProblemsComponent
   ],
   imports: [
     BrowserModule,

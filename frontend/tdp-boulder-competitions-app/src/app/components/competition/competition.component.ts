@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
-import { IBoulderProblem, ICompetitionAthlete, ICompetitionDetails } from '../../models/competitions.models';
+import { ICompetitionDetails } from '../../models/competitions.models';
 import { CompetitionsService } from '../../services/competitions.service';
 
 @Component({
@@ -11,6 +10,8 @@ import { CompetitionsService } from '../../services/competitions.service';
 export class CompetitionComponent implements OnInit {
 
   competition: ICompetitionDetails | undefined;
+  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.RESULTS;
+  CompetitionComponentTabs = CompetitionComponentTabs;
 
   constructor(private competitionsService: CompetitionsService) { }
 
@@ -18,16 +19,20 @@ export class CompetitionComponent implements OnInit {
     this.competition = await this.competitionsService.GetCompetition();
   }
 
-  IsProblemSent = (athlete: ICompetitionAthlete, problem: IBoulderProblem): boolean => {
-    return athlete.BoulderProblemsSent.indexOf(problem.Id) > -1;
+  OnTabClick = (tabType: CompetitionComponentTabs): void => {
+    this.activeTab = tabType;
   }
 
-  ShowAthleteLabel = (athlete: ICompetitionAthlete): string => {
-    const birthDate = moment(athlete.BirthDate).format('DD-MM-YYYY');
-    return `${athlete.Surname} ${athlete.Name} (${birthDate})`;
+  IsTabContentVisible = (tabType: CompetitionComponentTabs) => {
+    return tabType === this.activeTab;
   }
 
-  CalculateScore = (athlete: ICompetitionAthlete): number => {
-    return athlete.BoulderProblemsSent.length;
+  TabActiveClass = (tabType: CompetitionComponentTabs) => {
+    return tabType === this.activeTab ? "active" : "";
   }
+}
+
+enum CompetitionComponentTabs {
+  RESULTS = 1,
+  PROBLEMS = 2
 }
