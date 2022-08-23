@@ -1,8 +1,18 @@
+<div class="container mt-2 mb-2">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group float-end" role="group">
+        <button type="button" class="btn btn-secondary"><i class="fa fa-plus"></i>&nbsp;Gara</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table class="table table-striped">
   <tbody>
       <tr *ngFor="let competition of competitions">
         <td>{{competition.Title}}</td>
-        <td>{{FormatDate(competition.Date)}}</td>
+        <td>{{DateUtils.FormatDate(competition.Date, "DD-MM-YYYY")}}</td>
         <td>
           <span class="badge {{CompetitionsUtils.StateToCssClass(competition.State)}}">
             {{CompetitionsUtils.StateToString(competition.State)}}

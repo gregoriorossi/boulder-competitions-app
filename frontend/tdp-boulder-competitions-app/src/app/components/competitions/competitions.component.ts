@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import { ICompetition } from '../../models/competitions.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { CompetitionsUtils } from '../../utils/competitions.utils';
 import { Router } from '@angular/router';
+import { DateUtils } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-competitions',
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class CompetitionsComponent implements OnInit {
 
   CompetitionsUtils = CompetitionsUtils;
+  DateUtils = DateUtils;
 
   competitions: ICompetition[] = [];
 
@@ -26,9 +27,5 @@ export class CompetitionsComponent implements OnInit {
 
   OnViewCompetitionClick = (competition: ICompetition) => {
     this.router.navigateByUrl('/gara');
-  }
-
-  FormatDate = (date: Date): string => {
-    return moment(date).format("DD-MM-YYYY");
   }
 }
