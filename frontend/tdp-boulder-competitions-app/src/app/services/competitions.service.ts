@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Gender } from '../models/athletes.models';
-import { CompetitionStateType, ICompetition, ICompetitionDetails, BoulderProblemsColors } from '../models/competitions.models';
+import { CompetitionStateType, ICompetition, ICompetitionDetails, BoulderProblemsColors, IAddCompetitionRequest } from '../models/competitions.models';
+import { IResponse, StatusTypes } from '../models/services.models';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,12 @@ export class CompetitionsService {
         ]
       }
     )
+  }
+
+  public AddCompetition(request: IAddCompetitionRequest): Promise<IResponse> {
+    console.log(request);
+    return Promise.resolve({
+      Status: StatusTypes.OK
+    });
   }
 }

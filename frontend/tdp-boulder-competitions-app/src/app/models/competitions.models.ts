@@ -39,3 +39,9 @@ export enum BoulderProblemsColors {
   RED,
   BLACK
 }
+
+export interface IAddCompetitionRequest {
+  Title: string;
+  Date: Date;
+}
+

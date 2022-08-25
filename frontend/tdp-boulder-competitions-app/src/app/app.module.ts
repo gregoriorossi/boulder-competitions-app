@@ -11,6 +11,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { CompetitionComponent } from './components/competition/competition.component';
 import { CompetitionResultsComponent } from './components/competition/competition-results/competition-results.component';
 import { CompetitionProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
+import { NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NewCompetitionButtonComponent } from './components/competitions/new-competition-button/new-competition-button.component';
+import { FormsModule } from '@angular/forms';
+import { NgbDateCustomParserFormatter } from './utils/ngbDateCustomParserFormatter';
+import { ToastComponent } from './components/common/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +27,15 @@ import { CompetitionProblemsComponent } from './components/competition/competiti
     PageNotFoundComponent,
     CompetitionComponent,
     CompetitionResultsComponent,
-    CompetitionProblemsComponent
+    CompetitionProblemsComponent,
+    NewCompetitionButtonComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
       { path: '', redirectTo: '/gare', pathMatch: 'full' },
@@ -35,7 +44,9 @@ import { CompetitionProblemsComponent } from './components/competition/competiti
       { path: '**', component: PageNotFoundComponent }
     ])
   ],
-  providers: [],
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
