@@ -9,11 +9,16 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="form" (ngSubmit)="OnCreateClick()" novalidate>
       <div class="form-group mb-2">
         <label for="new-competition-title" class="col-sm-2 col-form-label">Titolo</label>
         <div class="col-sm-12">
-          <input type="text" class="form-control" name="new-competition-title" [(ngModel)]="model.Title">
+          <input type="text" class="form-control" name="new-competition-title" formControlName="Title" required />
+          <div *ngIf="formSubmittedAtLeastOnce && title!.invalid" class="alert alert-danger">
+            <div *ngIf="title!.errors?.['required']">
+             Il titolo è obbligatorio.
+            </div>
+          </div>
         </div>
       </div>
       <div class="input-group mb-2 mr-sm-2">
@@ -25,17 +30,23 @@
           </div>
         </div>
         <input type="text"
+               autocomplete="off"
                ngbDatepicker
                #d="ngbDatepicker"
                (click)="d.toggle()"
                class="form-control"
-               [(ngModel)]="model.Date"
+               formControlName="Date"
                name="new-competition-date"
                placeholder="Seleziona una data">
+        <div *ngIf="formSubmittedAtLeastOnce && date!.invalid" class=" col-md-12 alert alert-danger">
+          <div *ngIf="date!.errors?.['required']">
+           La data è obbligatoria.
+          </div>
+        </div>
       </div>
       <div class="form-group mt-2">
         <div class="col-sm-12 float-end">
-          <button type="submit" class="btn btn-primary float-end" (click)="OnCreateClick()">Crea</button>
+          <button type="submit" class="btn btn-primary float-end">Crea</button>
         </div>
       </div>
     </form>

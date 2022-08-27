@@ -1,14 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalDismissReasons, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAddCompetitionRequest } from '../../../models/competitions.models';
 import { StatusTypes } from '../../../models/services.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { ToastService } from '../../../services/toast.service';
 
-interface INewCompetitionsButtonModel {
-  Title: string;
-  Date?: NgbDateStruct | undefined | null;
-}
 
 @Component({
   selector: 'app-new-competition-button',
@@ -17,39 +14,39 @@ interface INewCompetitionsButtonModel {
 })
 export class NewCompetitionButtonComponent implements OnInit {
 
-  model: INewCompetitionsButtonModel = {
-    Title: "",
-    Date: null 
-  };
-
-  closeResult: string = "";
+  form!: FormGroup;
+  formSubmittedAtLeastOnce: boolean = false;
 
   constructor(
     private modalService: NgbModal,
     private competitionsService: CompetitionsService,
-    private toastService: ToastService)
-  { }
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
-  }
-
-  open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    this.form = new FormGroup({
+      Title: new FormControl('', [Validators.required]),
+      Date: new FormControl(null, [Validators.required])
     });
   }
 
-  OnCreateClick = async (): Promise<void> => {
-    // validation
+  get title() { return this.form!.get('Title') }
+  get date() { return this.form!.get('Date') }
 
-    if (!this.model.Date)
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  OnCreateClick = async (): Promise<void> => {
+
+    this.formSubmittedAtLeastOnce = true;
+
+    if (!this.form.valid)
       return;
 
+    const date = this.form.get('Date')?.value;
     const model: IAddCompetitionRequest = {
-      Title: this.model.Title,
-      Date: new Date(this.model.Date.year, this.model.Date.month - 1, this.model.Date.day)
+      Title: this.form.get('Title')?.value,
+      Date: new Date(date!.year, date!.month - 1, date!.day)
     };
 
     const result = await this.competitionsService.AddCompetition(model);
@@ -57,21 +54,10 @@ export class NewCompetitionButtonComponent implements OnInit {
 
     if (result.Status === StatusTypes.OK) {
       this.modalService.dismissAll();
-
-      // alert all ok
-      this.toastService.showStandard('I am a standard toast');
-      this.toastService.showSuccess('I am a success toast');
-      this.toastService.showDanger('I am a danger toast');
-    }
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+      this.toastService.showSuccess('Gara aggiunta con successo');
+      setTimeout(() => {
+        this.form.reset();
+      }, 200);
     }
   }
 }

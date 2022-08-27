@@ -13,7 +13,7 @@ import { CompetitionResultsComponent } from './components/competition/competitio
 import { CompetitionProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
 import { NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewCompetitionButtonComponent } from './components/competitions/new-competition-button/new-competition-button.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDateCustomParserFormatter } from './utils/ngbDateCustomParserFormatter';
 import { ToastComponent } from './components/common/toast/toast.component';
 
@@ -36,6 +36,7 @@ import { ToastComponent } from './components/common/toast/toast.component';
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
       { path: '', redirectTo: '/gare', pathMatch: 'full' },
