@@ -47,7 +47,6 @@ export class CompetitionsService {
   }
 
   public AddCompetition(request: IAddCompetitionRequest): Promise<IResponse> {
-    console.log(request);
     return Promise.resolve({
       Status: StatusTypes.OK
     });

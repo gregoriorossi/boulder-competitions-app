@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAddCompetitionRequest } from '../../../models/competitions.models';
 import { StatusTypes } from '../../../models/services.models';
 import { CompetitionsService } from '../../../services/competitions.service';

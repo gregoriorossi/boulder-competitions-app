@@ -1,0 +1,14 @@
+<button type="button" class="btn btn-secondary" (click)="open(mymodal)">
+  <i class="fa fa-plus"></i>&nbsp;Atleta
+</button>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Aggiungi un nuovo atleta</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-new-athlete-form (NewAthleteAdded)="OnAthleteAdded($event)"></app-new-athlete-form>
+  </div>
+</ng-template>

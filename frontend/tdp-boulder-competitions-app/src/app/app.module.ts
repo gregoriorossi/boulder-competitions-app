@@ -16,6 +16,8 @@ import { NewCompetitionButtonComponent } from './components/competitions/new-com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDateCustomParserFormatter } from './utils/ngbDateCustomParserFormatter';
 import { ToastComponent } from './components/common/toast/toast.component';
+import { NewAthleteModalComponent } from './components/athletes/new-athlete-modal/new-athlete-modal.component';
+import { NewAthleteFormComponent } from './components/common/new-athlete-form/new-athlete-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ToastComponent } from './components/common/toast/toast.component';
     CompetitionResultsComponent,
     CompetitionProblemsComponent,
     NewCompetitionButtonComponent,
-    ToastComponent
+    ToastComponent,
+    NewAthleteModalComponent,
+    NewAthleteFormComponent
   ],
   imports: [
     BrowserModule,
