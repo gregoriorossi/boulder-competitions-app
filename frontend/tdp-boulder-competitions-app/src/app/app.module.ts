@@ -19,6 +19,7 @@ import { ToastComponent } from './components/common/toast/toast.component';
 import { NewAthleteModalComponent } from './components/athletes/new-athlete-modal/new-athlete-modal.component';
 import { NewAthleteFormComponent } from './components/common/new-athlete-form/new-athlete-form.component';
 import { EditAthleteModalComponent } from './components/athletes/edit-athlete-modal/edit-athlete-modal.component';
+import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditAthleteModalComponent } from './components/athletes/edit-athlete-mo
     ToastComponent,
     NewAthleteModalComponent,
     NewAthleteFormComponent,
-    EditAthleteModalComponent
+    EditAthleteModalComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,

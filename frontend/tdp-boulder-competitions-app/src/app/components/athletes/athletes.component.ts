@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Gender, IAthlete } from '../../models/athletes.models';
+import { StatusTypes } from '../../models/services.models';
 import { AthletesService } from '../../services/athletes.service';
+import { DialogsService } from '../../services/dialogs.service';
+import { ToastService } from '../../services/toast.service';
 import { DateUtils } from '../../utils/date.utils';
 
 @Component({
@@ -14,7 +17,10 @@ export class AthletesComponent implements OnInit {
 
   athletes: IAthlete[] = [];
 
-  constructor(private athletesService: AthletesService) { }
+  constructor(private athletesService: AthletesService,
+    private toastService: ToastService,
+    private dialogsService: DialogsService)
+  { }
 
   async ngOnInit(): Promise<void> {
     this.athletes = await this.athletesService.GetAthletes();
@@ -26,5 +32,24 @@ export class AthletesComponent implements OnInit {
 
   OnEditAthleteClick = (athlete: IAthlete) => {
     console.log(athlete);
+  }
+
+  OnDeleteAthleteClick = async (athlete: IAthlete): Promise<void> => {
+    const message = `Cancellare ${athlete.Name} ${athlete.Surname}?`;
+    const confirmFn = async () => {
+      await this.DeleteAthlete(athlete);
+    }
+
+    this.dialogsService.Confirm(message, confirmFn, () => { })
+  }
+
+  private DeleteAthlete = async (athlete: IAthlete) => {
+    const result = await this.athletesService.DeleteAthlete(athlete);
+    if (result.Status === StatusTypes.OK) {
+      this.toastService.showSuccess(`${athlete.Name} ${athlete.Surname} cancellato con successo`);
+    } else {
+      this.toastService.showDanger(`Errore nella cancellazione dell'atleta`);
+      console.log(result);
+    }
   }
 }

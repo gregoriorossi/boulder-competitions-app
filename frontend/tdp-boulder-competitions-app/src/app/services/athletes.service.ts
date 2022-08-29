@@ -22,4 +22,10 @@ export class AthletesService {
       Status: StatusTypes.OK
     });
   }
+
+  public DeleteAthlete(athlete: IAthlete): Promise<IResponse> {
+    return Promise.resolve({
+      Status: StatusTypes.OK
+    });
+  }
 }
