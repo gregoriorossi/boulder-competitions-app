@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="btn-group float-end" role="group">
-        <button type="button" class="btn btn-secondary"><i class="fa fa-plus"></i>&nbsp;Partecipante</button>
+        <button type="button" class="btn btn-secondary" (click)="athletemodal.Open()">
+          <i class="fa fa-plus"></i>&nbsp;Partecipante
+        </button>
       </div>
     </div>
   </div>
@@ -33,3 +35,4 @@
     </tbody>
   </table>
 </div>
+<app-add-athlete-to-competition-modal #athletemodal></app-add-athlete-to-competition-modal>

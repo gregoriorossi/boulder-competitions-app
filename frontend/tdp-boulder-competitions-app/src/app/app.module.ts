@@ -20,6 +20,7 @@ import { NewAthleteModalComponent } from './components/athletes/new-athlete-moda
 import { NewAthleteFormComponent } from './components/common/new-athlete-form/new-athlete-form.component';
 import { EditAthleteModalComponent } from './components/athletes/edit-athlete-modal/edit-athlete-modal.component';
 import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
+import { AddAthleteToCompetitionModalComponent } from './components/competition/add-athlete-to-competition-modal/add-athlete-to-competition-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ConfirmationModalComponent } from './components/common/confirmation-mod
     NewAthleteModalComponent,
     NewAthleteFormComponent,
     EditAthleteModalComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    AddAthleteToCompetitionModalComponent
   ],
   imports: [
     BrowserModule,

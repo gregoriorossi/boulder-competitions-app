@@ -1,0 +1,16 @@
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Aggiungi atleta</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <input type="text"
+           class="form-control"
+           autocomplete="off"
+           [inputFormatter]="FormatSearchTips"
+           [resultFormatter]="FormatSearchTips"
+           [ngbTypeahead]="Search" />
+
+  </div>
+</ng-template>
