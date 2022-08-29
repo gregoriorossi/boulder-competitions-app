@@ -54,7 +54,6 @@ export class NewAthleteFormComponent implements OnInit {
     };
 
     const result = await this.athletesService.AddAthlete(model);
-
     if (result.Status === StatusTypes.OK) {
       this.NewAthleteAdded.emit(model);
       this.toastService.showSuccess(`${model.Name} ${model.Surname} aggiunto con successo`);

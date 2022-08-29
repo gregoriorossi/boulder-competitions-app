@@ -1,10 +1,10 @@
-<ng-template #modal let-modal>
+<ng-template #editmodal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Aggiungi un nuovo atleta</h4>
+    <h4 class="modal-title">Modifica atleta</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()">
     </button>
   </div>
   <div class="modal-body">
-    <app-new-athlete-form (NewAthleteAdded)="OnAthleteAdded($event)"></app-new-athlete-form>
+    <app-new-athlete-form (NewAthleteAdded)="OnAthleteChanged($event)"></app-new-athlete-form>
   </div>
 </ng-template>

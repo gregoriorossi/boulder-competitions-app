@@ -18,6 +18,7 @@ import { NgbDateCustomParserFormatter } from './utils/ngbDateCustomParserFormatt
 import { ToastComponent } from './components/common/toast/toast.component';
 import { NewAthleteModalComponent } from './components/athletes/new-athlete-modal/new-athlete-modal.component';
 import { NewAthleteFormComponent } from './components/common/new-athlete-form/new-athlete-form.component';
+import { EditAthleteModalComponent } from './components/athletes/edit-athlete-modal/edit-athlete-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NewAthleteFormComponent } from './components/common/new-athlete-form/ne
     NewCompetitionButtonComponent,
     ToastComponent,
     NewAthleteModalComponent,
-    NewAthleteFormComponent
+    NewAthleteFormComponent,
+    EditAthleteModalComponent
   ],
   imports: [
     BrowserModule,

@@ -24,5 +24,7 @@ export class AthletesComponent implements OnInit {
     return gender === Gender.MALE ? "fa-mars" : "fa-venus";
   }
 
-  
+  OnEditAthleteClick = (athlete: IAthlete) => {
+    console.log(athlete);
+  }
 }
