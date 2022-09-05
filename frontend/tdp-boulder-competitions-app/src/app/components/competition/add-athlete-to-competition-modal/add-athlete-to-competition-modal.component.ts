@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { NgbAccordion, NgbCalendar, NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject } from 'rxjs';
 import { IAthlete } from '../../../models/athletes.models';
 import { AthletesService } from '../../../services/athletes.service';
@@ -23,7 +23,6 @@ export class AddAthleteToCompetitionModalComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.Athletes = await this.athletesService.GetAthletes();
-    this.SelectedAthlete = this.Athletes[1];
   }
 
   public Open = (): void => {
@@ -32,6 +31,10 @@ export class AddAthleteToCompetitionModalComponent implements OnInit {
 
   FormatSearchTips = (athlete: IAthlete): string => {
     return `${athlete.Surname} ${athlete.Name}`;
+  }
+
+  OnNewAthleteAdded = async (athlete: IAthlete): Promise<void> => {
+    this.Athletes = await this.athletesService.GetAthletes();
   }
 
   Search: OperatorFunction<string, readonly IAthlete[]> = (text$: Observable<string>) => text$.pipe(

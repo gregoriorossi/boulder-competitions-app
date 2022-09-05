@@ -59,6 +59,7 @@ export class NewAthleteFormComponent implements OnInit {
       this.toastService.showSuccess(`${model.Name} ${model.Surname} aggiunto con successo`);
       setTimeout(() => {
         this.form.reset();
+        this.formSubmittedAtLeastOnce = false;
       }, 200);
     }
   }

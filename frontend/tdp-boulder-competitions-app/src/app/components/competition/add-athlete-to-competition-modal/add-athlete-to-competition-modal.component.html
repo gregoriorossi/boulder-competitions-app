@@ -5,12 +5,23 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text"
-           class="form-control"
-           autocomplete="off"
-           [inputFormatter]="FormatSearchTips"
-           [resultFormatter]="FormatSearchTips"
-           [ngbTypeahead]="Search" />
-
+    <div class="col-md-12 mb-3">
+      <input type="text"
+             class="form-control"
+             autocomplete="off"
+             [inputFormatter]="FormatSearchTips"
+             [resultFormatter]="FormatSearchTips"
+             [ngbTypeahead]="Search" />
+    </div>
+    <div class="col-md-12">
+      <ngb-accordion #acc="ngbAccordion">
+        <ngb-panel title="Registra nuovo atleta">
+          <ng-template ngbPanelContent>
+            <app-new-athlete-form (NewAthleteAdded)="OnNewAthleteAdded($event)">
+            </app-new-athlete-form>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
   </div>
 </ng-template>
