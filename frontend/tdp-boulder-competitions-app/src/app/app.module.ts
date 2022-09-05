@@ -22,6 +22,7 @@ import { ConfirmationModalComponent } from './components/common/confirmation-mod
 import { AddAthleteToCompetitionModalComponent } from './components/competition/add-athlete-to-competition-modal/add-athlete-to-competition-modal.component';
 import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
 import { CompetitionResultsComponent } from './components/competition/competition-athletes/competition-athletes.component';
+import { CompetitionStateLabelComponent } from './components/common/competition-state-label/competition-state-label.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CompetitionResultsComponent } from './components/competition/competitio
     EditAthleteModalComponent,
     ConfirmationModalComponent,
     AddAthleteToCompetitionModalComponent,
-    CompetitionRankingsComponent
+    CompetitionRankingsComponent,
+    CompetitionStateLabelComponent
   ],
   imports: [
     BrowserModule,

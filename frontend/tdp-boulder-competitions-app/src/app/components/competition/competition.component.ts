@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ICompetitionDetails } from '../../models/competitions.models';
 import { CompetitionsService } from '../../services/competitions.service';
 
@@ -9,14 +10,19 @@ import { CompetitionsService } from '../../services/competitions.service';
 })
 export class CompetitionComponent implements OnInit {
 
-  competition: ICompetitionDetails | undefined;
+  competition!: ICompetitionDetails | void;
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.ATHLETES;
   CompetitionComponentTabs = CompetitionComponentTabs;
 
-  constructor(private competitionsService: CompetitionsService) { }
+  constructor(
+    private activetedRoute: ActivatedRoute,
+    private competitionsService: CompetitionsService) { }
 
   async ngOnInit(): Promise<void> {
-    this.competition = await this.competitionsService.GetCompetition();
+    this.activetedRoute.params.subscribe(async params => {
+      const id: number = Number.parseInt(params['id']);
+      this.competition = await this.competitionsService.GetCompetition(id);
+    });
   }
 
   OnTabClick = (tabType: CompetitionComponentTabs): void => {
