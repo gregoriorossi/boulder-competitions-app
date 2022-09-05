@@ -51,9 +51,9 @@ import { CompetitionResultsComponent } from './components/competition/competitio
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
-      { path: '', redirectTo: '/gare', pathMatch: 'full' },
       { path: 'atleti', component: AthletesComponent },
-      { path: 'gara', component: CompetitionComponent },
+      { path: 'gare/:id', component: CompetitionComponent },
+      { path: '', redirectTo: '/gare', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }
     ])
   ],

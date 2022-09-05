@@ -12,9 +12,9 @@ export class CompetitionsService {
 
   public GetCompetitions(): Promise<ICompetition[]> {
     return Promise.resolve([
-      { Title: "Gara di Pasqua 2020", Date: new Date(2020, 3, 1), State: CompetitionStateType.DRAFT },
-      { Title: "Gara di Natale 2019", Date: new Date(2019, 11, 22), State: CompetitionStateType.CLOSED },
-      { Title: "Gara di inizio anno", Date: new Date(2019, 8, 11), State: CompetitionStateType.ONGOING }
+      { Id: 1, Title: "Gara di Pasqua 2020", Date: new Date(2020, 3, 1), State: CompetitionStateType.DRAFT },
+      { Id: 2, Title: "Gara di Natale 2019", Date: new Date(2019, 11, 22), State: CompetitionStateType.CLOSED },
+      { Id: 3, Title: "Gara di inizio anno", Date: new Date(2019, 8, 11), State: CompetitionStateType.ONGOING }
     ]);
   }
 

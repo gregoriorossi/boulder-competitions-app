@@ -26,6 +26,6 @@ export class CompetitionsComponent implements OnInit {
   }
 
   OnViewCompetitionClick = (competition: ICompetition) => {
-    this.router.navigateByUrl('/gara');
+    this.router.navigate(['/gare', competition.Id]);
   }
 }

@@ -1,6 +1,7 @@
 import { IAthlete } from "./athletes.models";
 
 export interface ICompetition {
+  Id: number;
   Title: string;
   Date: Date;
   State: CompetitionStateType;
