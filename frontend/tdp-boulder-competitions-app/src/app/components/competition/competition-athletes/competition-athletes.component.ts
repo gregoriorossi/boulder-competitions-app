@@ -5,9 +5,9 @@ import { IBoulderProblem, ICompetitionAthlete, ICompetitionDetails } from '../..
 import { CompetitionsUtils } from '../../../utils/competitions.utils';
 
 @Component({
-  selector: 'app-competition-results',
-  templateUrl: './competition-results.component.html',
-  styleUrls: ['./competition-results.component.scss']
+  selector: 'app-competition-athletes',
+  templateUrl: './competition-athletes.component.html',
+  styleUrls: ['./competition-athletes.component.scss']
 })
 export class CompetitionResultsComponent implements OnInit {
 

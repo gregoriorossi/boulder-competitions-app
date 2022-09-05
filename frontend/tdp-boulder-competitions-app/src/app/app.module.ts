@@ -9,7 +9,6 @@ import { CompetitionsComponent } from './components/competitions/competitions.co
 import { AthletesComponent } from './components/athletes/athletes.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CompetitionComponent } from './components/competition/competition.component';
-import { CompetitionResultsComponent } from './components/competition/competition-results/competition-results.component';
 import { CompetitionProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
 import { NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewCompetitionButtonComponent } from './components/competitions/new-competition-button/new-competition-button.component';
@@ -21,6 +20,8 @@ import { NewAthleteFormComponent } from './components/common/new-athlete-form/ne
 import { EditAthleteModalComponent } from './components/athletes/edit-athlete-modal/edit-athlete-modal.component';
 import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
 import { AddAthleteToCompetitionModalComponent } from './components/competition/add-athlete-to-competition-modal/add-athlete-to-competition-modal.component';
+import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
+import { CompetitionResultsComponent } from './components/competition/competition-athletes/competition-athletes.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AddAthleteToCompetitionModalComponent } from './components/competition/
     NewAthleteFormComponent,
     EditAthleteModalComponent,
     ConfirmationModalComponent,
-    AddAthleteToCompetitionModalComponent
+    AddAthleteToCompetitionModalComponent,
+    CompetitionRankingsComponent
   ],
   imports: [
     BrowserModule,

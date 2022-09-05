@@ -10,7 +10,7 @@ import { CompetitionsService } from '../../services/competitions.service';
 export class CompetitionComponent implements OnInit {
 
   competition: ICompetitionDetails | undefined;
-  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.RESULTS;
+  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.ATHLETES;
   CompetitionComponentTabs = CompetitionComponentTabs;
 
   constructor(private competitionsService: CompetitionsService) { }
@@ -33,6 +33,7 @@ export class CompetitionComponent implements OnInit {
 }
 
 enum CompetitionComponentTabs {
-  RESULTS = 1,
+  ATHLETES = 0,
+  RANKINGS = 1,
   PROBLEMS = 2
 }
