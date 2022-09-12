@@ -8,6 +8,7 @@ export interface ICompetition {
 }
 
 export interface ICompetitionDetails {
+  Id: number;
   Title: string;
   Date: Date;
   State: CompetitionStateType;
@@ -44,5 +45,11 @@ export enum BoulderProblemsColors {
 export interface IAddCompetitionRequest {
   Title: string;
   Date: Date;
+}
+
+export interface IRankingRow {
+  Position: number;
+  Athlete: IAthlete;
+  Score: number;
 }
 

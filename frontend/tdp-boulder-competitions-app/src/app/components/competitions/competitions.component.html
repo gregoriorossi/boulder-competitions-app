@@ -8,7 +8,24 @@
   </div>
 </div>
 
+<form>
+  <div class="mb-3 row">
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Cerca:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input class="form-control" type="text" [formControl]="textFilter">
+    </div>
+  </div>
+</form>
+
 <table class="table table-striped">
+  <thead>
+    <tr>
+      <td (click)="onSort($event)">Gara</td>
+      <td (click)="onSort($event)">Data</td>
+      <td (click)="onSort($event)">Stato</td>
+      <td></td>
+    </tr>
+  </thead>
   <tbody>
       <tr *ngFor="let competition of competitions">
         <td>{{competition.Title}}</td>
@@ -19,9 +36,9 @@
         </td>
         <td>
           <div class="btn-group float-end" role="group">
-            <button type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)"><i class="fa fa-eye"></i></button>
-            <button type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
-            <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+            <button *ngIf="IsViewButtonVisible(competition.State)" type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)"><i class="fa fa-eye"></i></button>
+            <button *ngIf="IsEditButtonVisible(competition.State)" type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+            <button (click)="OnDeleteCompetitionClick(competition.Id)" type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
           </div>
         </td>
       </tr>

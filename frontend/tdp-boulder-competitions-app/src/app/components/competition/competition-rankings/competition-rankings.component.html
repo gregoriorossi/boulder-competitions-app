@@ -1,1 +1,16 @@
-<p>competition-rankings works!</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Posizione</th>
+      <th scope="col"></th>
+      <th scope="col">Punteggio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of ranking">
+      <th scope="row">{{row.Position}}</th>
+      <td>{{row.Athlete.Surname}} {{row.Athlete.Name}}</td>
+      <td>{{row.Score}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Gender } from '../models/athletes.models';
-import { CompetitionStateType, ICompetition, ICompetitionDetails, BoulderProblemsColors, IAddCompetitionRequest } from '../models/competitions.models';
+import { Gender, IAthlete } from '../models/athletes.models';
+import { CompetitionStateType, ICompetition, ICompetitionDetails, BoulderProblemsColors, IAddCompetitionRequest, IRankingRow } from '../models/competitions.models';
 import { IResponse, StatusTypes } from '../models/services.models';
 
 @Injectable({
@@ -25,6 +25,7 @@ export class CompetitionsService {
     if (competition) {
       return Promise.resolve(
         {
+          Id: 1,
           Title: competition.Title,
           Date: competition.Date,
           State: competition.State,
@@ -51,10 +52,26 @@ export class CompetitionsService {
     }
 
     return Promise.resolve();
-    
   }
 
   public AddCompetition(request: IAddCompetitionRequest): Promise<IResponse> {
+    return Promise.resolve({
+      Status: StatusTypes.OK
+    });
+  }
+
+  public GetRanking(competitionId: number): Promise<IRankingRow[]> {
+    return Promise.resolve([
+      { Position: 1, Athlete: { Name: "John", Surname: "Doe", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE }, Score: 1000 },
+      { Position: 2, Athlete: { Name: "Jane", Surname: "Doe", BirthDate: new Date(1964, 11, 5), Gender: Gender.FEMALE }, Score: 850 },
+      { Position: 3, Athlete: { Name: "Mario", Surname: "Rossi", BirthDate: new Date(2000, 7, 11), Gender: Gender.MALE }, Score: 665 },
+      { Position: 4, Athlete: { Name: "Luca", Surname: "Bianchi", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE }, Score: 600 },
+      { Position: 5, Athlete: { Name: "Gianni", Surname: "Reve", BirthDate: new Date(1964, 11, 5), Gender: Gender.FEMALE }, Score: 222 },
+      { Position: 6, Athlete: { Name: "Carlo", Surname: "Marzi", BirthDate: new Date(2000, 7, 11), Gender: Gender.MALE }, Score: 111 },
+    ]);
+  }
+
+  public DeleteCompetition(competitionId: number): Promise<IResponse> {
     return Promise.resolve({
       Status: StatusTypes.OK
     });

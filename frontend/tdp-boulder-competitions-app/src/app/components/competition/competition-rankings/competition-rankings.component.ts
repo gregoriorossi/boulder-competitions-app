@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IAthlete } from '../../../models/athletes.models';
+import { IRankingRow } from '../../../models/competitions.models';
+import { CompetitionsService } from '../../../services/competitions.service';
 
 @Component({
   selector: 'app-competition-rankings',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompetitionRankingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private competitionsService: CompetitionsService)
+  { }
 
-  ngOnInit(): void {
+  ranking: IRankingRow[] = [];
+
+  async ngOnInit(): Promise<void> {
+    const competitionId: number = 1;
+    this.ranking = await this.competitionsService.GetRanking(competitionId);
   }
 
 }
