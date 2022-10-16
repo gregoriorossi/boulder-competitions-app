@@ -9,6 +9,10 @@ class Competition extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'event_date'];
+    protected $attributes = [
+        'state' => 1 //draft
+    ];
 
     public function state()
     {
