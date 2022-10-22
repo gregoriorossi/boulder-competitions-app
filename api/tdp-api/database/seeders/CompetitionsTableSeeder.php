@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Competition;
+use App\Models\Problem;
 
 class CompetitionsTableSeeder extends Seeder
 {
@@ -17,13 +18,26 @@ class CompetitionsTableSeeder extends Seeder
         Competition::truncate();
 
         $faker = \Faker\Factory::create();
-                
-        for($i = 0; $i < 10; $i++) {
-            Competition::create([
-                'title' => $faker->sentence,
-                'event_date' => $faker->date,
-                'state' => rand(1, 3)
-            ]);
-        }
+
+        Competition::factory()->count(5)->create()->each(function($competition) {
+             $problems = [];
+
+             $colors = ["#000", "#FFF", "#F00", "#0F0", "#00F"];
+
+             for($difficulty = 1; $difficulty <= 5; $difficulty++) {
+                 for($title = 1; $title <= 8; $title++) {
+                     $color = $colors[$difficulty-1];
+                     $problem = Problem::create([
+                        'title' => $title,
+                        'difficulty' => $difficulty,
+                        'color' => $color
+                    ]);
+                    array_push($problems, $problem);
+                 }
+             }
+             $competition->problems()->saveMany($problems);
+        });
+
+       
     }
 }

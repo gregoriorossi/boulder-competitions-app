@@ -11,11 +11,14 @@ class Competition extends Model
 
     protected $fillable = ['title', 'event_date'];
     protected $attributes = [
-        'state' => 1 //draft
+        'state' => CompetitionState::DRAFT
     ];
 
-    public function state()
-    {
+    public function state() {
         return $this->hasOne(CompetitionState::class);
+    }
+
+    public function problems() {
+        return $this->hasMany(Problem::class);
     }
 }
