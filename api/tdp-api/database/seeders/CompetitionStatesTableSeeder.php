@@ -17,14 +17,17 @@ class CompetitionStatesTableSeeder extends Seeder
         CompetitionState::truncate();
 
         CompetitionState::create([
+            'id' => CompetitionState::DRAFT,
             'title' => 'DRAFT'
         ]);
 
         CompetitionState::create([
+            'id' => CompetitionState::ONGOING,
             'title' => 'ONGOING'
         ]);
 
         CompetitionState::create([
+            'id' => CompetitionState::CLOSED,
             'title' => 'CLOSED'
         ]);
     }
