@@ -12,7 +12,6 @@ export interface ICompetitionDetails {
   title: string;
   event_date: Date;
   state: CompetitionStateType;
-  BoulderProblems: IBoulderProblem[];
   Athletes: ICompetitionAthlete[];
 }
 
@@ -23,10 +22,10 @@ export enum CompetitionStateType {
 }
 
 export interface IBoulderProblem {
-  Id: number;
-  Title: string;
-  Color: BoulderProblemsColors;
-  Score: number;
+  id: number;
+  title: string;
+  color: BoulderProblemsColors;
+  difficulty: number;
 }
 
 export interface ICompetitionAthlete extends IAthlete {

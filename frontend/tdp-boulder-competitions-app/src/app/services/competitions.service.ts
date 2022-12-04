@@ -16,11 +16,11 @@ export class CompetitionsService extends BaseTdpApiService{
   }
 
   public async GetCompetitions(): Promise<ICompetition[]> {
-    return await this.Get(TDPApiEndpoints.Competitions.GetAll);
+    return await this.get(TDPApiEndpoints.Competitions.GetAll);
   }
 
   public async GetCompetition(id: number): Promise<ICompetitionDetails | void> {
-    return await this.Get(TDPApiEndpoints.Competitions.Get(id));
+    return await this.get(TDPApiEndpoints.Competitions.Get(id));
   }
 
   public AddCompetition(request: IAddCompetitionRequest): Promise<IResponse> {

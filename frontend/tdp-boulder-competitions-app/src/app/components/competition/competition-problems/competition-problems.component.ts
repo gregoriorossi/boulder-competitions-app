@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ICompetitionDetails } from '../../../models/competitions.models';
+import { IBoulderProblem } from '../../../models/competitions.models';
 import { CompetitionsUtils } from '../../../utils/competitions.utils';
 
 @Component({
@@ -9,7 +9,7 @@ import { CompetitionsUtils } from '../../../utils/competitions.utils';
 })
 export class CompetitionProblemsComponent implements OnInit {
 
-  @Input() competition: ICompetitionDetails | undefined;
+  @Input() BoulderProblems: IBoulderProblem[] | undefined;
 
   CompetitionsUtils = CompetitionsUtils;
 

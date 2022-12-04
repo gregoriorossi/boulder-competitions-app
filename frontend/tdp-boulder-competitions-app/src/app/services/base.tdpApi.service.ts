@@ -17,7 +17,7 @@ export class BaseTdpApiService {
     return this.baseAddress + endpoint;
   }
 
-  protected Get<T>(endpoint: string): Promise<T> {
+  protected get<T>(endpoint: string): Promise<T> {
     const url = this.BuildUrl(endpoint);
 
     return this.httpClient.get(url)

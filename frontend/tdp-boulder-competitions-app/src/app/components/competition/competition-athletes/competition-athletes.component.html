@@ -17,16 +17,16 @@
       <tr>
         <th>Partecipanti</th>
         <th>Punteggio</th>
-        <th *ngFor="let problem of competition.BoulderProblems">
-          <span class="badge {{CompetitionsUtils.BoulderProblemColorToCssClass(problem.Color)}}">{{problem.Title}}</span>
+        <th *ngFor="let problem of BoulderProblems">
+          <span class="badge {{CompetitionsUtils.BoulderProblemColorToCssClass(problem.color)}}">{{problem.title}}</span>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let athlete of competition.Athletes" class="{{GetGenderClass(athlete.Gender)}}">
         <td>{{ShowAthleteLabel(athlete)}}</td>
-        <td>{{CalculateScore(athlete, competition.BoulderProblems)}}</td>
-        <td *ngFor="let problem of competition.BoulderProblems">
+        <td>{{CalculateScore(athlete, BoulderProblems!)}}</td>
+        <td *ngFor="let problem of BoulderProblems">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" [checked]="IsProblemSent(athlete, problem)">
           </div>

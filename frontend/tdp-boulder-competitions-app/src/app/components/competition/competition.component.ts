@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CompetitionStateType, ICompetitionDetails } from '../../models/competitions.models';
+import { CompetitionStateType, IBoulderProblem, ICompetitionDetails } from '../../models/competitions.models';
 import { IResponse, StatusTypes } from '../../models/services.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
+import { ProblemsService } from '../../services/problems.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { ToastService } from '../../services/toast.service';
 export class CompetitionComponent implements OnInit {
 
   competition!: ICompetitionDetails | void;
+  boulderProblems: IBoulderProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.ATHLETES;
   CompetitionComponentTabs = CompetitionComponentTabs;
 
@@ -22,12 +24,15 @@ export class CompetitionComponent implements OnInit {
     private toastService: ToastService,
     private activetedRoute: ActivatedRoute,
     private competitionsService: CompetitionsService,
-    private dialogsService: DialogsService) { }
+    private dialogsService: DialogsService,
+    private problemsService: ProblemsService)
+  { }
 
   async ngOnInit(): Promise<void> {
     this.activetedRoute.params.subscribe(async params => {
       const id: number = Number.parseInt(params['id']);
       this.competition = await this.competitionsService.GetCompetition(id);
+      this.boulderProblems = await this.problemsService.GetByCompetitionId(id);
     });
   }
 

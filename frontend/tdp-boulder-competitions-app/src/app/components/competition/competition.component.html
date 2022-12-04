@@ -33,10 +33,11 @@
   </ul>
 
   <app-competition-athletes *ngIf="IsTabContentVisible(CompetitionComponentTabs.ATHLETES)"
+                            [BoulderProblems]="boulderProblems"
                             [competition]="competition">
   </app-competition-athletes>
   <app-competition-problems *ngIf="IsTabContentVisible(CompetitionComponentTabs.PROBLEMS)"
-                            [competition]="competition">
+                            [BoulderProblems]="boulderProblems">
   </app-competition-problems>
 
   <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)">

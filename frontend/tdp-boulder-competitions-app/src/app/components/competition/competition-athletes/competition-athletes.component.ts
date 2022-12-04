@@ -12,12 +12,13 @@ import { CompetitionsUtils } from '../../../utils/competitions.utils';
 export class CompetitionResultsComponent implements OnInit {
 
   @Input() competition: ICompetitionDetails | undefined;
+  @Input() BoulderProblems: IBoulderProblem[] | undefined;
+
   CompetitionsUtils = CompetitionsUtils;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.competition);
   }
 
   ShowAthleteLabel = (athlete: ICompetitionAthlete): string => {
@@ -26,14 +27,14 @@ export class CompetitionResultsComponent implements OnInit {
   }
 
   IsProblemSent = (athlete: ICompetitionAthlete, problem: IBoulderProblem): boolean => {
-    return athlete.BoulderProblemsSent.indexOf(problem.Id) > -1;
+    return athlete.BoulderProblemsSent.indexOf(problem.id) > -1;
   }
 
   CalculateScore = (athlete: ICompetitionAthlete, boulderProblems: IBoulderProblem[]): number => {
     return athlete.BoulderProblemsSent.reduce((prev, current) => {
-      const currBoulder = boulderProblems.find(p => p.Id === current);
+      const currBoulder = boulderProblems.find(p => p.id === current);
       if (currBoulder) {
-        return prev + currBoulder.Score;
+        return prev + currBoulder.difficulty;
       }
 
       return prev;
