@@ -1,25 +1,25 @@
 import { IAthlete } from "./athletes.models";
 
 export interface ICompetition {
-  Id: number;
-  Title: string;
-  Date: Date;
-  State: CompetitionStateType;
+  id: number;
+  title: string;
+  event_date: Date;
+  state: CompetitionStateType;
 }
 
 export interface ICompetitionDetails {
-  Id: number;
-  Title: string;
-  Date: Date;
-  State: CompetitionStateType;
+  id: number;
+  title: string;
+  event_date: Date;
+  state: CompetitionStateType;
   BoulderProblems: IBoulderProblem[];
   Athletes: ICompetitionAthlete[];
 }
 
 export enum CompetitionStateType {
-  DRAFT = "DRAFT",
-  ONGOING = "ONGOING",
-  CLOSED = "CLOSED"
+  DRAFT = 1,
+  ONGOING = 2,
+  CLOSED = 3
 }
 
 export interface IBoulderProblem {

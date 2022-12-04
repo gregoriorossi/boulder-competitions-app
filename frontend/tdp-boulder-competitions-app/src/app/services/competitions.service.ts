@@ -1,57 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Gender, IAthlete } from '../models/athletes.models';
-import { CompetitionStateType, ICompetition, ICompetitionDetails, BoulderProblemsColors, IAddCompetitionRequest, IRankingRow } from '../models/competitions.models';
+import { TDPApiEndpoints } from '../constants/endpoints';
+import { Gender } from '../models/athletes.models';
+import { ICompetition, ICompetitionDetails, BoulderProblemsColors, IAddCompetitionRequest, IRankingRow } from '../models/competitions.models';
 import { IResponse, StatusTypes } from '../models/services.models';
+import { BaseTdpApiService } from './base.tdpApi.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompetitionsService {
+export class CompetitionsService extends BaseTdpApiService{
 
-  constructor() { }
+  constructor(httpClient: HttpClient) {
+      super(httpClient);
+  }
 
-  public GetCompetitions(): Promise<ICompetition[]> {
-    return Promise.resolve([
-      { Id: 1, Title: "Gara di Pasqua 2020", Date: new Date(2020, 3, 1), State: CompetitionStateType.DRAFT },
-      { Id: 2, Title: "Gara di Natale 2019", Date: new Date(2019, 11, 22), State: CompetitionStateType.CLOSED },
-      { Id: 3, Title: "Gara di inizio anno", Date: new Date(2019, 8, 11), State: CompetitionStateType.ONGOING }
-    ]);
+  public async GetCompetitions(): Promise<ICompetition[]> {
+    return await this.Get(TDPApiEndpoints.Competitions.GetAll);
   }
 
   public async GetCompetition(id: number): Promise<ICompetitionDetails | void> {
-    const competitions: ICompetition[] = await this.GetCompetitions();
-    const competition: ICompetition | undefined = competitions.find(c => c.Id === id);
-
-    if (competition) {
-      return Promise.resolve(
-        {
-          Id: 1,
-          Title: competition.Title,
-          Date: competition.Date,
-          State: competition.State,
-          BoulderProblems: [
-            { Id: 1, Title: "1", Color: BoulderProblemsColors.WHITE, Score: 1 },
-            { Id: 2, Title: "2", Color: BoulderProblemsColors.WHITE, Score: 1 },
-            { Id: 3, Title: "3", Color: BoulderProblemsColors.WHITE, Score: 1 },
-            { Id: 4, Title: "1", Color: BoulderProblemsColors.BLUE, Score: 2 },
-            { Id: 5, Title: "2", Color: BoulderProblemsColors.BLUE, Score: 2 },
-            { Id: 6, Title: "1", Color: BoulderProblemsColors.GREEN, Score: 3 },
-            { Id: 7, Title: "1", Color: BoulderProblemsColors.YELLOW, Score: 4 },
-            { Id: 8, Title: "2", Color: BoulderProblemsColors.YELLOW, Score: 4 },
-            { Id: 9, Title: "1", Color: BoulderProblemsColors.RED, Score: 5 },
-            { Id: 10, Title: "2", Color: BoulderProblemsColors.RED, Score: 5 },
-            { Id: 11, Title: "3", Color: BoulderProblemsColors.RED, Score: 5 },
-            { Id: 12, Title: "1", Color: BoulderProblemsColors.BLACK, Score: 6 },
-          ],
-          Athletes: [
-            { Name: 'John', Surname: 'Doe', BirthDate: new Date(1990, 10, 12), Gender: Gender.MALE, BoulderProblemsSent: [1, 6, 12] },
-            { Name: 'Jane', Surname: 'Doe', BirthDate: new Date(1970, 10, 12), Gender: Gender.FEMALE, BoulderProblemsSent: [2, 5, 10, 11] },
-          ]
-        }
-      )
-    }
-
-    return Promise.resolve();
+    return await this.Get(TDPApiEndpoints.Competitions.Get(id));
   }
 
   public AddCompetition(request: IAddCompetitionRequest): Promise<IResponse> {

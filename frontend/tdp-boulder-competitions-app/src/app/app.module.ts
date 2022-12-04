@@ -23,6 +23,7 @@ import { AddAthleteToCompetitionModalComponent } from './components/competition/
 import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
 import { CompetitionResultsComponent } from './components/competition/competition-athletes/competition-athletes.component';
 import { CompetitionStateLabelComponent } from './components/common/competition-state-label/competition-state-label.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CompetitionStateLabelComponent } from './components/common/competition-
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },

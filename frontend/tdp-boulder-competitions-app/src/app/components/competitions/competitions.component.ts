@@ -29,18 +29,11 @@ export class CompetitionsComponent implements OnInit {
     private competitionsService: CompetitionsService) { }
 
   async ngOnInit(): Promise<void> {
-
     this.competitions = await this.competitionsService.GetCompetitions();
-
-    //this.textFilterObservable$ = this.textFilter.valueChanges.pipe(
-    //  startWith(''),
-
-    //);
-
   }
 
   OnViewCompetitionClick = (competition: ICompetition) => {
-    this.router.navigate(['/gare', competition.Id]);
+    this.router.navigate(['/gare', competition.id]);
   }
 
   IsViewButtonVisible = (state: CompetitionStateType): boolean => {

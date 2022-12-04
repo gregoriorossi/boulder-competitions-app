@@ -28,17 +28,17 @@
   </thead>
   <tbody>
       <tr *ngFor="let competition of competitions">
-        <td>{{competition.Title}}</td>
-        <td>{{DateUtils.FormatDate(competition.Date, "DD-MM-YYYY")}}</td>
+        <td>{{competition.title}}</td>
+        <td>{{DateUtils.FormatDate(competition.event_date, "DD-MM-YYYY")}}</td>
         <td>
-          <app-competition-state-label [State]="competition.State">
+          <app-competition-state-label [State]="competition.state">
           </app-competition-state-label>
         </td>
         <td>
           <div class="btn-group float-end" role="group">
-            <button *ngIf="IsViewButtonVisible(competition.State)" type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)"><i class="fa fa-eye"></i></button>
-            <button *ngIf="IsEditButtonVisible(competition.State)" type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
-            <button (click)="OnDeleteCompetitionClick(competition.Id)" type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
+            <button *ngIf="IsViewButtonVisible(competition.state)" type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)"><i class="fa fa-eye"></i></button>
+            <button *ngIf="IsEditButtonVisible(competition.state)" type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+            <button (click)="OnDeleteCompetitionClick(competition.id)" type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
           </div>
         </td>
       </tr>

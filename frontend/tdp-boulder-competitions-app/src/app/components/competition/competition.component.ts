@@ -53,15 +53,15 @@ export class CompetitionComponent implements OnInit {
   }
 
   IsStartButtonVisible = (): boolean => {
-    return this.competition!.State === CompetitionStateType.DRAFT;
+    return this.competition!.state === CompetitionStateType.DRAFT;
   }
 
   IsCloseButtonVisible = (): boolean => {
-    return this.competition!.State === CompetitionStateType.ONGOING;
+    return this.competition!.state === CompetitionStateType.ONGOING;
   }
 
   private DeleteCompetition = async (): Promise<void> => {
-    const result: IResponse = await this.competitionsService.DeleteCompetition(this.competition!.Id);
+    const result: IResponse = await this.competitionsService.DeleteCompetition(this.competition!.id);
 
     if (result.Status === StatusTypes.OK) {
       this.toastService.showSuccess("Gara cancellata correttamente");
