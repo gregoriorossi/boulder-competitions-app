@@ -24,4 +24,20 @@ export class BaseTdpApiService {
       .toPromise()
       .then((response) => response as T);
   }
+
+  protected post<T>(endpoint: string, body: any): Promise<T> {
+    const url = this.BuildUrl(endpoint);
+
+    return this.httpClient.post(url, body)
+      .toPromise()
+      .then((response) => response as T);
+  }
+
+  protected delete<T>(endpoint: string): Promise<T> {
+    const url = this.BuildUrl(endpoint);
+
+    return this.httpClient.delete(url)
+      .toPromise()
+      .then((response) => response as T);
+  }
 }

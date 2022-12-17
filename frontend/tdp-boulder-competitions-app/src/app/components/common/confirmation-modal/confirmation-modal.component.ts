@@ -14,6 +14,9 @@ export class ConfirmationModalComponent implements OnInit {
 
   Dialog: IConfirmationDialogModel = {
     message: '',
+    body: '',
+    confirmButtonText: '',
+    cancelButtonText: '',
     cancelFn: () => { },
     confirmFn: async () => { }
   };

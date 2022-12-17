@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { Gender } from '../models/athletes.models';
-import { ICompetition, ICompetitionDetails, BoulderProblemsColors, IAddCompetitionRequest, IRankingRow } from '../models/competitions.models';
-import { IResponse, StatusTypes } from '../models/services.models';
+import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, IRankingRow } from '../models/competitions.models';
+import { StatusTypes } from '../models/services.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
 @Injectable({
@@ -23,10 +23,14 @@ export class CompetitionsService extends BaseTdpApiService{
     return await this.get(TDPApiEndpoints.Competitions.Get(id));
   }
 
-  public AddCompetition(request: IAddCompetitionRequest): Promise<IResponse> {
-    return Promise.resolve({
-      Status: StatusTypes.OK
-    });
+  public async AddCompetition(request: IAddCompetitionRequest): Promise<StatusTypes> {
+    try {
+      await this.post(TDPApiEndpoints.Competitions.Create, request);
+      return StatusTypes.OK;
+    } catch (err) {
+      console.log(err);
+      return StatusTypes.ERROR;
+    }
   }
 
   public GetRanking(competitionId: number): Promise<IRankingRow[]> {
@@ -40,9 +44,13 @@ export class CompetitionsService extends BaseTdpApiService{
     ]);
   }
 
-  public DeleteCompetition(competitionId: number): Promise<IResponse> {
-    return Promise.resolve({
-      Status: StatusTypes.OK
-    });
+  public async DeleteCompetition(competitionId: number): Promise<StatusTypes> {
+    try {
+      await this.delete(TDPApiEndpoints.Competitions.Delete(competitionId));
+      return StatusTypes.OK;
+    } catch (err) {
+      console.log(err);
+      return StatusTypes.ERROR;
+    }
   }
 }

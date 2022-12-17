@@ -40,7 +40,7 @@ export class AthletesComponent implements OnInit {
       await this.DeleteAthlete(athlete);
     }
 
-    this.dialogsService.Confirm(message, confirmFn, () => { })
+    this.dialogsService.Confirm(message, "", "Conferma", "Annulla", confirmFn, () => { })
   }
 
   private DeleteAthlete = async (athlete: IAthlete) => {

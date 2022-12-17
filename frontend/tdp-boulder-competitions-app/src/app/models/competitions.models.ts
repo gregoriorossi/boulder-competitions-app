@@ -42,8 +42,8 @@ export enum BoulderProblemsColors {
 }
 
 export interface IAddCompetitionRequest {
-  Title: string;
-  Date: Date;
+  title: string;
+  event_date: string;
 }
 
 export interface IRankingRow {

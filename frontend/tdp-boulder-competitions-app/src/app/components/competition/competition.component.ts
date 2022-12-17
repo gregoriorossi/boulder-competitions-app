@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompetitionStateType, IBoulderProblem, ICompetitionDetails } from '../../models/competitions.models';
-import { IResponse, StatusTypes } from '../../models/services.models';
+import { StatusTypes } from '../../models/services.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
 import { ProblemsService } from '../../services/problems.service';
@@ -54,7 +54,7 @@ export class CompetitionComponent implements OnInit {
       await this.DeleteCompetition();
     }
 
-    this.dialogsService.Confirm(message, confirmFn, () => { })
+    this.dialogsService.Confirm(message, "", "Conferma", "Annulla", confirmFn, () => { })
   }
 
   IsStartButtonVisible = (): boolean => {
@@ -66,9 +66,10 @@ export class CompetitionComponent implements OnInit {
   }
 
   private DeleteCompetition = async (): Promise<void> => {
-    const result: IResponse = await this.competitionsService.DeleteCompetition(this.competition!.id);
 
-    if (result.Status === StatusTypes.OK) {
+    const result: StatusTypes = await this.competitionsService.DeleteCompetition(this.competition!.id);
+
+    if (result === StatusTypes.OK) {
       this.toastService.showSuccess("Gara cancellata correttamente");
       this.router.navigate(["/"]);
     } else {

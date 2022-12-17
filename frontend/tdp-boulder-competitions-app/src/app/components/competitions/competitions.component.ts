@@ -1,13 +1,12 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CompetitionStateType, ICompetition } from '../../models/competitions.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { Router } from '@angular/router';
 import { DateUtils } from '../../utils/date.utils';
 import { ToastService } from '../../services/toast.service';
 import { DialogsService } from '../../services/dialogs.service';
-import { IResponse, StatusTypes } from '../../models/services.models';
+import { StatusTypes } from '../../models/services.models';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-competitions',
@@ -29,7 +28,7 @@ export class CompetitionsComponent implements OnInit {
     private competitionsService: CompetitionsService) { }
 
   async ngOnInit(): Promise<void> {
-    this.competitions = await this.competitionsService.GetCompetitions();
+    await this.LoadCompetitions();
   }
 
   OnViewCompetitionClick = (competition: ICompetition) => {
@@ -50,21 +49,31 @@ export class CompetitionsComponent implements OnInit {
       await this.DeleteCompetition(competitionId);
     }
 
-    this.dialogsService.Confirm(message, confirmFn, () => { })
+    this.dialogsService.Confirm(message, "Tutti i dati verranno cancellati", "Cancella", "Annulla", confirmFn, async () => {
+      await this.competitionsService.DeleteCompetition(competitionId);
+
+    });
+  }
+
+  OnCompetitionCreated = async (): Promise<void> => {
+    await this.LoadCompetitions();
+  }
+
+  private LoadCompetitions = async (): Promise<void> => {
+    this.competitions = await this.competitionsService.GetCompetitions();
   }
 
   onSort(event: any) {
     console.log("sort");
     console.log(event);
-
   }
 
   private DeleteCompetition = async (competitionId: number): Promise<void> => {
-    const result: IResponse = await this.competitionsService.DeleteCompetition(competitionId);
+    const result: StatusTypes = await this.competitionsService.DeleteCompetition(competitionId);
 
-    if (result.Status === StatusTypes.OK) {
+    if (result === StatusTypes.OK) {
       this.toastService.showSuccess("Gara cancellata correttamente");
-      this.router.navigate(["/"]);
+      await this.LoadCompetitions();
     } else {
       this.toastService.showDanger("Errore nella cancellazione della gara");
       console.log(result);

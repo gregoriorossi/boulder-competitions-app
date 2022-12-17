@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAddCompetitionRequest } from '../../../models/competitions.models';
 import { StatusTypes } from '../../../models/services.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { ToastService } from '../../../services/toast.service';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-competition-button',
@@ -14,8 +14,11 @@ import { ToastService } from '../../../services/toast.service';
 })
 export class NewCompetitionButtonComponent implements OnInit {
 
+  @Output() onCompetitionCreated: EventEmitter<void> = new EventEmitter<void>();
+
   form!: FormGroup;
   formSubmittedAtLeastOnce: boolean = false;
+  CreateButtonDisabled: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -43,21 +46,30 @@ export class NewCompetitionButtonComponent implements OnInit {
     if (!this.form.valid)
       return;
 
-    const date = this.form.get('Date')?.value;
+    const date  = this.form.get('Date')?.value;
+    const dateStr: string = moment(new Date(date!.year, date!.month - 1, date!.day)).format("YYYY-MM-DD");
+
     const model: IAddCompetitionRequest = {
-      Title: this.form.get('Title')?.value,
-      Date: new Date(date!.year, date!.month - 1, date!.day)
+      title: this.form.get('Title')?.value,
+      event_date: dateStr
     };
 
+    this.CreateButtonDisabled = true;
     const result = await this.competitionsService.AddCompetition(model);
 
-
-    if (result.Status === StatusTypes.OK) {
+    if (result === StatusTypes.OK) {
       this.modalService.dismissAll();
       this.toastService.showSuccess('Gara aggiunta con successo');
+      this.onCompetitionCreated.emit();
+
       setTimeout(() => {
         this.form.reset();
+        this.formSubmittedAtLeastOnce = false;
       }, 200);
+    } else {
+      this.toastService.showDanger('Errore nella cancellazione della gara');
     }
+
+    this.CreateButtonDisabled = false;
   }
 }

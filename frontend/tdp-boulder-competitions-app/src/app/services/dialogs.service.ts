@@ -9,9 +9,12 @@ export class DialogsService {
 
   private confirmationMessagesSubject = new Subject<IConfirmationDialogModel>();
 
-  public Confirm = (message: string, confirmFn: () => void, cancelFn: () => void): void => {
+  public Confirm = (message: string, body: string, confirmButtonText: string, cancelButtonText: string, confirmFn: () => void, cancelFn: () => void): void => {
     this.confirmationMessagesSubject.next({
       message,
+      body,
+      confirmButtonText,
+      cancelButtonText,
       confirmFn,
       cancelFn
     });

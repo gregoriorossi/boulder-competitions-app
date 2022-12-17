@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="btn-group float-end" role="group">
-        <app-new-competition-button></app-new-competition-button>
+        <app-new-competition-button (onCompetitionCreated)="OnCompetitionCreated()">
+        </app-new-competition-button>
       </div>
     </div>
   </div>
