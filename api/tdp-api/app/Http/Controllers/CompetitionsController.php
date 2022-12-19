@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Competition;
+use App\Models\CompetitionState;
 use App\Models\Problem;
 
 class CompetitionsController extends Controller
@@ -41,6 +42,18 @@ class CompetitionsController extends Controller
     {
         $competition->delete();
 
+        return response()->json(null, 204);
+    }
+
+    public function setState(Request $request)
+    {
+        $competitionId = $request->input('competitionId');
+        $competition = Competition::findOrFail($competitionId);
+
+        $stateId = $request->input('state');
+        $state = CompetitionState::findOrFail($stateId);
+        $competition->state = $stateId;
+        $competition->save();
         return response()->json(null, 204);
     }
 }

@@ -14,8 +14,8 @@
         <i class="fa fa-trash"></i>&nbsp;Elimina
       </button>&nbsp;
       <div class="btn-group me-2">
-        <button *ngIf="IsCloseButtonVisible()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-lock">&nbsp;</i>Chiudi</button>
-        <button *ngIf="IsStartButtonVisible()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-play">&nbsp;</i>Inizia</button>
+        <button *ngIf="IsCloseButtonVisible()" (click)="OnCloseCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-lock">&nbsp;</i>Chiudi</button>
+        <button *ngIf="IsStartButtonVisible()" (click)="OnStartCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-play">&nbsp;</i>Inizia</button>
       </div>
     </div>
   </div>

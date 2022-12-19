@@ -18,13 +18,13 @@
   </div>
 </form>
 
-<table class="table table-striped">
+<table class="table table-striped competitions-table">
   <thead>
     <tr>
-      <td (click)="onSort($event)">Gara</td>
-      <td (click)="onSort($event)">Data</td>
-      <td (click)="onSort($event)">Stato</td>
-      <td></td>
+      <th sortable="titolo" (click)="onSort($event)">Gara</th>
+      <th sortable="data" (click)="onSort($event)">Data</th>
+      <th sortable="stato" (click)="onSort($event)">Stato</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -37,9 +37,9 @@
         </td>
         <td>
           <div class="btn-group float-end" role="group">
-            <button *ngIf="IsViewButtonVisible(competition.state)" type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)"><i class="fa fa-eye"></i></button>
-            <button *ngIf="IsEditButtonVisible(competition.state)" type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
-            <button (click)="OnDeleteCompetitionClick(competition.id)" type="button" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
+            <button *ngIf="IsViewButtonVisible(competition.state)" type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)" title="Visualizza"><i class="fa fa-eye" ></i></button>
+            <button *ngIf="IsEditButtonVisible(competition.state)" type="button" class="btn btn-primary" (click)="OnViewCompetitionClick(competition)" title="Modifica"><i class="fa fa-edit"></i></button>
+            <button (click)="OnDeleteCompetitionClick(competition.id)" type="button" class="btn btn-primary"><i class="fa fa-eraser" title="Cancella"></i></button>
           </div>
         </td>
       </tr>

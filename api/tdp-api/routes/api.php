@@ -26,6 +26,7 @@ Route::get('competitions/{competition}', [CompetitionsController::class, 'show']
 Route::post('competitions', [CompetitionsController::class, 'store']);
 Route::put('competitions/{competition}', [CompetitionsController::class, 'update']);
 Route::delete('competitions/{competition}', [CompetitionsController::class, 'delete']);
+Route::post('competitions/setState', [CompetitionsController::class, 'setState']);
 
 Route::get('problems/{competition}', [ProblemsController::class, 'show']);
 Route::post('problems', [ProblemsController::class, 'store']);

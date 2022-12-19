@@ -15,6 +15,7 @@ import { ToastService } from '../../services/toast.service';
 export class CompetitionComponent implements OnInit {
 
   competition!: ICompetitionDetails | void;
+  competitionId: number = 0;
   boulderProblems: IBoulderProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.ATHLETES;
   CompetitionComponentTabs = CompetitionComponentTabs;
@@ -30,9 +31,8 @@ export class CompetitionComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.activetedRoute.params.subscribe(async params => {
-      const id: number = Number.parseInt(params['id']);
-      this.competition = await this.competitionsService.GetCompetition(id);
-      this.boulderProblems = await this.problemsService.GetByCompetitionId(id);
+      this.competitionId = Number.parseInt(params['id']);
+      this.LoadCompetition();
     });
   }
 
@@ -54,7 +54,25 @@ export class CompetitionComponent implements OnInit {
       await this.DeleteCompetition();
     }
 
-    this.dialogsService.Confirm(message, "", "Conferma", "Annulla", confirmFn, () => { })
+    this.dialogsService.Confirm(message, "Tutti i dati verranno cancellati", "Conferma", "Annulla", confirmFn, () => { });
+  }
+
+  OnCloseCompetitionButtonClick = async (): Promise<void> => {
+    const message = `Terminare la gara?`;
+    const confirmFn = async () => {
+      await this.SetCompetitionState(CompetitionStateType.CLOSED);
+    }
+
+    this.dialogsService.Confirm(message, "Non sarà più possibile modificare i blocchi o iscriversi per gli atleti", "Conferma", "Annulla", confirmFn, () => { });
+  }
+
+  OnStartCompetitionButtonClick = async (): Promise<void> => {
+    const message = `Iniziare la gara?`;
+    const confirmFn = async () => {
+      await this.SetCompetitionState(CompetitionStateType.ONGOING);
+    }
+
+    this.dialogsService.Confirm(message, "Da ora i partecipanti potranno registrare i blocchi", "Conferma", "Annulla", confirmFn, () => { });
   }
 
   IsStartButtonVisible = (): boolean => {
@@ -77,6 +95,26 @@ export class CompetitionComponent implements OnInit {
       console.log(result);
     }
   }
+
+  private SetCompetitionState = async (state: CompetitionStateType): Promise<void> => {
+
+    const result: StatusTypes = await this.competitionsService.SetState(this.competition!.id, state);
+
+    if (result === StatusTypes.OK) {
+      this.toastService.showSuccess("Gara modificata correttamente");
+      this.LoadCompetition()
+    } else {
+      this.toastService.showDanger("Errore nella modifica della gara");
+      console.log(result);
+    }
+  }
+
+  private LoadCompetition = async (): Promise<void> => {
+    this.competition = await this.competitionsService.GetCompetition(this.competitionId);
+    this.boulderProblems = await this.problemsService.GetByCompetitionId(this.competitionId);
+  }
+
+
 }
 
 enum CompetitionComponentTabs {
