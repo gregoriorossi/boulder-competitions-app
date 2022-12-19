@@ -19,7 +19,7 @@ class CreateCompetitionsTable extends Migration
             $table->string('title');
             $table->date("event_date");
             $table->integer('state');
-
+            $table->string('public_id');
         });
     }
 

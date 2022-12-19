@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Competition;
 use App\Models\CompetitionState;
 use App\Models\Problem;
+use Illuminate\Support\Str;
 
 class CompetitionsController extends Controller
 {
@@ -25,7 +26,8 @@ class CompetitionsController extends Controller
         $competition = array(
             'title' => $request->input('title'),
             'event_date' => $request->input('event_date'),
-            'state' => 1
+            'state' => 1,
+            'public_id' => Str::uuid()->toString()
         );
 
         $competition = Competition::create($competition);
