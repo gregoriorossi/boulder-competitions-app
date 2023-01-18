@@ -4,11 +4,11 @@ import { ICompetition } from "../../models/competitions.models";
 import { CompetitionsService } from "../../services/competitions.service";
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss']
+  selector: 'app-registration-form-page',
+  templateUrl: './registration-form-page.component.html',
+  styleUrls: ['./registration-form-page.component.scss']
 })
-export class RegisterFormComponent implements OnInit {
+export class RegistrationFormPageComponent implements OnInit {
 
   protected competition!: ICompetition;
 

@@ -2,6 +2,8 @@ export interface ICompetition {
   ID: string;
   Title: string;
   Description: string;
+  FormImageCover: string;
+  Date: Date;
 }
 
 export enum GetCompetitionToRegisterForStatus {

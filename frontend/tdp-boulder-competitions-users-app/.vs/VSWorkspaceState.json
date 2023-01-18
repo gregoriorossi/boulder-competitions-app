@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\competition",
+    "\\src\\components\\register-form",
+    "\\src\\constants",
+    "\\src\\environments",
+    "\\src\\models",
+    "\\src\\services",
+    "\\src\\utils"
+  ],
+  "SelectedNode": "\\src\\app\\app.module.ts",
+  "PreviewInSolutionExplorer": false
+}
