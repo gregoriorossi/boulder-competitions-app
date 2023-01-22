@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { GetCompetitionToRegisterForStatus, IGetCompetitionToRegisterForResponse, IRegisterToCompetitionRequest } from "../models/competitions.models";
+import { GetCompetitionToRegisterForStatus, IGetCompetitionProblemsByAthleteRequest, IGetCompetitionProblemsByAthleteResponse, IGetCompetitionToRegisterForResponse, IRegisterToCompetitionRequest } from "../models/competitions.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
 
@@ -45,5 +45,24 @@ export class CompetitionsService extends BaseTdpApiService {
 
 
     return Promise.resolve(model);
+  }
+
+  public GetCompetitionProblemsByAthleteRequest = async (competitionId: string, athleteId: string): Promise<IGetCompetitionProblemsByAthleteResponse> => {
+    const model: IGetCompetitionProblemsByAthleteRequest = {
+      CompetitionId: competitionId,
+      AthleteId: athleteId
+    };
+
+    return Promise.resolve({
+      ProblemsGroups: [
+        {
+          Color: '#FFF',
+          Difficulty: 1,
+          Problems: [
+            {ID: "1", Name: "1", Sent: false}
+          ]
+        }
+      ]
+    });
   }
 }

@@ -9,6 +9,6 @@ export class CompetitonComponent implements OnInit {
     ngOnInit(): void {
     }
 
-
+  // call competiton problems method
 
 }

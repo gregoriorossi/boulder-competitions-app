@@ -25,3 +25,24 @@ export interface IRegisterToCompetitionRequest {
   BirthDate: Date;
   Gender: string;
 }
+
+export interface IGetCompetitionProblemsByAthleteResponse {
+  ProblemsGroups: IProblemsGroupColor[];
+}
+
+export interface IGetCompetitionProblemsByAthleteRequest {
+  CompetitionId: string;
+  AthleteId: string;
+}
+
+export interface IProblemsGroupColor {
+  Color: string;
+  Difficulty: number;
+  Problems: IProblemSentStatus[];
+}
+
+export interface IProblemSentStatus {
+  ID: string;
+  Name: string;
+  Sent: boolean;
+}

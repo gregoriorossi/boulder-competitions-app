@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
 import { ToastComponent } from './components/common/toast/toast.component';
+import { UsefulInformationComponent } from './components/common/useful-information/useful-information.component';
 import { CompetitonComponent } from './components/competition/competition.component';
 import { RegistrationFormPageComponent } from './components/registration-form-page/registration-form-page.component';
 import { RegistrationFormComponent } from './components/registration-form-page/registration-form/registration-form.component';
@@ -20,7 +21,8 @@ import { RegistrationFormComponent } from './components/registration-form-page/r
     ConfirmationModalComponent,
     RegistrationFormComponent,
     RegistrationFormPageComponent,
-    ToastComponent
+    ToastComponent,
+    UsefulInformationComponent
   ],
   imports: [
     BrowserModule,
