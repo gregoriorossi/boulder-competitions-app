@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../environments/environment";
+import { environment } from "../../environments/environment";
 import { EmptyBaseAddressError } from "../errors/empty-base-address.error";
 import { StringUtils } from "../utils/string.utils";
 

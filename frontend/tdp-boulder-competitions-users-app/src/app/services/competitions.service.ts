@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { TDPApiEndpoints } from "../constants/endpoints";
 import { GetCompetitionToRegisterForStatus, IGetCompetitionToRegisterForResponse, IRegisterToCompetitionRequest } from "../models/competitions.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
