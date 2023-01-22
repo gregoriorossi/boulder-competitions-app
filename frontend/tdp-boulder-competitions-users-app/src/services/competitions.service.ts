@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TDPApiEndpoints } from "../constants/endpoints";
-import { GetCompetitionToRegisterForStatus, IGetCompetitionToRegisterForResponse } from "../models/competitions.models";
+import { GetCompetitionToRegisterForStatus, IGetCompetitionToRegisterForResponse, IRegisterToCompetitionRequest } from "../models/competitions.models";
+import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
 
 
@@ -26,6 +27,24 @@ export class CompetitionsService extends BaseTdpApiService {
         Date: new Date(2023, 5, 2, 15, 0, 0),
         FormImageCover: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
       }
-    })
+    });
+  }
+
+  public RegisterToCompetition = async (request: IRegisterToCompetitionRequest): Promise<IResponse> => {
+
+    if (request.Name === "Explosion") {
+      throw ("Error!");
+    }
+
+    const status = request.Name === "Error" ? StatusTypes.ERROR : StatusTypes.OK;
+    const errorMessage = request.Name === "Error" ? "Errore applicativo" : "Registrazione avvenuta con successo";
+
+    const model: IResponse = {
+      Status: status,
+      Message: errorMessage
+    }
+
+
+    return Promise.resolve(model);
   }
 }

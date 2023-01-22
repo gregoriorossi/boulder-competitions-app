@@ -17,3 +17,11 @@ export interface IGetCompetitionToRegisterForResponse {
   Status: GetCompetitionToRegisterForStatus;
   Competition: ICompetition;
 }
+
+export interface IRegisterToCompetitionRequest {
+  CompetitionId: string;
+  Name: string;
+  Surname: string;
+  BirthDate: Date;
+  Gender: string;
+}

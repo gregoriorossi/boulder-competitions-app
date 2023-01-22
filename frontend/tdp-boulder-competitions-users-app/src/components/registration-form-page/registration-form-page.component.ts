@@ -24,4 +24,7 @@ export class RegistrationFormPageComponent implements OnInit {
     });
   }
 
+  OnRegistration = (): void => {
+    alert("registration!");
+  }
 }

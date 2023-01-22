@@ -4,10 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationModalComponent } from '../components/common/confirmation-modal/confirmation-modal.component';
+import { ToastComponent } from '../components/common/toast/toast.component';
 import { CompetitonComponent } from '../components/competition/competition.component';
 import { RegistrationFormPageComponent } from '../components/registration-form-page/registration-form-page.component';
 import { RegistrationFormComponent } from '../components/registration-form-page/registration-form/registration-form.component';
-import { NgbDateCustomParserFormatter } from '../utils/ngbDateCustomParserFormatter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +17,10 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent,
     CompetitonComponent,
+    ConfirmationModalComponent,
     RegistrationFormComponent,
-    RegistrationFormPageComponent
+    RegistrationFormPageComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
