@@ -15,6 +15,7 @@ import { ToastService } from "../../../services/toast.service";
 export class RegistrationFormComponent implements OnInit {
 
   @Output() OnRegistration = new EventEmitter<void>();
+  @Output() OnRegistrationError = new EventEmitter<void>();
   @Input() CompetitionId!: string;
 
   Gender = Gender;
@@ -72,6 +73,7 @@ export class RegistrationFormComponent implements OnInit {
       }, 200);
     } else {
       this.toastService.showDanger('Errore nella registrazione della gara');
+      this.OnRegistrationError.emit();
     }
 
     this.RegisterButtonDisabled = false;
