@@ -1,58 +1,40 @@
-<h1>Manage competition</h1>
+<ng-container *ngIf="ready">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-0 mb-1">
+    <h4 class="h4">
+      {{Competition.Title}} {{DateUtils.FormatDate(Competition.Date, "DD-MM-YYYY")}}
+    </h4>
 
-
-blocchi
-classifica
-
-<div class="row">
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Mesmer" name="Checkbox[]">Mesmer
-    </label>
-  </div>
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Guardian" name="Checkbox[]">Guardian
-    </label>
-  </div>
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Necromancer" name="Checkbox[]">Necromancer
-    </label>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Ranger" name="Checkbox[]">Ranger
-    </label>
-  </div>
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Elementalist" name="Checkbox[]">Elementalist
-    </label>
-  </div>
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Warrior" name="Checkbox[]">Warrior
-    </label>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <button type="button"
+              (click)="OnUnsubscribe()"
+              class="btn btn-danger">
+        <i class="fa fa-trash"></i>&nbsp;Cancella iscrizione
+      </button>
+    </div>
   </div>
 
-</div>
-<div class="row">
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Thief" name="Checkbox[]">Thief
-    </label>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-0 mb-3 border-bottom">
+    <p>
+      John Doe
+    </p>
   </div>
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Engineer" name="Checkbox[]">Engineer
-    </label>
-  </div>
-  <div class="col-sm-4">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="Revenant" name="Checkbox[]">Revenant
-    </label>
-  </div>
-</div>
+
+
+  <ul class="nav nav-tabs mb-5">
+    <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.PROBLEMS)">
+      <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.PROBLEMS)}}">Blocchi</a>
+    </li>
+    <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.RANKINGS)">
+      <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.RANKINGS)}}">Classifiche</a>
+    </li>
+  </ul>
+
+
+  <app-competition-problems *ngIf="IsTabContentVisible(CompetitionComponentTabs.PROBLEMS)"
+                            [CompetitionId]="competitionId"
+                            [UserId]="userId">
+  </app-competition-problems>
+
+  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"></app-competition-rankings>
+</ng-container>
+

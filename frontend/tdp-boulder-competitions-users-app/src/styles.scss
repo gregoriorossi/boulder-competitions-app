@@ -1,2 +1,44 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.css';
+
+
+
+.problem-white {
+  background-color: #FFF !important;
+  color: black !important;
+  border: 1px solid #CCC;
+}
+
+.problem-blue {
+  background-color: #00F !important;
+  color: white !important;
+  border: 1px solid #00F;
+}
+
+.problem-green {
+  background-color: #0F0 !important;
+  color: white !important;
+  border: 1px solid #0F0;
+}
+
+.problem-yellow {
+  background-color: #FF0 !important;
+  color: black !important;
+  border: 1px solid #FF0;
+}
+
+.problem-red {
+  background-color: #F00 !important;
+  color: white !important;
+  border: 1px solid #F00;
+}
+
+.problem-black {
+  background-color: #000 !important;
+  color: white !important;
+  border: 1px solid #000;
+}
+
+.nav-link {
+    cursor: pointer;
+}
