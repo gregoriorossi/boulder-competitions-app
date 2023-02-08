@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { CompetitionStateType, ICompetition, IRank, RankingType } from "../../../models/competitions.models";
+import { CompetitionsService } from "../../../services/competitions.service";
 
 @Component({
   selector: 'app-competition-rankings',
@@ -7,6 +9,39 @@ import { Component, OnInit } from "@angular/core";
 })
 export class CompetitionRankingsComponent implements OnInit {
 
+  @Input() Competition!: ICompetition;
+   
+  public RankingTypes = RankingType;
+  rankingType: RankingType = RankingType.GENERAL;
+  ranking: IRank[] = [];
+
+  constructor(private competitionsService: CompetitionsService)
+  {}
+
   async ngOnInit(): Promise<void> {
+    await this.LoadRanking();
+  }
+
+  OnRankingTypeChange = async (e: any): Promise<void> => {
+    console.log(e);
+    await this.LoadRanking();
+  }
+
+  LoadRanking = async (): Promise<void> => {
+    this.ranking = await this.competitionsService.GetRanking(this.Competition.ID, this.rankingType);
+  }
+
+  get HasCompetitionStarted(): boolean {
+    return this.Competition.State !== CompetitionStateType.DRAFT;
+  }
+  GetSectionTitle = (): string => {
+    if (this.rankingType === RankingType.GENERAL)
+      return "Classifica Generale";
+    if (this.rankingType === RankingType.MAN)
+      return "Classifica Maschile";
+    if (this.rankingType === RankingType.WOMAN)
+      return "Classifica Femminile";
+    else
+      return "Classifica Giovani";
   }
 }

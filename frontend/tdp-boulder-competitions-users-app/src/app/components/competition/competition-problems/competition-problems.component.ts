@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { IGetCompetitionProblemsByAthleteResponse, IProblemsGroupColor } from "../../../models/competitions.models";
+import { CompetitionStateType, ICompetition, IGetCompetitionProblemsByAthleteResponse, IProblemsGroupColor } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
 import { ColorsUtils } from "../../../utils/colors.utils";
 
@@ -10,9 +10,8 @@ import { ColorsUtils } from "../../../utils/colors.utils";
 })
 export class CompetitonProblemsComponent implements OnInit {
 
-  @Input() CompetitionId!: string;
   @Input() UserId!: string;
-
+  @Input() Competition!: ICompetition;
 
   protected ProblemGroups: IProblemsGroupColor[] = [];
 
@@ -21,11 +20,19 @@ export class CompetitonProblemsComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.CompetitionId, this.UserId)
+    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.Competition.ID, this.UserId)
     this.ProblemGroups = response.ProblemsGroups;
   }
 
   GetCssColorClass = (color: string): string => {
     return ColorsUtils.GetCssCByColor(color);
+  }
+
+  get AreProblemsDisabled(): boolean {
+    return this.Competition.State !== CompetitionStateType.ONGOING;
+  }
+
+  OnProblemChange = ($event: any): void => {
+    console.log($event);
   }
 }

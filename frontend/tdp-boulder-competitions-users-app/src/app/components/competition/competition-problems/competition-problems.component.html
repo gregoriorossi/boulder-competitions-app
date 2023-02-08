@@ -1,7 +1,11 @@
 <div class="row mb-3" *ngFor="let group of ProblemGroups">
   <div class="col-sm-12">
     <label class="checkbox-inline" *ngFor="let problem of group.Problems">
-      <input type="checkbox" class="form-check-input" [checked]="problem.Sent">
+      <input type="checkbox"
+             class="form-check-input"
+             [checked]="problem.Sent"
+             [disabled]="AreProblemsDisabled"
+             (change)="OnProblemChange($event)">
       <label class="form-check-label">
         <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Name}}</span>
       </label>

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { GetCompetitionToRegisterForStatus, ICompetition } from "../../models/competitions.models";
 import { CompetitionsService } from "../../services/competitions.service";
+import { DialogsService } from "../../services/dialogs.service";
 import { DateUtils } from "../../utils/date.utils";
 
 @Component({
@@ -15,7 +16,7 @@ export class CompetitonComponent implements OnInit {
   CompetitionStatus!: GetCompetitionToRegisterForStatus;
 
   CompetitionComponentTabs = CompetitionComponentTabs;
-  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.PROBLEMS;
+  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO;
 
   ready: boolean = false;
 
@@ -26,7 +27,8 @@ export class CompetitonComponent implements OnInit {
 
   constructor(
     private competitionsService: CompetitionsService,
-    private activetedRoute: ActivatedRoute)
+    private activetedRoute: ActivatedRoute,
+    private dialogsService: DialogsService)
   { }
 
 
@@ -57,14 +59,20 @@ export class CompetitonComponent implements OnInit {
     this.activeTab = tabType;
   }
 
-  OnUnsubscribe = (): void => {
-
+  OnUnsubscribeClick = (): void => {
+    const confirmFn = () => {
+      // chiama servizio
+      // reindirizza da qualche parte
+    };
+    
+    this.dialogsService.Confirm("Vuoi cancellare la tua iscrizione", "Ne sei veramente sicuro?", "Conferma", "Annulla", confirmFn, () => { });
   }
 }
 
 
 
 enum CompetitionComponentTabs {
-  RANKINGS = 1,
-  PROBLEMS = 2
+  INFO = 1,
+  RANKINGS = 2,
+  PROBLEMS = 3
 }

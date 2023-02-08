@@ -9,9 +9,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccessCompetitionFormComponent } from './components/access-competition/access-competition-form/access-competition-form.component';
 import { AccessCompetitionComponent } from './components/access-competition/access-competition.component';
+import { CompetitionStateLabelComponent } from './components/common/competition-state-label/competition-state-label.component';
 import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
 import { ToastComponent } from './components/common/toast/toast.component';
 import { UsefulInformationComponent } from './components/common/useful-information/useful-information.component';
+import { CompetitonInfoComponent } from './components/competition/competition-info/competition-info.component';
 import { CompetitonProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
 import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
 import { CompetitonComponent } from './components/competition/competition.component';
@@ -24,8 +26,10 @@ import { RegistrationFormComponent } from './components/registration-form-page/r
     AccessCompetitionComponent,
     AccessCompetitionFormComponent,
     CompetitonComponent,
+    CompetitonInfoComponent,
     CompetitonProblemsComponent,
     CompetitionRankingsComponent,
+    CompetitionStateLabelComponent,
     ConfirmationModalComponent,
     RegistrationFormComponent,
     RegistrationFormPageComponent,

@@ -4,6 +4,7 @@ export interface ICompetition {
   Description: string;
   FormImageCover: string;
   Date: Date;
+  State: CompetitionStateType
 }
 
 export enum GetCompetitionToRegisterForStatus {
@@ -45,4 +46,23 @@ export interface IProblemSentStatus {
   ID: string;
   Name: string;
   Sent: boolean;
+}
+
+export enum RankingType {
+  GENERAL = "GENERAL",
+  MAN = "MAN",
+  WOMAN = "WOMAN",
+  YOUNG = "YOUNG"
+}
+
+export interface IRank {
+  FullName: string;
+  Position: number;
+  Score: number;
+}
+
+export enum CompetitionStateType {
+  DRAFT = 1,
+  ONGOING = 2,
+  CLOSED = 3
 }
