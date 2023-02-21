@@ -3,6 +3,7 @@ import { NgbAccordion, NgbCalendar, NgbModal, NgbTypeahead } from '@ng-bootstrap
 import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject } from 'rxjs';
 import { IAthlete } from '../../../models/athletes.models';
 import { AthletesService } from '../../../services/athletes.service';
+import { CompetitionsService } from '../../../services/competitions.service';
 
 @Component({
   selector: 'app-add-athlete-to-competition-modal',
@@ -19,10 +20,11 @@ export class AddAthleteToCompetitionModalComponent implements OnInit {
   model: any;
 
   constructor(private modalService: NgbModal,
+    private competitionsService: CompetitionsService,
     private athletesService: AthletesService) { }
 
   async ngOnInit(): Promise<void> {
-    this.Athletes = await this.athletesService.GetAthletes();
+    this.Athletes = await this.competitionsService.GetAthletes();
   }
 
   public Open = (): void => {
@@ -34,7 +36,7 @@ export class AddAthleteToCompetitionModalComponent implements OnInit {
   }
 
   OnNewAthleteAdded = async (athlete: IAthlete): Promise<void> => {
-    this.Athletes = await this.athletesService.GetAthletes();
+    this.Athletes = await this.competitionsService.GetAthletes();
   }
 
   Search: OperatorFunction<string, readonly IAthlete[]> = (text$: Observable<string>) => text$.pipe(

@@ -10,6 +10,7 @@ export const TDPApiEndpoints = {
     SetState: `competitions/setState`
   },
   Problems: {
-    Get: (competitionId: number) => `problems/${competitionId}`
+    Get: (competitionId: number) => `problems/${competitionId}`,
+    StoreMultiple: "problems/storeMultiple"
   }
 }

@@ -17,7 +17,7 @@ export class CompetitionComponent implements OnInit {
   competition!: ICompetitionDetails | void;
   competitionId: number = 0;
   boulderProblems: IBoulderProblem[] = [];
-  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.ATHLETES;
+  activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO_GARA;
   CompetitionComponentTabs = CompetitionComponentTabs;
 
   constructor(
@@ -25,8 +25,7 @@ export class CompetitionComponent implements OnInit {
     private toastService: ToastService,
     private activetedRoute: ActivatedRoute,
     private competitionsService: CompetitionsService,
-    private dialogsService: DialogsService,
-    private problemsService: ProblemsService)
+    private dialogsService: DialogsService)
   { }
 
   async ngOnInit(): Promise<void> {
@@ -111,14 +110,12 @@ export class CompetitionComponent implements OnInit {
 
   private LoadCompetition = async (): Promise<void> => {
     this.competition = await this.competitionsService.GetCompetition(this.competitionId);
-    this.boulderProblems = await this.problemsService.GetByCompetitionId(this.competitionId);
   }
-
-
 }
 
 enum CompetitionComponentTabs {
-  ATHLETES = 0,
-  RANKINGS = 1,
-  PROBLEMS = 2
+  INFO_GARA = 0,
+  ATHLETES = 1,
+  RANKINGS = 2,
+  PROBLEMS = 3
 }

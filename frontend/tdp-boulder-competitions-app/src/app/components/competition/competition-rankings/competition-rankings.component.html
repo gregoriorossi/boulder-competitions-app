@@ -1,16 +1,43 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Posizione</th>
-      <th scope="col"></th>
-      <th scope="col">Punteggio</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of ranking">
-      <th scope="row">{{row.Position}}</th>
-      <td>{{row.Athlete.Surname}} {{row.Athlete.Name}}</td>
-      <td>{{row.Score}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="row" *ngIf="HasCompetitionStarted">
+  <div class="col-md-8">
+    <h3>{{ GetSectionTitle() }}</h3>
+  </div>
+
+  <div class="col-md-4">
+    <div class="input-group mb-3">
+      <select class="form-select" [(ngModel)]="rankingType" (ngModelChange)="OnRankingTypeChange($event)">
+        <option [value]="RankingTypes.GENERAL">Generale</option>
+        <option [value]="RankingTypes.MAN">Maschile</option>
+        <option [value]="RankingTypes.WOMAN">Femminile</option>
+        <option [value]="RankingTypes.YOUNG">Giovani</option>
+      </select>
+      <button type="button" class="btn btn-secondary" (click)="OnDownloadClick()">
+        <i class="fa fa-download"></i>&nbsp;Scarica classifica
+      </button>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Parteciante</th>
+          <th scope="col">Punteggio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rank of ranking">
+          <th scope="row">{{ rank.Position }}</th>
+          <td>{{ rank.FullName }}</td>
+          <td>{{ rank.Score }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="!HasCompetitionStarted">
+  <div class="alert alert-warning text-center" role="alert">
+    Le classifiche saranno disponibili non appena inizier&agrave; la gara!
+  </div>
+</div>

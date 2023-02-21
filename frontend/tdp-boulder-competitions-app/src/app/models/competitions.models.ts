@@ -22,7 +22,7 @@ export enum CompetitionStateType {
 }
 
 export interface IBoulderProblem {
-  id: number;
+  id?: number;
   title: string;
   color: BoulderProblemsColors;
   difficulty: number;
@@ -52,3 +52,15 @@ export interface IRankingRow {
   Score: number;
 }
 
+export enum RankingType {
+  GENERAL = "GENERAL",
+  MAN = "MAN",
+  WOMAN = "WOMAN",
+  YOUNG = "YOUNG"
+}
+
+export interface IRank {
+  FullName: string;
+  Position: number;
+  Score: number;
+}

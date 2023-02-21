@@ -11,16 +11,19 @@
       <button type="button"
               (click)="OnDeleteCompetitionClick()"
               class="btn btn-danger">
-        <i class="fa fa-trash"></i>&nbsp;Elimina
+        <i class="fa fa-trash"></i>&nbsp;Cancella gara
       </button>&nbsp;
       <div class="btn-group me-2">
-        <button *ngIf="IsCloseButtonVisible()" (click)="OnCloseCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-lock">&nbsp;</i>Chiudi</button>
+        <button *ngIf="IsCloseButtonVisible()" (click)="OnCloseCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-lock">&nbsp;</i>Termina</button>
         <button *ngIf="IsStartButtonVisible()" (click)="OnStartCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-play">&nbsp;</i>Inizia</button>
       </div>
     </div>
   </div>
 
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.INFO_GARA)">
+      <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.INFO_GARA)}}">Info Gara</a>
+    </li>
     <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.ATHLETES)">
       <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.ATHLETES)}}">Partecipanti</a>
     </li>
@@ -32,15 +35,18 @@
     </li>
   </ul>
 
+  <app-competition-info-gara *ngIf="IsTabContentVisible(CompetitionComponentTabs.INFO_GARA)">
+  </app-competition-info-gara>
+
   <app-competition-athletes *ngIf="IsTabContentVisible(CompetitionComponentTabs.ATHLETES)"
-                            [BoulderProblems]="boulderProblems"
-                            [competition]="competition">
+                            [Competition]="competition">
   </app-competition-athletes>
   <app-competition-problems *ngIf="IsTabContentVisible(CompetitionComponentTabs.PROBLEMS)"
-                            [BoulderProblems]="boulderProblems">
+                            [CompetitionId]="competition.id">
   </app-competition-problems>
 
-  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)">
+  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"
+                            [Competition]="competition">
   </app-competition-rankings>
 </ng-container>
 

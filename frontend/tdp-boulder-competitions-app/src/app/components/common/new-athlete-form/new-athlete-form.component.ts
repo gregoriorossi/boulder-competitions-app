@@ -37,6 +37,7 @@ export class NewAthleteFormComponent implements OnInit {
   get surname() { return this.form!.get('Surname') }
   get birthDate() { return this.form!.get('BirthDate') }
   get gender() { return this.form!.get('Gender') }
+  get email() { return this.form!.get('Email') }
 
   OnCreateClick = async (): Promise<void> => {
 
@@ -51,6 +52,7 @@ export class NewAthleteFormComponent implements OnInit {
       Surname: this.form.get('Surname')?.value,
       BirthDate: new Date(date!.year, date!.month - 1, date!.day),
       Gender: this.form.get('Gender')?.value,
+      Email: this.form.get('Email')?.value,
     };
 
     const result = await this.athletesService.AddAthlete(model);

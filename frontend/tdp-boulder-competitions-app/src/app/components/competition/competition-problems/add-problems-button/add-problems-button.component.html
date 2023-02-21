@@ -1,0 +1,56 @@
+<button type="button" class="btn btn-secondary" (click)="open(mymodal)">
+  <i class="fa fa-plus"></i>&nbsp;Blocchi
+</button>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Crea una nuova gara</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="OnCreateClick()" novalidate>
+      <div class="form-group mb-2">
+        <label for="problems-names" class="col-sm-2 col-form-label">Nomi</label>
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="number" class="form-control" name="ProblemsNamesLower" formControlName="ProblemsNamesLower" min="1" max="9" required />
+            <div *ngIf="formSubmittedAtLeastOnce && nameLower!.invalid" class="alert alert-danger">
+              <div *ngIf="nameLower!.errors?.['required']">
+                Il titolo è obbligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <input type="number" class="form-control" name="ProblemsNamesUpper" formControlName="ProblemsNamesUpper" min="2" max="10" required />
+            <div *ngIf="formSubmittedAtLeastOnce && nameUpper!.invalid" class="alert alert-danger">
+              <div *ngIf="nameUpper!.errors?.['required']">
+                Il titolo è obbligatorio.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-2 text-center">
+        <ng-container *ngFor="let color of colors">
+          <span class="problem-color-box"
+                [class.selected]="IsColorSelected(color)"
+                [ngStyle]="{'background-color': color}"
+                (click)="OnColorClick(color)">
+            &nbsp;
+          </span>
+        </ng-container>
+        <div *ngIf="formSubmittedAtLeastOnce && color!.invalid" class="alert alert-danger mt-2">
+          <div *ngIf="color!.errors?.['required']">
+            Il colore è obbligatorio.
+          </div>
+        </div>
+      </div>
+      <div class="form-group mt-2">
+        <div class="col-sm-12 float-end">
+          <button type="submit" class="btn btn-primary float-end" [disabled]="CreateButtonDisabled">Crea</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

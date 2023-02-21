@@ -21,9 +21,11 @@ import { EditAthleteModalComponent } from './components/athletes/edit-athlete-mo
 import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
 import { AddAthleteToCompetitionModalComponent } from './components/competition/add-athlete-to-competition-modal/add-athlete-to-competition-modal.component';
 import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
-import { CompetitionResultsComponent } from './components/competition/competition-athletes/competition-athletes.component';
+import { CompetitionAthletesComponent } from './components/competition/competition-athletes/competition-athletes.component';
 import { CompetitionStateLabelComponent } from './components/common/competition-state-label/competition-state-label.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddProblemsButtonComponent } from './components/competition/competition-problems/add-problems-button/add-problems-button.component';
+import { CompetitionInfoGaraComponent } from './components/competition/competition-info-gara/competition-info-gara.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
     AthletesComponent,
     PageNotFoundComponent,
     CompetitionComponent,
-    CompetitionResultsComponent,
+    CompetitionInfoGaraComponent,
+    CompetitionAthletesComponent,
     CompetitionProblemsComponent,
     NewCompetitionButtonComponent,
     ToastComponent,
@@ -44,7 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     ConfirmationModalComponent,
     AddAthleteToCompetitionModalComponent,
     CompetitionRankingsComponent,
-    CompetitionStateLabelComponent
+    CompetitionStateLabelComponent,
+    AddProblemsButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,6 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
-      { path: 'atleti', component: AthletesComponent },
       { path: 'gare/:id', component: CompetitionComponent },
       { path: '', redirectTo: '/gare', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }

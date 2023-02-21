@@ -1,0 +1,49 @@
+<div class="col-md-6">
+  <form [formGroup]="form" (ngSubmit)="OnSaveClick()" novalidate>
+    <div class="form-group mb-2">
+      <label for="competition-title" class="col-sm-2 col-form-label">Titolo</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" name="competition-title" formControlName="Title" required />
+        <div *ngIf="formSubmittedAtLeastOnce && title!.invalid" class="alert alert-danger">
+          <div *ngIf="title!.errors?.['required']">
+            Il titolo è obbligatorio.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="competition-description" class="col-sm-2 col-form-label">Descrizione</label>
+      <div class="col-sm-12">
+        <textarea class="form-control" name="competition-description" formControlName="Description" required></textarea>
+        <div *ngIf="formSubmittedAtLeastOnce && description!.invalid" class="alert alert-danger">
+          <div *ngIf="description!.errors?.['required']">
+            La descrizione è obbligatoria.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="competition-image" class="col-sm-2 col-form-label">Immagine</label>
+      <input type="file" class="form-control-file">
+
+      <img src="https://www.researchgate.net/profile/Karim-Chamari/publication/268223625/figure/fig3/AS:667887761113102@1536248259585/The-5-m-rope-climbing-power-test-A-start-B-execution-and-C-finish-position.png" class="img-fluid" alt="Responsive image">
+    </div>
+    <div class="form-group mb-2">
+      <label for="competition-description" class="col-sm-6 col-form-label">Testo Email di conferma</label>
+      <div class="col-sm-12">
+        <textarea class="form-control" name="competition-email" formControlName="Email" required></textarea>
+        <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
+          <div *ngIf="email!.errors?.['required']">
+            Il testo della email è obbligatorio
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-2">
+      <div class="col-sm-12 float-end">
+        <button type="submit" class="btn btn-primary float-end" [disabled]="SaveButtonDisabled">Salva</button>
+      </div>
+    </div>
+  </form>
+</div>
+

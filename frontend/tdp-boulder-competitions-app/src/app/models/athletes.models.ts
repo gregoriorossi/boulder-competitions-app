@@ -2,7 +2,8 @@ export interface IAthlete {
   Name: string;
   Surname: string;
   BirthDate: Date;
-  Gender: Gender
+  Gender: Gender;
+  Email: string;
 }
 
 export enum Gender {

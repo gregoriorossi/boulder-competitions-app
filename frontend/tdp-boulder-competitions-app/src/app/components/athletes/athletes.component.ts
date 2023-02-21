@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Gender, IAthlete } from '../../models/athletes.models';
 import { StatusTypes } from '../../models/services.models';
 import { AthletesService } from '../../services/athletes.service';
+import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
 import { ToastService } from '../../services/toast.service';
 import { DateUtils } from '../../utils/date.utils';
@@ -17,13 +18,14 @@ export class AthletesComponent implements OnInit {
 
   athletes: IAthlete[] = [];
 
-  constructor(private athletesService: AthletesService,
+  constructor(private competitionsService: CompetitionsService,
+    private athletesService: AthletesService,
     private toastService: ToastService,
     private dialogsService: DialogsService)
   { }
 
   async ngOnInit(): Promise<void> {
-    this.athletes = await this.athletesService.GetAthletes();
+    this.athletes = await this.competitionsService.GetAthletes();
   }
 
   GetGenderClass = (gender: Gender): string => {

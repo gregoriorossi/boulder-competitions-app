@@ -1,47 +1,61 @@
-import { Component, OnInit, Input } from '@angular/core';
-import * as moment from 'moment';
-import { Gender } from '../../../models/athletes.models';
-import { IBoulderProblem, ICompetitionAthlete, ICompetitionDetails } from '../../../models/competitions.models';
+import { Component, Input, OnInit } from '@angular/core';
+import { Gender, IAthlete } from '../../../models/athletes.models';
+import { ICompetition } from '../../../models/competitions.models';
+import { StatusTypes } from '../../../models/services.models';
+import { CompetitionsService } from '../../../services/competitions.service';
+import { DialogsService } from '../../../services/dialogs.service';
+import { ToastService } from '../../../services/toast.service';
 import { CompetitionsUtils } from '../../../utils/competitions.utils';
+import { DateUtils } from '../../../utils/date.utils';
 
 @Component({
   selector: 'app-competition-athletes',
   templateUrl: './competition-athletes.component.html',
   styleUrls: ['./competition-athletes.component.scss']
 })
-export class CompetitionResultsComponent implements OnInit {
+export class CompetitionAthletesComponent implements OnInit {
 
-  @Input() competition: ICompetitionDetails | undefined;
-  @Input() BoulderProblems: IBoulderProblem[] | undefined;
+  @Input() Competition!: ICompetition;
+  DateUtils = DateUtils;
+
+  athletes: IAthlete[] = [];
 
   CompetitionsUtils = CompetitionsUtils;
 
-  constructor() { }
+  constructor(private competitionsService: CompetitionsService,
+    private toastService: ToastService,
+    private dialogsService: DialogsService)
+  { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.athletes = await this.competitionsService.GetAthletes();
   }
 
-  ShowAthleteLabel = (athlete: ICompetitionAthlete): string => {
-    const birthDate = moment(athlete.BirthDate).format('DD-MM-YYYY');
-    return `${athlete.Surname} ${athlete.Name} (${birthDate})`;
+  GetGenderCellClass = (gender: Gender): string => {
+    return gender === Gender.MALE ? "fa-mars" : "fa-venus";
   }
 
-  IsProblemSent = (athlete: ICompetitionAthlete, problem: IBoulderProblem): boolean => {
-    return athlete.BoulderProblemsSent.indexOf(problem.id) > -1;
-  }
-
-  CalculateScore = (athlete: ICompetitionAthlete, boulderProblems: IBoulderProblem[]): number => {
-    return athlete.BoulderProblemsSent.reduce((prev, current) => {
-      const currBoulder = boulderProblems.find(p => p.id === current);
-      if (currBoulder) {
-        return prev + currBoulder.difficulty;
-      }
-
-      return prev;
-    }, 0);
-  }
-
-  GetGenderClass = (gender: Gender): string => {
+  GetGenderRowClass = (gender: Gender): string => {
     return gender === Gender.FEMALE ? "female-row" : "male-row";
+  }
+
+  OnEditAthleteClick = (athlete: IAthlete) => {
+    console.log(athlete);
+  }
+
+  OnDeleteAthleteClick = async (athlete: IAthlete): Promise<void> => {
+    const message = `Cancellare ${athlete.Name} ${athlete.Surname}?`;
+    const confirmFn = async () => {
+      await this.DeleteAthlete(athlete);
+    }
+
+    this.dialogsService.Confirm(message, "", "Conferma", "Annulla", confirmFn, () => { })
+  }
+
+  OnSendEmailClick = (athlete: IAthlete): void => {
+    alert('Sending email to ' + athlete.Name + " " + athlete.Surname);
+  }
+  private DeleteAthlete = async (athlete: IAthlete) => {
+    alert('delete!');
   }
 }
