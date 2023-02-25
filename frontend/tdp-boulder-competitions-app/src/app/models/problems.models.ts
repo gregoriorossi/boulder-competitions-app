@@ -1,6 +1,6 @@
-import { IBoulderProblem } from "./competitions.models";
+import { IProblem } from "./competitions.models";
 
 export interface IStoreMultipleProblemsRequest {
   competitionId: number;
-  problems: IBoulderProblem[];
+  problems: IProblem[];
 }

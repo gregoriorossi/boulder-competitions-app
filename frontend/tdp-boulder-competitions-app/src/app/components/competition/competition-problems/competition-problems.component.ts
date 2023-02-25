@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBoulderProblem } from '../../../models/competitions.models';
+import { IProblemsGroupColor } from '../../../models/competitions.models';
 import { ProblemsService } from '../../../services/problems.service';
 import { CompetitionsUtils } from '../../../utils/competitions.utils';
 
@@ -10,7 +10,7 @@ import { CompetitionsUtils } from '../../../utils/competitions.utils';
 })
 export class CompetitionProblemsComponent implements OnInit {
 
-  BoulderProblems: IBoulderProblem[] = [];
+  ProblemGroups: IProblemsGroupColor[] = [];
   @Input() CompetitionId: number | undefined;
 
   CompetitionsUtils = CompetitionsUtils;
@@ -26,6 +26,10 @@ export class CompetitionProblemsComponent implements OnInit {
   }
 
   private LoadProblems = async (): Promise<void> => {
-    this.BoulderProblems = await this.problemsService.GetByCompetitionId(this.CompetitionId!);
+    this.ProblemGroups = await this.problemsService.GetByCompetitionId(this.CompetitionId!);
+  }
+
+  OnProblemChange = ($event: any): void => {
+    console.log($event);
   }
 }

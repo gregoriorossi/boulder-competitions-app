@@ -26,6 +26,7 @@ import { CompetitionStateLabelComponent } from './components/common/competition-
 import { HttpClientModule } from '@angular/common/http';
 import { AddProblemsButtonComponent } from './components/competition/competition-problems/add-problems-button/add-problems-button.component';
 import { CompetitionInfoGaraComponent } from './components/competition/competition-info-gara/competition-info-gara.component';
+import { EditableProblemComponent } from './components/competition/competition-problems/editable-problem/editable-problem.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CompetitionInfoGaraComponent } from './components/competition/competiti
     CompetitionInfoGaraComponent,
     CompetitionAthletesComponent,
     CompetitionProblemsComponent,
+    EditableProblemComponent,
     NewCompetitionButtonComponent,
     ToastComponent,
     NewAthleteModalComponent,

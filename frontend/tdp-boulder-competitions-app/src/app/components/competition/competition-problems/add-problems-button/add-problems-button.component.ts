@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColorCodes } from '../../../../models/common.models';
-import { IBoulderProblem } from '../../../../models/competitions.models';
+import { IProblem } from '../../../../models/competitions.models';
 import { IStoreMultipleProblemsRequest } from '../../../../models/problems.models';
 import { ProblemsService } from '../../../../services/problems.service';
 import { ToastService } from '../../../../services/toast.service';
@@ -80,16 +80,14 @@ export class AddProblemsButtonComponent implements OnInit {
     ];
   }
 
-  private BuildProblemsFromForm = (): IBoulderProblem[] => {
+  private BuildProblemsFromForm = (): IProblem[] => {
     const lowerLimit: number = Number.parseInt(this.form.get('ProblemsNamesLower')?.value);
     const upperLimit: number = Number.parseInt(this.form.get('ProblemsNamesUpper')?.value);
-    const problems: IBoulderProblem[] = [];
+    const problems: IProblem[] = [];
 
     for (let i = lowerLimit; i <= upperLimit; i++) {
       problems.push({
-        title: i.toString(),
-        color: this.form.get('ProblemsColor')?.value,
-        difficulty: 0
+        Name: i.toString()
       });
     }
 

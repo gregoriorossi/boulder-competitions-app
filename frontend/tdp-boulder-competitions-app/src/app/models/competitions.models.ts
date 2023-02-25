@@ -21,11 +21,15 @@ export enum CompetitionStateType {
   CLOSED = 3
 }
 
-export interface IBoulderProblem {
-  id?: number;
-  title: string;
-  color: BoulderProblemsColors;
-  difficulty: number;
+export interface IProblemsGroupColor {
+  Color: string;
+  Difficulty: number;
+  Problems: IProblem[];
+}
+
+export interface IProblem {
+  ID?: string;
+  Name: string;
 }
 
 export interface ICompetitionAthlete extends IAthlete {

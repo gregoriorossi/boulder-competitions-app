@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CompetitionStateType, IBoulderProblem, ICompetitionDetails } from '../../models/competitions.models';
+import { CompetitionStateType, IProblem, ICompetitionDetails } from '../../models/competitions.models';
 import { StatusTypes } from '../../models/services.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
@@ -16,7 +16,7 @@ export class CompetitionComponent implements OnInit {
 
   competition!: ICompetitionDetails | void;
   competitionId: number = 0;
-  boulderProblems: IBoulderProblem[] = [];
+  boulderProblems: IProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO_GARA;
   CompetitionComponentTabs = CompetitionComponentTabs;
 
