@@ -11,7 +11,7 @@ import { ColorsUtils } from '../../../../utils/colors.utils';
   styleUrls: ['./editable-problem.component.scss']
 })
 export class EditableProblemComponent implements OnInit {
-  @Input() CompetitionId: number | undefined;
+  @Input() CompetitionId: string | undefined;
   @Input() Problem!: IProblem;
   @Input() Color!: string;
 

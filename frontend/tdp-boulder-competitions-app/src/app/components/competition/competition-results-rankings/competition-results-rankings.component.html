@@ -8,7 +8,8 @@
     </li>
    </ul>
 
-  <app-competition-results *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RESULTS)">
+  <app-competition-results *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RESULTS)"
+                           [Competition]="Competition">
   </app-competition-results>
 
   <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RANKINGS)">

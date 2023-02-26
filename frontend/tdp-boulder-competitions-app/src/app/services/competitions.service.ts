@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { Gender, IAthlete } from '../models/athletes.models';
-import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, IRankingRow, CompetitionStateType, IRank, RankingType } from '../models/competitions.models';
+import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, IProblemsGroupColor } from '../models/competitions.models';
 import { StatusTypes } from '../models/services.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
@@ -19,7 +19,7 @@ export class CompetitionsService extends BaseTdpApiService{
     return await this.get(TDPApiEndpoints.Competitions.GetAll);
   }
 
-  public async GetCompetition(id: number): Promise<ICompetitionDetails | void> {
+  public async GetCompetition(id: string): Promise<ICompetitionDetails | void> {
     return await this.get(TDPApiEndpoints.Competitions.Get(id));
   }
 
@@ -41,7 +41,7 @@ export class CompetitionsService extends BaseTdpApiService{
     ]);
   }
 
-  public async SetState(competitionId: number, state: CompetitionStateType): Promise<StatusTypes> {
+  public async SetState(competitionId: string, state: CompetitionStateType): Promise<StatusTypes> {
     try {
       const request = {
         competitionId,
@@ -121,7 +121,7 @@ export class CompetitionsService extends BaseTdpApiService{
     return Promise.resolve(ranking);
   }
 
-  public async DeleteCompetition(competitionId: number): Promise<StatusTypes> {
+  public async DeleteCompetition(competitionId: string): Promise<StatusTypes> {
     try {
       await this.delete(TDPApiEndpoints.Competitions.Delete(competitionId));
       return StatusTypes.OK;
@@ -129,5 +129,112 @@ export class CompetitionsService extends BaseTdpApiService{
       console.log(err);
       return StatusTypes.ERROR;
     }
+  }
+
+  public GetResults = (competitionId: string): Promise<ICompetitionResult[]> => {
+    return Promise.resolve([
+      {
+        Athlete: { Name: "Gianluca", Surname: "Nicoletti", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Scarlett", Surname: "Johansson", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Luca", Surname: "Giurato", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Michael", Surname: "Scott", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Ricky", Surname: "Gervais", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Susy", Surname: "Monte", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Laura", Surname: "Rogora", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Diletta", Surname: "Leotta", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+      {
+        Athlete: { Name: "Jane", Surname: "Doe", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+        ProblemsGroups: this.GetTestProblems()
+      },
+    ]);
+  }
+
+  private GetTestProblems = (): IProblemsGroupColor[] => {
+    return [
+      {
+        Color: '#FFF',
+        Difficulty: 1,
+        Problems: [
+          { ID: "1", Name: "1" },
+          { ID: "2", Name: "2" },
+          { ID: "3", Name: "3" },
+          { ID: "4", Name: "4" },
+          { ID: "5", Name: "5" }
+        ]
+      },
+      {
+        Color: '#00F',
+        Difficulty: 2,
+        Problems: [
+          { ID: "1", Name: "1" },
+          { ID: "2", Name: "2" },
+          { ID: "3", Name: "3" },
+          { ID: "4", Name: "4" },
+          { ID: "5", Name: "5" },
+          { ID: "6", Name: "6" }
+        ]
+      },
+      {
+        Color: '#0F0',
+        Difficulty: 3,
+        Problems: [
+          { ID: "1", Name: "1" },
+          { ID: "2", Name: "2" },
+          { ID: "3", Name: "3" },
+          { ID: "4", Name: "4" },
+          { ID: "5", Name: "5" }
+        ]
+      },
+      {
+        Color: '#FF0',
+        Difficulty: 4,
+        Problems: [
+          { ID: "1", Name: "1" },
+          { ID: "2", Name: "2" },
+          { ID: "3", Name: "3" },
+          { ID: "4", Name: "4" }
+        ]
+      },
+      {
+        Color: '#F00',
+        Difficulty: 5,
+        Problems: [
+          { ID: "1", Name: "1" },
+          { ID: "2", Name: "2" },
+          { ID: "2", Name: "3" }
+        ]
+      },
+      {
+        Color: '#000',
+        Difficulty: 6,
+        Problems: [
+          { ID: "1", Name: "1" },
+          { ID: "2", Name: "2" }
+        ]
+      }
+    ];
   }
 }

@@ -11,7 +11,7 @@ import { CompetitionsUtils } from '../../../utils/competitions.utils';
 export class CompetitionProblemsComponent implements OnInit {
 
   ProblemGroups: IProblemsGroupColor[] = [];
-  @Input() CompetitionId: number | undefined;
+  @Input() CompetitionId: string | undefined;
 
   CompetitionsUtils = CompetitionsUtils;
 

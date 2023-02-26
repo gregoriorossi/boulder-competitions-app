@@ -14,7 +14,7 @@ import { ToastService } from '../../services/toast.service';
 export class CompetitionComponent implements OnInit {
 
   competition!: ICompetitionDetails | void;
-  competitionId: number = 0;
+  competitionId: string = "0";
   boulderProblems: IProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO_GARA;
   CompetitionComponentTabs = CompetitionComponentTabs;
@@ -29,7 +29,7 @@ export class CompetitionComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.activetedRoute.params.subscribe(async params => {
-      this.competitionId = Number.parseInt(params['id']);
+      this.competitionId = params['id'];
       this.LoadCompetition();
     });
   }

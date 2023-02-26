@@ -14,7 +14,7 @@ import { ToastService } from '../../../../services/toast.service';
 })
 export class AddProblemsButtonComponent implements OnInit {
 
-  @Input() CompetitionId: number | undefined;
+  @Input() CompetitionId: string | undefined;
 
   form!: FormGroup;
   formSubmittedAtLeastOnce: boolean = false;

@@ -1,6 +1,6 @@
 import { IProblem } from "./competitions.models";
 
 export interface IStoreMultipleProblemsRequest {
-  competitionId: number;
+  competitionId: string;
   problems: IProblem[];
 }

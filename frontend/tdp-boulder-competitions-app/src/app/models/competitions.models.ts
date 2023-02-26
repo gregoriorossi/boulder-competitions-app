@@ -1,14 +1,14 @@
 import { IAthlete } from "./athletes.models";
 
 export interface ICompetition {
-  id: number;
+  id: string;
   title: string;
   event_date: Date;
   state: CompetitionStateType;
 }
 
 export interface ICompetitionDetails {
-  id: number;
+  id: string;
   title: string;
   event_date: Date;
   state: CompetitionStateType;
@@ -30,6 +30,7 @@ export interface IProblemsGroupColor {
 export interface IProblem {
   ID?: string;
   Name: string;
+  Sent?: boolean;
 }
 
 export interface ICompetitionAthlete extends IAthlete {
@@ -67,4 +68,9 @@ export interface IRank {
   FullName: string;
   Position: number;
   Score: number;
+}
+
+export interface ICompetitionResult {
+  Athlete: IAthlete;
+  ProblemsGroups: IProblemsGroupColor[];
 }

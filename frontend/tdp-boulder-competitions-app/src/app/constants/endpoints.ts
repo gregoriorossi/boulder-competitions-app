@@ -1,12 +1,10 @@
-import { CompetitionStateType } from "../models/competitions.models";
-
 export const TDPApiEndpoints = {
   Competitions: {
     GetAll: 'competitions',
-    Get: (id: number) => `competitions/${id}`,
+    Get: (id: string) => `competitions/${id}`,
     Create: 'competitions',
-    EditCompetition: (id: number) => `competitions/${id}`,
-    Delete: (id: number) => `competitions/${id}`,
+    EditCompetition: (id: string) => `competitions/${id}`,
+    Delete: (id: string) => `competitions/${id}`,
     SetState: `competitions/setState`
   },
   Problems: {

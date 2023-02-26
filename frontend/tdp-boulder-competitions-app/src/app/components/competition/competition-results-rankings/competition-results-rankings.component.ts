@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CompetitionStateType, ICompetition, IRank, RankingType } from '../../../models/competitions.models';
+import { CompetitionStateType, ICompetitionDetails, IRank, RankingType } from '../../../models/competitions.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CompetitionsService } from '../../../services/competitions.service';
 })
 export class CompetitionResultsRankingsComponent implements OnInit {
 
-  @Input() Competition!: ICompetition;
+  @Input() Competition!: ICompetitionDetails;
 
   public RankingTypes = RankingType;
   rankingType: RankingType = RankingType.GENERAL;

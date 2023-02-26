@@ -18,7 +18,7 @@ export class ProblemsService extends BaseTdpApiService {
     super(httpClient);
   }
 
-  public async GetByCompetitionId(competitionId: number): Promise<IProblemsGroupColor[]> {
+  public async GetByCompetitionId(competitionId: string): Promise<IProblemsGroupColor[]> {
     //return await this.get(TDPApiEndpoints.Problems.Get(competitionId));
 
     return Promise.resolve([
