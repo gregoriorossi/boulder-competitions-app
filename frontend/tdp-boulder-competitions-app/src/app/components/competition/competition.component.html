@@ -31,7 +31,7 @@
       <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.PROBLEMS)}}">Blocchi</a>
     </li>
     <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.RANKINGS)">
-      <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.RANKINGS)}}">Classifiche</a>
+      <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.RANKINGS)}}">Risultati e classifiche</a>
     </li>
   </ul>
 
@@ -45,8 +45,8 @@
                             [CompetitionId]="competition.id">
   </app-competition-problems>
 
-  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"
+  <app-competition-results-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"
                             [Competition]="competition">
-  </app-competition-rankings>
+  </app-competition-results-rankings>
 </ng-container>
 

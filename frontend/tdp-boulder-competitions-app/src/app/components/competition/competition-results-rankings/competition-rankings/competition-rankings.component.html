@@ -1,4 +1,4 @@
-<div class="row" *ngIf="HasCompetitionStarted">
+<div class="row">
   <div class="col-md-8">
     <h3>{{ GetSectionTitle() }}</h3>
   </div>
@@ -34,10 +34,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-</div>
-<div class="row" *ngIf="!HasCompetitionStarted">
-  <div class="alert alert-warning text-center" role="alert">
-    Le classifiche saranno disponibili non appena inizier&agrave; la gara!
   </div>
 </div>

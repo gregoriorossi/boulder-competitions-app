@@ -1,0 +1,21 @@
+<div class="row" *ngIf="HasCompetitionStarted">
+  <ul class="nav nav-pills mb-3">
+    <li class="nav-item" (click)="OnTabClick(CompetitionResultsAndRankingsTabs.RESULTS)">
+      <a class="nav-link {{TabActiveClass(CompetitionResultsAndRankingsTabs.RESULTS)}}">Risultati</a>
+    </li>
+    <li class="nav-item" (click)="OnTabClick(CompetitionResultsAndRankingsTabs.RANKINGS)">
+      <a class="nav-link {{TabActiveClass(CompetitionResultsAndRankingsTabs.RANKINGS)}}">Classifiche</a>
+    </li>
+   </ul>
+
+  <app-competition-results *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RESULTS)">
+  </app-competition-results>
+
+  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RANKINGS)">
+  </app-competition-rankings>
+</div>
+<div class="row" *ngIf="!HasCompetitionStarted">
+  <div class="alert alert-warning text-center" role="alert">
+    Le classifiche saranno disponibili non appena inizier&agrave; la gara!
+  </div>
+</div>

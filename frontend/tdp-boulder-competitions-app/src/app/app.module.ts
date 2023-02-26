@@ -20,13 +20,15 @@ import { NewAthleteFormComponent } from './components/common/new-athlete-form/ne
 import { EditAthleteModalComponent } from './components/athletes/edit-athlete-modal/edit-athlete-modal.component';
 import { ConfirmationModalComponent } from './components/common/confirmation-modal/confirmation-modal.component';
 import { AddAthleteToCompetitionModalComponent } from './components/competition/add-athlete-to-competition-modal/add-athlete-to-competition-modal.component';
-import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
 import { CompetitionAthletesComponent } from './components/competition/competition-athletes/competition-athletes.component';
 import { CompetitionStateLabelComponent } from './components/common/competition-state-label/competition-state-label.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddProblemsButtonComponent } from './components/competition/competition-problems/add-problems-button/add-problems-button.component';
 import { CompetitionInfoGaraComponent } from './components/competition/competition-info-gara/competition-info-gara.component';
 import { EditableProblemComponent } from './components/competition/competition-problems/editable-problem/editable-problem.component';
+import { CompetitionRankingsComponent } from './components/competition/competition-results-rankings/competition-rankings/competition-rankings.component';
+import { CompetitionResultsRankingsComponent } from './components/competition/competition-results-rankings/competition-results-rankings.component';
+import { CompetitionResultsComponent } from './components/competition/competition-results-rankings/competition-results/competition-results.component';
 
 @NgModule({
   declarations: [
@@ -40,15 +42,17 @@ import { EditableProblemComponent } from './components/competition/competition-p
     CompetitionInfoGaraComponent,
     CompetitionAthletesComponent,
     CompetitionProblemsComponent,
+    CompetitionResultsComponent,
     EditableProblemComponent,
     NewCompetitionButtonComponent,
     ToastComponent,
     NewAthleteModalComponent,
-    NewAthleteFormComponent,
+    NewAthleteFormComponent, 
     EditAthleteModalComponent,
     ConfirmationModalComponent,
     AddAthleteToCompetitionModalComponent,
     CompetitionRankingsComponent,
+    CompetitionResultsRankingsComponent,
     CompetitionStateLabelComponent,
     AddProblemsButtonComponent
   ],

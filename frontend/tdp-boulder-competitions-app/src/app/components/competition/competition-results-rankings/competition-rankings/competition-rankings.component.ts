@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CompetitionStateType, ICompetition, IRank, IRankingRow, RankingType } from '../../../models/competitions.models';
-import { CompetitionsService } from '../../../services/competitions.service';
+import { CompetitionStateType, ICompetition, IRank, RankingType } from '../../../../models/competitions.models';
+import { CompetitionsService } from '../../../../services/competitions.service';
 
 @Component({
   selector: 'app-competition-rankings',
@@ -50,3 +50,4 @@ export class CompetitionRankingsComponent implements OnInit {
     alert('download!');
   }
 }
+

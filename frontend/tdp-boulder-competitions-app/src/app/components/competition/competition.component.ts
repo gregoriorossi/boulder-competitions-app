@@ -4,7 +4,6 @@ import { CompetitionStateType, IProblem, ICompetitionDetails } from '../../model
 import { StatusTypes } from '../../models/services.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
-import { ProblemsService } from '../../services/problems.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
