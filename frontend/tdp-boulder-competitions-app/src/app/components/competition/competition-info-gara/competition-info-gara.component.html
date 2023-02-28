@@ -53,8 +53,15 @@
       </div>
     </div>
     <div class="col-md-6">
+      <h4>Email di conferma</h4>
+      <div class="alert alert-warning info-email" role="alert">
+          Puoi utilizzare i seguenti placeholder:<br />
+          {{ "{TitoloGara} per il titolo gara"}}<br />
+          {{ "{DataGara} per mostrare la data"}}<br />
+          {{ "{Partecipante} per mostrare il nome e il cognome dell'iscritto"}}
+      </div>
       <div class="form-group mb-2">
-        <label for="competition-description" class="col-sm-6 col-form-label">Oggetto Email di conferma</label>
+        <label for="competition-description" class="col-sm-6 col-form-label">Oggetto</label>
         <div class="col-sm-12">
           <textarea class="form-control" name="competition-email" formControlName="EmailSubject" required></textarea>
           <div *ngIf="formSubmittedAtLeastOnce && emailSubject!.invalid" class="alert alert-danger">
@@ -65,7 +72,7 @@
         </div>
       </div>
       <div class="form-group mb-2">
-        <label for="competition-description" class="col-sm-6 col-form-label">Corpo Email di conferma</label>
+        <label for="competition-description" class="col-sm-6 col-form-label">Corpo</label>
         <div class="col-sm-12">
           <angular-editor name="competition-email" formControlName="EmailBody" [config]="emailBodyEditorConfig" required></angular-editor>
           <div *ngIf="formSubmittedAtLeastOnce && emailBody!.invalid" class="alert alert-danger">
@@ -76,7 +83,7 @@
         </div>
       </div>
     </div>
-   
+
     <div class="form-group mt-2">
       <div class="col-sm-12 float-end">
         <button type="submit" class="btn btn-primary float-end" [disabled]="SaveButtonDisabled">Salva</button>
