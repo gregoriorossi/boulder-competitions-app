@@ -29,6 +29,8 @@ import { EditableProblemComponent } from './components/competition/competition-p
 import { CompetitionRankingsComponent } from './components/competition/competition-results-rankings/competition-rankings/competition-rankings.component';
 import { CompetitionResultsRankingsComponent } from './components/competition/competition-results-rankings/competition-results-rankings.component';
 import { CompetitionResultsComponent } from './components/competition/competition-results-rankings/competition-results/competition-results.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { CompetitionResultsComponent } from './components/competition/competitio
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngularEditorModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
       { path: 'gare/:id', component: CompetitionComponent },
