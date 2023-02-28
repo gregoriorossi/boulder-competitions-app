@@ -8,12 +8,15 @@ use App\Models\Competition;
 use App\Models\CompetitionState;
 use App\Models\Problem;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class CompetitionsController extends Controller
 {
     public function index()
     {
-        return Competition::all();
+        return DB::table('competitions')
+            ->orderBy('event_date', 'desc')
+            ->get(['id', 'title', 'state', 'event_date']);
     }
 
     public function show(Competition $competition)

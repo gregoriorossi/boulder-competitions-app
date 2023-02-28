@@ -32,3 +32,4 @@ Route::get('problems/{competition}', [ProblemsController::class, 'show']);
 Route::post('problems', [ProblemsController::class, 'store']);
 Route::put('problems/{problem}', [ProblemsController::class, 'update']);
 Route::delete('problems/{problem}', [ProblemsController::class, 'delete']);
+Route::post('problems/storeMultiple', [ProblemsController::class, 'storeMultiple']);

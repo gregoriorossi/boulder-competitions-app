@@ -36,6 +36,18 @@ class ProblemsController extends Controller
         $competition->problems()->save($problem);
     }
 
+    public function storeMultiple(Request $request)
+    {
+        $competitionId = $request->input('competitionId');
+        $competition = Competition::findOrFail($competitionId);
+
+        $problems = $request->problems;
+        
+        foreach($problems as $problem) {
+            $competition->problems()->save(Problem::create($problem));
+        }
+    }
+
     public function delete(Problem $problem)
     {
         $res = $problem->delete();
