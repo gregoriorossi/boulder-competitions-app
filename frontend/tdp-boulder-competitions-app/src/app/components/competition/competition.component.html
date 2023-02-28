@@ -35,7 +35,8 @@
     </li>
   </ul>
 
-  <app-competition-info-gara *ngIf="IsTabContentVisible(CompetitionComponentTabs.INFO_GARA)">
+  <app-competition-info-gara *ngIf="IsTabContentVisible(CompetitionComponentTabs.INFO_GARA)"
+                             [CompetitionId]="competitionId">
   </app-competition-info-gara>
 
   <app-competition-athletes *ngIf="IsTabContentVisible(CompetitionComponentTabs.ATHLETES)"

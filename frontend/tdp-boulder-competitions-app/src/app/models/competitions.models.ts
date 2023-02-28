@@ -7,6 +7,13 @@ export interface ICompetition {
   state: CompetitionStateType;
 }
 
+export interface ICompetitionInfo extends ICompetition {
+  description: string;
+  cover_image: string;
+  email_subject: string;
+  email_body: string;
+}
+
 export interface ICompetitionDetails {
   id: string;
   title: string;
@@ -14,6 +21,7 @@ export interface ICompetitionDetails {
   state: CompetitionStateType;
   Athletes: ICompetitionAthlete[];
 }
+
 
 export enum CompetitionStateType {
   DRAFT = 1,

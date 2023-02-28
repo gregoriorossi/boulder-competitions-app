@@ -19,9 +19,20 @@ class CompetitionsController extends Controller
             ->get(['id', 'title', 'state', 'event_date']);
     }
 
-    public function show(Competition $competition)
+    public function show(string $competitionId)
     {
-        return $competition;
+        return DB::table('competitions')
+            ->where('id', $competitionId)
+            ->first(['id', 'title', 'state', 'event_date']);
+    }
+
+    public function fullInfo(string $competitionId)
+    {
+        $result = DB::table('competitions')
+            ->where('id', $competitionId)
+            ->first();
+
+        return $result;
     }
 
     public function store(Request $request)

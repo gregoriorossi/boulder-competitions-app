@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { IRankingRow } from '../../../models/competitions.models';
+import { ICompetitionInfo, IRankingRow } from '../../../models/competitions.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { TextEditorUtils } from '../../../utils/text-editor.utils';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-competition-info-gara',
@@ -12,6 +13,10 @@ import { TextEditorUtils } from '../../../utils/text-editor.utils';
 })
 export class CompetitionInfoGaraComponent implements OnInit {
 
+  @Input() CompetitionId!: string;
+
+  Ready: boolean = false;
+
   form!: FormGroup;
   formSubmittedAtLeastOnce: boolean = false;
   SaveButtonDisabled: boolean = false;
@@ -19,19 +24,29 @@ export class CompetitionInfoGaraComponent implements OnInit {
   descriptionEditorConfig: AngularEditorConfig = TextEditorUtils.getDefaultEditorConfig({ placeholder: 'Inserisci qui la descrizione'});
   emailBodyEditorConfig: AngularEditorConfig = TextEditorUtils.getDefaultEditorConfig({ placeholder: 'Inserisci qui il corpo della email' });
 
+  competitionInfo!: ICompetitionInfo;
 
   constructor(private competitionsService: CompetitionsService) { }
 
   ranking: IRankingRow[] = [];
 
   async ngOnInit(): Promise<void> {
+
+
+    this.competitionInfo = await this.competitionsService.GetCompetitionInfo(this.CompetitionId);
+
+    const date = moment(this.competitionInfo.event_date).toDate();
+    console.log(date);
     this.form = new FormGroup({
-      Title: new FormControl('', [Validators.required]),
-      Date: new FormControl(null, [Validators.required]),
-      Description: new FormControl('', [Validators.required]),
-      EmailSubject: new FormControl('', [Validators.required]),
-      EmailBody: new FormControl('', [Validators.required])
+      Title: new FormControl(this.competitionInfo.title, [Validators.required]),
+      Date: new FormControl({ day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear()}, [Validators.required]),
+      Description: new FormControl(this.competitionInfo.description, [Validators.required]),
+      EmailSubject: new FormControl(this.competitionInfo.email_subject, [Validators.required]),
+      EmailBody: new FormControl(this.competitionInfo.email_body, [Validators.required]),
+      CoverImage: new FormControl(this.competitionInfo.cover_image, []),
     });
+
+    this.Ready = true;
   }
 
   get title() { return this.form!.get('Title') }
@@ -39,9 +54,11 @@ export class CompetitionInfoGaraComponent implements OnInit {
   get description() { return this.form!.get('Description') }
   get emailSubject() { return this.form!.get('EmailSubject') }
   get emailBody() { return this.form!.get('EmailBody') }
+  get coverImage() { return this.form!.get('CoverImage') }
 
   public OnSaveClick = (): void => {
     alert('save!');
   }
+
 
 }
