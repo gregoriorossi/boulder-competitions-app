@@ -14,6 +14,15 @@ export interface ICompetitionInfo extends ICompetition {
   email_body: string;
 }
 
+export interface IUpdateCompetitionInfoRequest {
+  title: string;
+  event_date: Date;
+  description: string;
+  cover_image: string;
+  email_subject: string;
+  email_body: string;
+}
+
 export interface ICompetitionDetails {
   id: string;
   title: string;

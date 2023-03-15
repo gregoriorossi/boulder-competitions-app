@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { Gender, IAthlete } from '../models/athletes.models';
-import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, IProblemsGroupColor, ICompetitionInfo } from '../models/competitions.models';
+import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, IProblemsGroupColor, ICompetitionInfo, IUpdateCompetitionInfoRequest } from '../models/competitions.models';
 import { StatusTypes } from '../models/services.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
@@ -25,6 +25,16 @@ export class CompetitionsService extends BaseTdpApiService{
 
   public async GetCompetitionInfo(id: string): Promise<ICompetitionInfo> {
     return await this.get(TDPApiEndpoints.Competitions.GetInfo(id));
+  }
+
+  public async UpdateInfo(id: string, data: IUpdateCompetitionInfoRequest) {
+    try {
+      const result = await this.post(TDPApiEndpoints.Competitions.UpdateInfo(id), data);
+      return StatusTypes.OK;
+    } catch (err) {
+      console.log(err);
+      return StatusTypes.ERROR;
+    }
   }
 
   public async AddCompetition(request: IAddCompetitionRequest): Promise<StatusTypes> {

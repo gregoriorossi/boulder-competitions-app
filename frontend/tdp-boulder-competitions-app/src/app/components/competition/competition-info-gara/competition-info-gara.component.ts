@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { ICompetitionInfo, IRankingRow } from '../../../models/competitions.models';
+import { ICompetitionInfo, IRankingRow, IUpdateCompetitionInfoRequest } from '../../../models/competitions.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { TextEditorUtils } from '../../../utils/text-editor.utils';
 import * as moment from 'moment';
+import { DateUtils } from '../../../utils/date.utils';
 
 @Component({
   selector: 'app-competition-info-gara',
@@ -56,9 +57,23 @@ export class CompetitionInfoGaraComponent implements OnInit {
   get emailBody() { return this.form!.get('EmailBody') }
   get coverImage() { return this.form!.get('CoverImage') }
 
-  public OnSaveClick = (): void => {
-    alert('save!');
-  }
+  public OnSaveClick = async (): Promise<void> => {
+    this.SaveButtonDisabled = true;
 
+    const date = this.form.get('Date')?.value;
+
+    const data: IUpdateCompetitionInfoRequest = {
+      title: this.title?.value,
+      event_date: DateUtils.ToNoTimeZoneDate(date.year, date!.month - 1, date!.day),
+      description: this.description?.value,
+      email_subject: this.emailSubject?.value,
+      email_body: this.emailBody?.value,
+      cover_image: this.coverImage?.value
+    }
+
+    const result = this.competitionsService.UpdateInfo(this.CompetitionId, data);
+
+    this.SaveButtonDisabled = false;
+  }
 
 }

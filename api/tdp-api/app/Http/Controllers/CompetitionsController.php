@@ -9,6 +9,7 @@ use App\Models\CompetitionState;
 use App\Models\Problem;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CompetitionsController extends Controller
 {
@@ -33,6 +34,24 @@ class CompetitionsController extends Controller
             ->first();
 
         return $result;
+    }
+
+    public function updateInfo(string $competitionId, Request $request)
+    {
+        $competitionData = array(
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'event_date' => Carbon::parse($request->input('event_date')),
+            //'cover_image' => $request->input('cover_image'),
+            'email_subject' => $request->input('email_subject'),
+            'email_body' => $request->input('email_body')
+        );
+        
+        DB::table('competitions')
+            ->where('id', $competitionId)
+            ->update($competitionData);
+
+        return response()->json(null, 200);
     }
 
     public function store(Request $request)

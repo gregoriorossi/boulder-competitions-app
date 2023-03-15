@@ -3,6 +3,7 @@ export const TDPApiEndpoints = {
     GetAll: 'competitions',
     Get: (id: string) => `competitions/${id}`,
     GetInfo: (id: string) => `competitions/${id}/info`,
+    UpdateInfo: (id: string) => `competitions/${id}/info`,
     Create: 'competitions',
     EditCompetition: (id: string) => `competitions/${id}`,
     Delete: (id: string) => `competitions/${id}`,
