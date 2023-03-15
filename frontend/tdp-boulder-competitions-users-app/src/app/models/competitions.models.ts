@@ -20,7 +20,7 @@ export interface IGetCompetitionToRegisterForResponse {
 }
 
 export interface IRegisterToCompetitionRequest {
-  CompetitionId: string;
+  Email: string;
   Name: string;
   Surname: string;
   BirthDate: Date;

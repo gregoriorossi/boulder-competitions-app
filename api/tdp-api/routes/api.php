@@ -26,6 +26,8 @@ Route::get('competitions/{competitionId}', [CompetitionsController::class, 'show
 Route::get('competitions/{competitionId}/info', [CompetitionsController::class, 'fullInfo']);
 Route::post('competitions/{competitionId}/info', [CompetitionsController::class, 'updateInfo']);
 
+Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
+
 Route::post('competitions', [CompetitionsController::class, 'store']);
 Route::put('competitions/{competition}', [CompetitionsController::class, 'update']);
 Route::delete('competitions/{competition}', [CompetitionsController::class, 'delete']);
@@ -36,3 +38,5 @@ Route::post('problems', [ProblemsController::class, 'store']);
 Route::put('problems/{problem}', [ProblemsController::class, 'update']);
 Route::delete('problems/{problem}', [ProblemsController::class, 'delete']);
 Route::post('problems/storeMultiple', [ProblemsController::class, 'storeMultiple']);
+
+

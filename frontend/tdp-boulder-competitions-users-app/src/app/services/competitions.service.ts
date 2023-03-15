@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { TDPApiEndpoints } from "../constants/endpoints";
 import { CompetitionStateType, GetCompetitionToRegisterForStatus, ICompetition, IGetCompetitionProblemsByAthleteRequest, IGetCompetitionProblemsByAthleteResponse, IGetCompetitionToRegisterForResponse, IRank, IRegisterToCompetitionRequest, RankingType } from "../models/competitions.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
@@ -56,22 +57,18 @@ export class CompetitionsService extends BaseTdpApiService {
     });
   }
 
-  public RegisterToCompetition = async (request: IRegisterToCompetitionRequest): Promise<IResponse> => {
-
-    if (request.Name === "Explosion") {
-      throw ("Error!");
+  public RegisterToCompetition = async (competitionId: string, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
+    try {
+      const result = await this.post(TDPApiEndpoints.Competitions.Register(competitionId), data);
+      return {
+        Status: StatusTypes.OK
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        Status: StatusTypes.ERROR
+      }
     }
-
-    const status = request.Name === "Error" ? StatusTypes.ERROR : StatusTypes.OK;
-    const errorMessage = request.Name === "Error" ? "Errore applicativo" : "Registrazione avvenuta con successo";
-
-    const model: IResponse = {
-      Status: status,
-      Message: errorMessage
-    }
-
-
-    return Promise.resolve(model);
   }
 
   public GetUserLinkToCompetition = async (): Promise<string> => {

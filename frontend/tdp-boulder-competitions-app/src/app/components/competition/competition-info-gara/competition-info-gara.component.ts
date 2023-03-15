@@ -6,6 +6,9 @@ import { CompetitionsService } from '../../../services/competitions.service';
 import { TextEditorUtils } from '../../../utils/text-editor.utils';
 import * as moment from 'moment';
 import { DateUtils } from '../../../utils/date.utils';
+import { StatusTypes } from '../../../models/services.models';
+import { DialogsService } from '../../../services/dialogs.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-competition-info-gara',
@@ -27,7 +30,10 @@ export class CompetitionInfoGaraComponent implements OnInit {
 
   competitionInfo!: ICompetitionInfo;
 
-  constructor(private competitionsService: CompetitionsService) { }
+  constructor(
+    private competitionsService: CompetitionsService,
+    private toastService: ToastService)
+  { }
 
   ranking: IRankingRow[] = [];
 
@@ -71,8 +77,12 @@ export class CompetitionInfoGaraComponent implements OnInit {
       cover_image: this.coverImage?.value
     }
 
-    const result = this.competitionsService.UpdateInfo(this.CompetitionId, data);
-
+    const result = await this.competitionsService.UpdateInfo(this.CompetitionId, data);
+    if (result === StatusTypes.OK) {
+      this.toastService.showSuccess("Informazioni salvate");
+    } else {
+      this.toastService.showDanger("Errore nel salvataggio!")
+    }
     this.SaveButtonDisabled = false;
   }
 

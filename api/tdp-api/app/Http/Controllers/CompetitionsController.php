@@ -91,4 +91,31 @@ class CompetitionsController extends Controller
         $competition->save();
         return response()->json(null, 204);
     }
+
+    public function register(string $competitionId, Request $request) {
+        $email = trim($request->input('Email'));
+
+        $result = DB::table('competitions_registrations')
+            ->where('id_competition', $competitionId)
+            ->where('email', $email)
+            ->count();
+
+        if ($result == 0) {
+            $registrationData = array(
+                'id_competition' => $competitionId,
+                'email' => $email,
+                'name' => $request->input('Name'),
+                'surname' => $request->input('Surname'),
+                'birth_date' => Carbon::parse($request->input('BirthDate')),
+                'gender' => $request->input('Gender')
+            );
+            DB::table('competitions_registrations')->insert($registrationData);
+
+            return response()->json(null, 204);
+        } else {
+            // già registrato
+            return response()->json(null, 500);
+        }
+        
+    }
 }
