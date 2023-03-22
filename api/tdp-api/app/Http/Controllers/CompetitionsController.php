@@ -10,9 +10,18 @@ use App\Models\Problem;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Repositories\CompetitionsRepository;
 
 class CompetitionsController extends Controller
 {
+    protected $competitionsRepository;
+
+    public function __construct(
+        CompetitionsRepository $competitionsRepository
+    ) {
+        $this->competitionsRepository = $competitionsRepository;
+    }
+
     public function index()
     {
         return DB::table('competitions')
@@ -56,14 +65,14 @@ class CompetitionsController extends Controller
 
     public function store(Request $request)
     {
-        $competition = array(
+        $competitionData = array(
             'title' => $request->input('title'),
             'event_date' => $request->input('event_date'),
             'state' => 1,
             'public_id' => Str::uuid()->toString()
         );
 
-        $competition = Competition::create($competition);
+        $this->competitionsRepository->CreateNewCompetition($competitionData);
     }
 
     public function update(Request $request, Competition $competition)
@@ -95,12 +104,9 @@ class CompetitionsController extends Controller
     public function register(string $competitionId, Request $request) {
         $email = trim($request->input('Email'));
 
-        $result = DB::table('competitions_registrations')
-            ->where('id_competition', $competitionId)
-            ->where('email', $email)
-            ->count();
+        $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
 
-        if ($result == 0) {
+        if (!$isRegisteredToCompetition) {
             $registrationData = array(
                 'id_competition' => $competitionId,
                 'email' => $email,
@@ -109,8 +115,8 @@ class CompetitionsController extends Controller
                 'birth_date' => Carbon::parse($request->input('BirthDate')),
                 'gender' => $request->input('Gender')
             );
-            DB::table('competitions_registrations')->insert($registrationData);
 
+            $this->competitionsRepository->RegisterUserToCompetition($registrationData);
             return response()->json(null, 204);
         } else {
             // già registrato
