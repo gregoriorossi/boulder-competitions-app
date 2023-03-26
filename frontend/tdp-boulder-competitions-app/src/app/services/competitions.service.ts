@@ -19,15 +19,15 @@ export class CompetitionsService extends BaseTdpApiService{
     return await this.get(TDPApiEndpoints.Competitions.GetAll);
   }
 
-  public async GetCompetition(id: string): Promise<ICompetitionDetails | void> {
+  public async GetCompetition(id: number): Promise<ICompetitionDetails | void> {
     return await this.get(TDPApiEndpoints.Competitions.Get(id));
   }
 
-  public async GetCompetitionInfo(id: string): Promise<ICompetitionInfo> {
+  public async GetCompetitionInfo(id: number): Promise<ICompetitionInfo> {
     return await this.get(TDPApiEndpoints.Competitions.GetInfo(id));
   }
 
-  public async UpdateInfo(id: string, data: IUpdateCompetitionInfoRequest) {
+  public async UpdateInfo(id: number, data: IUpdateCompetitionInfoRequest) {
     try {
       const result = await this.post(TDPApiEndpoints.Competitions.UpdateInfo(id), data);
       return StatusTypes.OK;
@@ -55,7 +55,7 @@ export class CompetitionsService extends BaseTdpApiService{
     ]);
   }
 
-  public async SetState(competitionId: string, state: CompetitionStateType): Promise<StatusTypes> {
+  public async SetState(competitionId: number, state: CompetitionStateType): Promise<StatusTypes> {
     try {
       const request = {
         competitionId,
@@ -70,7 +70,7 @@ export class CompetitionsService extends BaseTdpApiService{
     }
   }
 
-  public GetRanking = async (competitionId: string, rankingType: RankingType): Promise<IRank[]> => {
+  public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IRank[]> => {
     let ranking: IRank[] = [];
 
     if (rankingType === RankingType.GENERAL) {
@@ -135,7 +135,7 @@ export class CompetitionsService extends BaseTdpApiService{
     return Promise.resolve(ranking);
   }
 
-  public async DeleteCompetition(competitionId: string): Promise<StatusTypes> {
+  public async DeleteCompetition(competitionId: number): Promise<StatusTypes> {
     try {
       await this.delete(TDPApiEndpoints.Competitions.Delete(competitionId));
       return StatusTypes.OK;
@@ -145,7 +145,7 @@ export class CompetitionsService extends BaseTdpApiService{
     }
   }
 
-  public GetResults = (competitionId: string): Promise<ICompetitionResult[]> => {
+  public GetResults = (competitionId: number): Promise<ICompetitionResult[]> => {
     return Promise.resolve([
       {
         Athlete: { Name: "Gianluca", Surname: "Nicoletti", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },

@@ -1,7 +1,7 @@
 import { IAthlete } from "./athletes.models";
 
 export interface ICompetition {
-  id: string;
+  id: number;
   title: string;
   event_date: Date;
   state: CompetitionStateType;
@@ -24,7 +24,7 @@ export interface IUpdateCompetitionInfoRequest {
 }
 
 export interface ICompetitionDetails {
-  id: string;
+  id: number;
   title: string;
   event_date: Date;
   state: CompetitionStateType;
@@ -36,6 +36,13 @@ export enum CompetitionStateType {
   DRAFT = 1,
   ONGOING = 2,
   CLOSED = 3
+}
+
+export interface IProblemColor {
+  Id: number;
+  IdCompetition: number;
+  Color: string;
+  SortOrder: number;
 }
 
 export interface IProblemsGroupColor {

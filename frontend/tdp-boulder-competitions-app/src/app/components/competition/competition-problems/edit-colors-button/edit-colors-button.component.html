@@ -1,0 +1,14 @@
+<button type="button" class="btn btn-secondary" (click)="open(mymodal)">
+  <i class="fa fa-palette"></i>&nbsp;Colori
+</button>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modifica i colori dei blocchi</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+</ng-template>

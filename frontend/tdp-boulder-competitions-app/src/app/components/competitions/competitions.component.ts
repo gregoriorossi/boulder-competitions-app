@@ -43,7 +43,7 @@ export class CompetitionsComponent implements OnInit {
     return state === CompetitionStateType.ONGOING || state === CompetitionStateType.DRAFT;
   }
 
-  OnDeleteCompetitionClick = async (competitionId: string): Promise<void> => {
+  OnDeleteCompetitionClick = async (competitionId: number): Promise<void> => {
     const message = `Cancellare la gara?`;
     const confirmFn = async () => {
       await this.DeleteCompetition(competitionId);
@@ -68,7 +68,7 @@ export class CompetitionsComponent implements OnInit {
     console.log(event);
   }
 
-  private DeleteCompetition = async (competitionId: string): Promise<void> => {
+  private DeleteCompetition = async (competitionId: number): Promise<void> => {
     const result: StatusTypes = await this.competitionsService.DeleteCompetition(competitionId);
 
     if (result === StatusTypes.OK) {

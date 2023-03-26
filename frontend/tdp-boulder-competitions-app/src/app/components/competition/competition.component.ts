@@ -14,7 +14,7 @@ import { ToastService } from '../../services/toast.service';
 export class CompetitionComponent implements OnInit {
 
   competition!: ICompetitionDetails | void;
-  competitionId: string = "0";
+  competitionId: number = 0;
   boulderProblems: IProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO_GARA;
   CompetitionComponentTabs = CompetitionComponentTabs;

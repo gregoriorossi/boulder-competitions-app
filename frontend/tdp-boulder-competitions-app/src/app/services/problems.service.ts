@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TDPApiEndpoints } from '../constants/endpoints';
-import { IProblemsGroupColor } from '../models/competitions.models';
+import { IProblemColor, IProblemsGroupColor } from '../models/competitions.models';
 import { IStoreMultipleProblemsRequest } from '../models/problems.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
@@ -18,7 +18,11 @@ export class ProblemsService extends BaseTdpApiService {
     super(httpClient);
   }
 
-  public async GetByCompetitionId(competitionId: string): Promise<IProblemsGroupColor[]> {
+  public async GetColorsByCompetitionId(competitionId: number): Promise<IProblemColor[]> {
+    return await this.get(TDPApiEndpoints.Problems.GetColorsByCompetitionId(competitionId));
+  }
+
+  public async GetByCompetitionId(competitionId: number): Promise<IProblemsGroupColor[]> {
     //return await this.get(TDPApiEndpoints.Problems.Get(competitionId));
 
     return Promise.resolve([

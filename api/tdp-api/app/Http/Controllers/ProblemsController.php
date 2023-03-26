@@ -5,9 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Problem;
 use App\Models\Competition;
+use App\Repositories\ProblemsRepository;
 
 class ProblemsController extends Controller
 {
+    protected $problemsRepository;
+
+    public function __construct(
+        ProblemsRepository $problemsRepository
+    ) {
+        $this->problemsRepository = $problemsRepository;
+    }
+
+    public function getColorsByCompetitionId(string $competitionId) {
+        $colors = $this->problemsRepository->getColorsByCompetitionId($competitionId);
+        return response()->json($colors, 200);
+    }
+
     public function show(Competition $competition)
     {
         $problems = $competition->problems()->get();

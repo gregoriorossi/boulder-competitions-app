@@ -17,7 +17,7 @@ import { ToastService } from '../../../services/toast.service';
 })
 export class CompetitionInfoGaraComponent implements OnInit {
 
-  @Input() CompetitionId!: string;
+  @Input() CompetitionId!: number;
 
   Ready: boolean = false;
 
@@ -40,7 +40,7 @@ export class CompetitionInfoGaraComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
 
-    this.competitionInfo = await this.competitionsService.GetCompetitionInfo(this.CompetitionId);
+    this.competitionInfo = await this.competitionsService.GetCompetitionInfo(this.CompetitionId!);
 
     const date = moment(this.competitionInfo.event_date).toDate();
     console.log(date);

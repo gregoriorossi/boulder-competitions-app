@@ -28,7 +28,7 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   LoadRanking = async (): Promise<void> => {
-    this.ranking = await this.competitionsService.GetRanking("1", this.rankingType);
+    this.ranking = await this.competitionsService.GetRanking(1, this.rankingType);
   }
 
   get HasCompetitionStarted(): boolean {
