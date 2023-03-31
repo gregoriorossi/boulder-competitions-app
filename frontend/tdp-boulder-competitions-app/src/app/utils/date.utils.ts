@@ -8,4 +8,8 @@ export class DateUtils {
   public static ToNoTimeZoneDate(year: number, month: number, day: number): Date {
     return new Date(Date.UTC(year, month, day));
   }
+
+  public static ParseFromForm(date: any): Date {
+    return new Date(date!.year, date!.month - 1, date!.day);
+  }
 }

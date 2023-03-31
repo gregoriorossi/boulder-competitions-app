@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Gender, IAthlete } from '../../../models/athletes.models';
 import { ICompetition } from '../../../models/competitions.models';
-import { StatusTypes } from '../../../models/services.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { DialogsService } from '../../../services/dialogs.service';
 import { ToastService } from '../../../services/toast.service';
@@ -28,7 +27,11 @@ export class CompetitionAthletesComponent implements OnInit {
   { }
 
   async ngOnInit(): Promise<void> {
-    this.athletes = await this.competitionsService.GetAthletes();
+    await this.LoadAthletes();
+
+    this.competitionsService.athleteRegisteredToCompetition.subscribe(async (athlete) => {
+      await this.LoadAthletes();
+    });
   }
 
   GetGenderCellClass = (gender: Gender): string => {
@@ -55,6 +58,11 @@ export class CompetitionAthletesComponent implements OnInit {
   OnSendEmailClick = (athlete: IAthlete): void => {
     alert('Sending email to ' + athlete.Name + " " + athlete.Surname);
   }
+
+  private LoadAthletes = async () => {
+    this.athletes = await this.competitionsService.GetAthletes(this.Competition.id);
+  }
+
   private DeleteAthlete = async (athlete: IAthlete) => {
     alert('delete!');
   }

@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { Gender, IAthlete } from '../models/athletes.models';
-import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, IProblemsGroupColor, ICompetitionInfo, IUpdateCompetitionInfoRequest } from '../models/competitions.models';
-import { StatusTypes } from '../models/services.models';
+import { ICompetition, ICompetitionDetails, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, IProblemsGroupColor, ICompetitionInfo, IUpdateCompetitionInfoRequest, IRegisterToCompetitionRequest } from '../models/competitions.models';
+import { IResponse, StatusTypes } from '../models/services.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompetitionsService extends BaseTdpApiService{
+export class CompetitionsService extends BaseTdpApiService {
+
+  private athleteRegisteredToCompetitionSubject = new Subject<IRegisterToCompetitionRequest>();
+  get athleteRegisteredToCompetition(): Observable<IRegisterToCompetitionRequest> {
+    return this.athleteRegisteredToCompetitionSubject.asObservable();
+  }
 
   constructor(httpClient: HttpClient) {
       super(httpClient);
@@ -47,12 +53,8 @@ export class CompetitionsService extends BaseTdpApiService{
     }
   }
 
-  public GetAthletes(): Promise<IAthlete[]> {
-    return Promise.resolve([
-      { Name: "John", Surname: "Doe", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-      { Name: "Jane", Surname: "Doe", BirthDate: new Date(1964, 11, 5), Gender: Gender.FEMALE, Email: "jane.doe@gmail.com" },
-      { Name: "Mario", Surname: "Rossi", BirthDate: new Date(2000, 7, 11), Gender: Gender.MALE, Email: "mario.rossi@libero.it" },
-    ]);
+  public async GetAthletes(competitionId: number): Promise<IAthlete[]> {
+    return await this.get(TDPApiEndpoints.Competitions.GetAthletes(competitionId));
   }
 
   public async SetState(competitionId: number, state: CompetitionStateType): Promise<StatusTypes> {
@@ -67,6 +69,22 @@ export class CompetitionsService extends BaseTdpApiService{
     } catch (err) {
       console.log(err);
       return StatusTypes.ERROR;
+    }
+  }
+
+
+  public RegisterToCompetition = async (competitionId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
+    try {
+      const result = await this.post(TDPApiEndpoints.Competitions.RegisterAthleteToCompetition(competitionId), data);
+      this.athleteRegisteredToCompetitionSubject.next(data);
+      return {
+        Status: StatusTypes.OK
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        Status: StatusTypes.ERROR
+      }
     }
   }
 
@@ -188,67 +206,67 @@ export class CompetitionsService extends BaseTdpApiService{
 
   private GetTestProblems = (): IProblemsGroupColor[] => {
     return [
-      {
-        Color: '#FFF',
-        Difficulty: 1,
-        Problems: [
-          { ID: "1", Name: "1" },
-          { ID: "2", Name: "2" },
-          { ID: "3", Name: "3" },
-          { ID: "4", Name: "4" },
-          { ID: "5", Name: "5" }
-        ]
-      },
-      {
-        Color: '#00F',
-        Difficulty: 2,
-        Problems: [
-          { ID: "1", Name: "1" },
-          { ID: "2", Name: "2" },
-          { ID: "3", Name: "3" },
-          { ID: "4", Name: "4" },
-          { ID: "5", Name: "5" },
-          { ID: "6", Name: "6" }
-        ]
-      },
-      {
-        Color: '#0F0',
-        Difficulty: 3,
-        Problems: [
-          { ID: "1", Name: "1" },
-          { ID: "2", Name: "2" },
-          { ID: "3", Name: "3" },
-          { ID: "4", Name: "4" },
-          { ID: "5", Name: "5" }
-        ]
-      },
-      {
-        Color: '#FF0',
-        Difficulty: 4,
-        Problems: [
-          { ID: "1", Name: "1" },
-          { ID: "2", Name: "2" },
-          { ID: "3", Name: "3" },
-          { ID: "4", Name: "4" }
-        ]
-      },
-      {
-        Color: '#F00',
-        Difficulty: 5,
-        Problems: [
-          { ID: "1", Name: "1" },
-          { ID: "2", Name: "2" },
-          { ID: "2", Name: "3" }
-        ]
-      },
-      {
-        Color: '#000',
-        Difficulty: 6,
-        Problems: [
-          { ID: "1", Name: "1" },
-          { ID: "2", Name: "2" }
-        ]
-      }
+      //{
+      //  Color: '#FFF',
+      //  Difficulty: 1,
+      //  Problems: [
+      //    { ID: "1", Name: "1" },
+      //    { ID: "2", Name: "2" },
+      //    { ID: "3", Name: "3" },
+      //    { ID: "4", Name: "4" },
+      //    { ID: "5", Name: "5" }
+      //  ]
+      //},
+      //{
+      //  Color: '#00F',
+      //  Difficulty: 2,
+      //  Problems: [
+      //    { ID: "1", Name: "1" },
+      //    { ID: "2", Name: "2" },
+      //    { ID: "3", Name: "3" },
+      //    { ID: "4", Name: "4" },
+      //    { ID: "5", Name: "5" },
+      //    { ID: "6", Name: "6" }
+      //  ]
+      //},
+      //{
+      //  Color: '#0F0',
+      //  Difficulty: 3,
+      //  Problems: [
+      //    { ID: "1", Name: "1" },
+      //    { ID: "2", Name: "2" },
+      //    { ID: "3", Name: "3" },
+      //    { ID: "4", Name: "4" },
+      //    { ID: "5", Name: "5" }
+      //  ]
+      //},
+      //{
+      //  Color: '#FF0',
+      //  Difficulty: 4,
+      //  Problems: [
+      //    { ID: "1", Name: "1" },
+      //    { ID: "2", Name: "2" },
+      //    { ID: "3", Name: "3" },
+      //    { ID: "4", Name: "4" }
+      //  ]
+      //},
+      //{
+      //  Color: '#F00',
+      //  Difficulty: 5,
+      //  Problems: [
+      //    { ID: "1", Name: "1" },
+      //    { ID: "2", Name: "2" },
+      //    { ID: "2", Name: "3" }
+      //  ]
+      //},
+      //{
+      //  Color: '#000',
+      //  Difficulty: 6,
+      //  Problems: [
+      //    { ID: "1", Name: "1" },
+      //    { ID: "2", Name: "2" }
+      //  ]
+      //}
     ];
   }
 }

@@ -63,6 +63,10 @@ class CompetitionsController extends Controller
         return response()->json(null, 200);
     }
 
+    public function getAthletes(string $competitionId) {
+        return $this->competitionsRepository->getAthletes($competitionId);
+    }
+ 
     public function store(Request $request)
     {
         $competitionData = array(
@@ -112,6 +116,7 @@ class CompetitionsController extends Controller
                 'email' => $email,
                 'name' => $request->input('Name'),
                 'surname' => $request->input('Surname'),
+                'telephone' => $request->input('Telephone'),
                 'birth_date' => Carbon::parse($request->input('BirthDate')),
                 'gender' => $request->input('Gender')
             );

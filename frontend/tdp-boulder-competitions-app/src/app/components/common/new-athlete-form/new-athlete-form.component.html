@@ -24,7 +24,7 @@
   <div class="form-group mb-2">
     <label for="new-athlete-email" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-12">
-      <input type="text" class="form-control" name="new-athlete-surname" formControlName="Email" required />
+      <input type="text" class="form-control" name="new-athlete-email" formControlName="Email" required />
       <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
         <div *ngIf="email!.errors?.['required']">
           L'email è obbligatoria.
@@ -56,6 +56,17 @@
     </div>
   </div>
   <div class="form-group mb-2">
+    <label for="new-athlete-telephone" class="col-sm-2 col-form-label">Telefono</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" name="new-athlete-telephone" formControlName="Telephone" required />
+      <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
+        <div *ngIf="telephone!.errors?.['required']">
+          Il numero di telefono è obbligatorio
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-2">
     <label for="new-athlete-gender" class="col-sm-2 col-form-label">Sesso</label>
     <div class="col-sm-12">
       <select class="form-control" name="new-athlete-gender" formControlName="Gender" required data-live-search="true">
@@ -71,7 +82,7 @@
   </div>
   <div class="form-group mt-2">
     <div class="col-sm-12 create-button-container">
-      <button type="submit" class="btn btn-primary">Crea</button>
+      <button type="submit" class="btn btn-primary">Aggiungi</button>
     </div>
   </div>
 </form>

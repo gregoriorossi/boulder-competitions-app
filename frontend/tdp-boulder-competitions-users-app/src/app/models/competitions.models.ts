@@ -24,6 +24,7 @@ export interface IRegisterToCompetitionRequest {
   Name: string;
   Surname: string;
   BirthDate: Date;
+  Telephone: string;
   Gender: string;
 }
 

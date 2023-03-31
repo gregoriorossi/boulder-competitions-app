@@ -22,10 +22,10 @@ class ProblemsController extends Controller
         return response()->json($colors, 200);
     }
 
-    public function show(Competition $competition)
+    public function getProblemsByCompetitionId(string $competitionId)
     {
-        $problems = $competition->problems()->get();
-        return response()->json($problems, 200);
+        $colorGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
+        return response()->json($colorGroups, 200);
     }
 
     public function update(Request $request, Problem $problem)
@@ -62,10 +62,18 @@ class ProblemsController extends Controller
         }
     }
 
-    public function delete(Problem $problem)
+    public function deleteProblem(Request $request)
     {
-        $res = $problem->delete();
-        return response()->json(null, 204);
+        $competitionId = $request->input('competitionId');
+        $problemId = $request->input('problemId');
+
+        $result = $this->problemsRepository->deleteProblem($competitionId, $problemId);
+
+        if ($result) {
+            return response()->json(null, 204);
+        } else {
+            return response()->json(null, 500);
+        }
     }
 }
 

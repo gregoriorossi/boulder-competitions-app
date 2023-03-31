@@ -1,18 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Gender, IAddAthleteRequest, IAthlete } from '../models/athletes.models';
+import { TDPApiEndpoints } from '../constants/endpoints';
+import { IAthlete } from '../models/athletes.models';
 import { IResponse, StatusTypes } from '../models/services.models';
+import { BaseTdpApiService } from './base.tdpApi.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AthletesService {
+export class AthletesService extends BaseTdpApiService {
 
-  constructor() { }
-
-  public AddAthlete(athlete: IAddAthleteRequest): Promise<IResponse> {
-    return Promise.resolve({
-      Status: StatusTypes.OK
-    });
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
   }
 
   public DeleteAthlete(athlete: IAthlete): Promise<IResponse> {

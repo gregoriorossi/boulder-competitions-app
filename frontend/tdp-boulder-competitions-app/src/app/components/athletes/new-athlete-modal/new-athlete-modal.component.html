@@ -5,6 +5,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-new-athlete-form (NewAthleteAdded)="OnAthleteAdded($event)"></app-new-athlete-form>
+    <app-new-athlete-form [CompetitionId]="CompetitionId"></app-new-athlete-form>
   </div>
 </ng-template>

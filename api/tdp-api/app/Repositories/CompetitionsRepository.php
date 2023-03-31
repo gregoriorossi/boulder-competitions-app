@@ -25,7 +25,7 @@ class CompetitionsRepository {
         return $result > 0;
     }
 
-    function RegisterUserToCompetition($data) {
+    function RegisterUserToCompetition($registrationData) {
         return DB::table('competitions_registrations')->insert($registrationData);
     }
      
@@ -38,4 +38,24 @@ class CompetitionsRepository {
         DB::Table('competitions_colors')->insert($data);
     }
     
+    function getAthletes($competitionId) {
+        $result = DB::table('competitions_registrations')
+            ->where('id_competition', $competitionId)
+            ->orderBy('surname')
+            ->orderBy('name')
+            ->get();
+
+        return $result->map(function($athlete, $key) {
+            return [
+                'Id' => $athlete->id_registration,
+                'IdCompetition' => $athlete->id_competition,
+                'Name' => $athlete->name,
+                'Surname' => $athlete->surname,
+                'BirthDate' => $athlete->birth_date,
+                'Email'=> $athlete->email,
+                'Telephone' => $athlete->telephone,
+                'Gender' => $athlete->gender,
+            ];
+        });
+    }
 }

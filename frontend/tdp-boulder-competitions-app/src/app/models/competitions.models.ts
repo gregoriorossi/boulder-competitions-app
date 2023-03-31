@@ -1,4 +1,4 @@
-import { IAthlete } from "./athletes.models";
+import { Gender, IAthlete } from "./athletes.models";
 
 export interface ICompetition {
   id: number;
@@ -46,15 +46,19 @@ export interface IProblemColor {
 }
 
 export interface IProblemsGroupColor {
+  Id: number;
+  IdCompetition: number;
   Color: string;
-  Difficulty: number;
+  SortOrder: number;
   Problems: IProblem[];
 }
 
 export interface IProblem {
-  ID?: string;
-  Name: string;
-  Sent?: boolean;
+  Id?: string;
+  Title: string;
+  Sent?: boolean; //todo rimuovere?
+  CompetitionId: number;
+  Color: string;
 }
 
 export interface ICompetitionAthlete extends IAthlete {
@@ -97,4 +101,13 @@ export interface IRank {
 export interface ICompetitionResult {
   Athlete: IAthlete;
   ProblemsGroups: IProblemsGroupColor[];
+}
+
+export interface IRegisterToCompetitionRequest {
+  Email: string;
+  Name: string;
+  Surname: string;
+  BirthDate: Date;
+  Telephone: string;
+  Gender: Gender;
 }

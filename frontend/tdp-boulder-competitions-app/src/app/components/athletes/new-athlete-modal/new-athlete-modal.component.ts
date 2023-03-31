@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAthlete } from '../../../models/athletes.models';
 
@@ -9,11 +9,13 @@ import { IAthlete } from '../../../models/athletes.models';
 })
 export class NewAthleteModalComponent implements OnInit {
 
+  @Input() CompetitionId!: number;
   @ViewChild('modal', { static: true }) modalEl!: ElementRef;
 
   constructor(private modalService: NgbModal) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 
   open() {

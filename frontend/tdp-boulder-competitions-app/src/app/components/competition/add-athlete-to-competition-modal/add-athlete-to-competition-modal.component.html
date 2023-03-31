@@ -1,27 +1,14 @@
 <ng-template #modal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Aggiungi atleta</h4>
+    <h4 class="modal-title">Aggiungi Partecipante</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()">
     </button>
   </div>
   <div class="modal-body">
-    <div class="col-md-12 mb-3">
-      <input type="text"
-             class="form-control"
-             autocomplete="off"
-             [inputFormatter]="FormatSearchTips"
-             [resultFormatter]="FormatSearchTips"
-             [ngbTypeahead]="Search" />
-    </div>
     <div class="col-md-12">
-      <ngb-accordion #acc="ngbAccordion">
-        <ngb-panel title="Registra nuovo atleta">
-          <ng-template ngbPanelContent>
-            <app-new-athlete-form (NewAthleteAdded)="OnNewAthleteAdded($event)">
-            </app-new-athlete-form>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+      <app-new-athlete-form [CompetitionId]="CompetitionId"
+                            (NewAthleteAdded)="OnNewAthleteAdded()">
+      </app-new-athlete-form>
     </div>
   </div>
 </ng-template>

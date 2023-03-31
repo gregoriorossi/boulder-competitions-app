@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Gender, IAthlete } from '../../models/athletes.models';
 import { StatusTypes } from '../../models/services.models';
 import { AthletesService } from '../../services/athletes.service';
@@ -14,8 +14,9 @@ import { DateUtils } from '../../utils/date.utils';
 })
 export class AthletesComponent implements OnInit {
 
-  DateUtils = DateUtils;
+  @Input() CompetitionId!: number;
 
+  DateUtils = DateUtils;
   athletes: IAthlete[] = [];
 
   constructor(private competitionsService: CompetitionsService,
@@ -25,7 +26,7 @@ export class AthletesComponent implements OnInit {
   { }
 
   async ngOnInit(): Promise<void> {
-    this.athletes = await this.competitionsService.GetAthletes();
+    //this.athletes = await this.competitionsService.GetAthletes();
   }
 
   GetGenderClass = (gender: Gender): string => {

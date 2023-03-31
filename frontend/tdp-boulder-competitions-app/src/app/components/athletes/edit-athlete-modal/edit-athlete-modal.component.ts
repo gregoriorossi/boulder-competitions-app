@@ -22,8 +22,4 @@ export class EditAthleteModalComponent implements OnInit {
     console.log(athlete);
     this.modalService.open(this.modalEl, { ariaLabelledBy: 'modal-basic-title' });
   }
-
-  OnAthleteChanged = (athlete: IAthlete): void => {
-    this.modalService.dismissAll();
-  }
 }

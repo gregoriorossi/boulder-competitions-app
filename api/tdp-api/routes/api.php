@@ -25,6 +25,7 @@ Route::get('competitions', [CompetitionsController::class, 'index']);
 Route::get('competitions/{competitionId}', [CompetitionsController::class, 'show']);
 Route::get('competitions/{competitionId}/info', [CompetitionsController::class, 'fullInfo']);
 Route::post('competitions/{competitionId}/info', [CompetitionsController::class, 'updateInfo']);
+Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 
 Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
 
@@ -34,10 +35,11 @@ Route::delete('competitions/{competition}', [CompetitionsController::class, 'del
 Route::post('competitions/setState', [CompetitionsController::class, 'setState']);
 
 Route::get('problems/{competitionId}/colors', [ProblemsController::class, 'getColorsByCompetitionId']);
-Route::get('problems/{competition}', [ProblemsController::class, 'show']);
+Route::get('problems/{competitionId}', [ProblemsController::class, 'getProblemsByCompetitionId']);
+
 Route::post('problems', [ProblemsController::class, 'store']);
 Route::put('problems/{problem}', [ProblemsController::class, 'update']);
-Route::delete('problems/{problem}', [ProblemsController::class, 'delete']);
+Route::post('problems/delete', [ProblemsController::class, 'deleteProblem']);
 Route::post('problems/storeMultiple', [ProblemsController::class, 'storeMultiple']);
 
 

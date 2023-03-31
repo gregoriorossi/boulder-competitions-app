@@ -61,6 +61,18 @@
   </div>
 
   <div class="form-group mb-2">
+    <label for="user-registration-telephone" class="col-sm-2 col-form-label">Telefono</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" name="user-registration-telephone" formControlName="Telephone" required />
+      <div *ngIf="formSubmittedAtLeastOnce && telephone!.invalid" class="alert alert-danger">
+        <div *ngIf="telephone!.errors?.['required']">
+          Il numero di telefono è obbligatorio
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group mb-2">
     <label for="user-registration-gender" class="col-sm-2 col-form-label">Sesso</label>
     <div class="col-sm-12">
       <select class="form-control" name="user-registration-gender" formControlName="Gender" required data-live-search="true">

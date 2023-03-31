@@ -61,6 +61,7 @@ export class RegistrationFormComponent implements OnInit {
       Name: this.form.get('Name')?.value,
       Surname: this.form.get('Surname')?.value,
       BirthDate: DateUtils.ToNoTimeZoneDate(date.year, date!.month - 1, date!.day),
+      Telephone: this.form.get('Telephone')?.value,
       Gender: this.form.get('Gender')?.value
     };
 

@@ -1,6 +1,6 @@
 <div class="problem me-3" (click)="open(editproblemmodal)">
   <h3>
-    <span class="badge bg-primary me-1 {{GetCssColorClass(Color)}}">{{Problem.Name}}</span>
+    <span class="badge bg-primary me-1 {{GetCssColorClass(Color)}}">{{Problem.Title}}</span>
   </h3>
 </div>
 
@@ -28,7 +28,7 @@
       </div>
       <div class="form-group mt-2">
         <div class="col-sm-12 float-end">
-          <button class="btn btn-danger float-start" [disabled]="DeleteButtonDisabled">Elimina</button>
+          <button class="btn btn-danger float-start" [disabled]="DeleteButtonDisabled" (click)="OnDeleteProblemClick()">Elimina</button>
           <button type="submit" class="btn btn-primary float-end" [disabled]="EditButtonDisabled">Salva</button>
         </div>
       </div>

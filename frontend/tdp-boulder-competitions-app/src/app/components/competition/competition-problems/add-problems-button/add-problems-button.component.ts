@@ -86,9 +86,9 @@ export class AddProblemsButtonComponent implements OnInit {
     const problems: IProblem[] = [];
 
     for (let i = lowerLimit; i <= upperLimit; i++) {
-      problems.push({
-        Name: i.toString()
-      });
+      //problems.push({
+      //  Title: i.toString()
+      //});
     }
 
     return problems;

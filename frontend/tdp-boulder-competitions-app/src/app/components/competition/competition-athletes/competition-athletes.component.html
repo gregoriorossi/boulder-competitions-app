@@ -50,7 +50,9 @@
     </tbody>
   </table>
 </div>
-<app-add-athlete-to-competition-modal #athletemodal></app-add-athlete-to-competition-modal>
+<app-add-athlete-to-competition-modal #athletemodal
+                                      [CompetitionId]="Competition.id">
+</app-add-athlete-to-competition-modal>
 
 <app-edit-athlete-modal #editathletemodal></app-edit-athlete-modal>
-<app-new-athlete-modal #newathletemodal></app-new-athlete-modal>
+<!--<app-new-athlete-modal #newathletemodal [CompetitionId]="Competition.id"></app-new-athlete-modal>-->
