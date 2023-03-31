@@ -58,4 +58,13 @@ class CompetitionsRepository {
             ];
         });
     }
+
+    function deleteRegistration(string $competitionId, string $athleteId) {
+        $result = DB::table('competitions_registrations')
+            ->where('id_registration', $athleteId)
+            ->where('id_competition', $competitionId)
+            ->delete();
+
+        return $result;
+    }
 }

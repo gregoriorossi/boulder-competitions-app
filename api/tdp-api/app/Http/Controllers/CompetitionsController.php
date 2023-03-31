@@ -11,15 +11,19 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Repositories\CompetitionsRepository;
+use App\Repositories\ProblemsRepository;
 
 class CompetitionsController extends Controller
 {
     protected $competitionsRepository;
+    protected $problemsRepository;
 
     public function __construct(
-        CompetitionsRepository $competitionsRepository
+        CompetitionsRepository $competitionsRepository,
+        ProblemsRepository $problemsRepository
     ) {
         $this->competitionsRepository = $competitionsRepository;
+        $this->problemsRepository = $problemsRepository;
     }
 
     public function index()
@@ -127,6 +131,12 @@ class CompetitionsController extends Controller
             // già registrato
             return response()->json(null, 500);
         }
-        
+    }
+
+    public function deleteRegistration(string $competitionId, string $athleteId) {
+        $this->competitionsRepository->deleteRegistration($competitionId, $athleteId);
+        $this->problemsRepository->deleteSentProblems($competitionId, $athleteId);
+
+        return response()->json(null, 204);
     }
 }

@@ -163,44 +163,54 @@ export class CompetitionsService extends BaseTdpApiService {
     }
   }
 
+  public async DeleteRegistrationToCompetition(competitionId: number, athleteId: number): Promise<StatusTypes> {
+    try {
+      await this.delete(TDPApiEndpoints.Competitions.DeleteRegistration(competitionId, athleteId));
+      return StatusTypes.OK;
+    } catch (err) {
+      console.log(err);
+      return StatusTypes.ERROR;
+    }
+  }
+
   public GetResults = (competitionId: number): Promise<ICompetitionResult[]> => {
     return Promise.resolve([
-      {
-        Athlete: { Name: "Gianluca", Surname: "Nicoletti", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Scarlett", Surname: "Johansson", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Luca", Surname: "Giurato", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Michael", Surname: "Scott", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Ricky", Surname: "Gervais", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Susy", Surname: "Monte", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Laura", Surname: "Rogora", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Diletta", Surname: "Leotta", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
-      {
-        Athlete: { Name: "Jane", Surname: "Doe", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-        ProblemsGroups: this.GetTestProblems()
-      },
+      //{
+      //  Athlete: { Name: "Gianluca", Surname: "Nicoletti", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Scarlett", Surname: "Johansson", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Luca", Surname: "Giurato", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Michael", Surname: "Scott", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Ricky", Surname: "Gervais", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Susy", Surname: "Monte", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Laura", Surname: "Rogora", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Diletta", Surname: "Leotta", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
+      //{
+      //  Athlete: { Name: "Jane", Surname: "Doe", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
+      //  ProblemsGroups: this.GetTestProblems()
+      //},
     ]);
   }
 

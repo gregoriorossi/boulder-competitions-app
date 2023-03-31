@@ -55,4 +55,13 @@ class ProblemsRepository {
 
         return $result > 0;
     }
+
+    function deleteSentProblems(string $competitionId, string $athleteId) {
+        $result = DB::Table('sent_problems')
+        ->where('competition_id', $competitionId)
+        ->where('athlete_id', $athleteId)
+        ->delete();
+
+        return $result > 0;
+    }
 }

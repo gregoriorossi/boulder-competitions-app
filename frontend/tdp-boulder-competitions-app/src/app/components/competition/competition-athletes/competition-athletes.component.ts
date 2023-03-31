@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Gender, IAthlete } from '../../../models/athletes.models';
 import { ICompetition } from '../../../models/competitions.models';
+import { StatusTypes } from '../../../models/services.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { DialogsService } from '../../../services/dialogs.service';
 import { ToastService } from '../../../services/toast.service';
@@ -64,6 +65,14 @@ export class CompetitionAthletesComponent implements OnInit {
   }
 
   private DeleteAthlete = async (athlete: IAthlete) => {
-    alert('delete!');
+    const athleteFullName: string = `${athlete.Name} ${athlete.Surname}`;
+    const result = await this.competitionsService.DeleteRegistrationToCompetition(this.Competition.id, athlete.Id);
+    if (result === StatusTypes.OK) {
+      this.toastService.showSuccess(`${athleteFullName} cancellato con successo`);
+    } else {
+      this.toastService.showDanger(`Errore nella cancellazione di ${athleteFullName}`);
+    }
+
+    await this.LoadAthletes();
   }
 }
