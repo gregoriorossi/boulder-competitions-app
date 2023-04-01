@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IAthlete } from '../../../models/athletes.models';
 
 @Component({
   selector: 'app-new-athlete-modal',
@@ -20,9 +19,5 @@ export class NewAthleteModalComponent implements OnInit {
 
   open() {
     this.modalService.open(this.modalEl, { ariaLabelledBy: 'modal-basic-title' });
-  }
-
-  OnAthleteAdded = (athlete: IAthlete): void => {
-    this.modalService.dismissAll();
   }
 }

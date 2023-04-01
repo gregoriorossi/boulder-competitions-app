@@ -10,6 +10,7 @@ export const TDPApiEndpoints = {
     Delete: (id: number) => `competitions/${id}`,
     DeleteRegistration: (competitionId: number, athleteId: number) => `competitions/${competitionId}/${athleteId}/register`,
     RegisterAthleteToCompetition: (id: number) => `competitions/${id}/register`,
+    UpdateRegistrationToCompetition: (competitionId: number, athleteId: number) => `competitions/${competitionId}/${athleteId}/register`,
     SetState: `competitions/setState`
   },
   Problems: {

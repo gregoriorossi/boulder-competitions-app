@@ -18,7 +18,7 @@ export class CompetitionsService extends BaseTdpApiService {
   }
 
   constructor(httpClient: HttpClient) {
-      super(httpClient);
+    super(httpClient);
   }
 
   public async GetCompetitions(): Promise<ICompetition[]> {
@@ -76,6 +76,21 @@ export class CompetitionsService extends BaseTdpApiService {
   public RegisterToCompetition = async (competitionId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
     try {
       const result = await this.post(TDPApiEndpoints.Competitions.RegisterAthleteToCompetition(competitionId), data);
+      this.athleteRegisteredToCompetitionSubject.next(data);
+      return {
+        Status: StatusTypes.OK
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        Status: StatusTypes.ERROR
+      }
+    }
+  }
+
+  public UpdateRegistrationToCompetition = async (competitionId: number, athleteId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
+    try {
+      const result = await this.put(TDPApiEndpoints.Competitions.UpdateRegistrationToCompetition(competitionId, athleteId), data);
       this.athleteRegisteredToCompetitionSubject.next(data);
       return {
         Status: StatusTypes.OK

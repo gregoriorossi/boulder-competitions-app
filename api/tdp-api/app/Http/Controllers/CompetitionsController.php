@@ -133,6 +133,24 @@ class CompetitionsController extends Controller
         }
     }
 
+    public function updateRegistration(string $competitionId, string $athleteId, Request $request) {
+        $email = trim($request->input('Email'));
+        $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
+
+        $registrationData = array(
+            'id_competition' => $competitionId,
+            'email' => $email,
+            'name' => $request->input('Name'),
+            'surname' => $request->input('Surname'),
+            'telephone' => $request->input('Telephone'),
+            'birth_date' => Carbon::parse($request->input('BirthDate')),
+            'gender' => $request->input('Gender')
+        );
+
+        $this->competitionsRepository->updateRegistration($competitionId, $athleteId, $registrationData);
+        return response()->json(null, 204);
+    }
+
     public function deleteRegistration(string $competitionId, string $athleteId) {
         $this->competitionsRepository->deleteRegistration($competitionId, $athleteId);
         $this->problemsRepository->deleteSentProblems($competitionId, $athleteId);

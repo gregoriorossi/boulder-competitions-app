@@ -28,6 +28,7 @@ Route::post('competitions/{competitionId}/info', [CompetitionsController::class,
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 
 Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
+Route::put('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'updateRegistration']);
 Route::delete('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'deleteRegistration']);
 
 Route::post('competitions', [CompetitionsController::class, 'store']);

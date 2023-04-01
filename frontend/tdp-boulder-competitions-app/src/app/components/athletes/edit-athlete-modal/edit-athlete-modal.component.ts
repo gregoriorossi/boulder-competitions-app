@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAthlete } from '../../../models/athletes.models';
 
@@ -15,11 +15,15 @@ export class EditAthleteModalComponent implements OnInit {
 
   constructor(private modalService: NgbModal) { }
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {
+  }
 
   open(athlete: IAthlete) {
-    console.log(athlete);
+    this.Athlete = athlete;
     this.modalService.open(this.modalEl, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  OnAthleteUpdated = (athlete: IAthlete): void => {
+    this.modalService.dismissAll();
   }
 }

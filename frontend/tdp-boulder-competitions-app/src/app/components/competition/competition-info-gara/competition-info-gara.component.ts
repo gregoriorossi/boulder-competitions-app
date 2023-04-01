@@ -7,7 +7,6 @@ import { TextEditorUtils } from '../../../utils/text-editor.utils';
 import * as moment from 'moment';
 import { DateUtils } from '../../../utils/date.utils';
 import { StatusTypes } from '../../../models/services.models';
-import { DialogsService } from '../../../services/dialogs.service';
 import { ToastService } from '../../../services/toast.service';
 
 @Component({

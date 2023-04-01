@@ -1,22 +1,23 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Gender } from '../../../models/athletes.models';
+import { Gender, IAthlete } from '../../../models/athletes.models';
 import { IRegisterToCompetitionRequest } from '../../../models/competitions.models';
 import { StatusTypes } from '../../../models/services.models';
 import { CompetitionsService } from '../../../services/competitions.service';
 import { ToastService } from '../../../services/toast.service';
 import { DateUtils } from '../../../utils/date.utils';
+import * as moment from 'moment';
 
 @Component({
-  selector: 'app-new-athlete-form',
-  templateUrl: './new-athlete-form.component.html',
-  styleUrls: ['./new-athlete-form.component.scss']
+  selector: 'app-edit-athlete-form',
+  templateUrl: './edit-athlete-form.component.html',
+  styleUrls: ['./edit-athlete-form.component.scss']
 })
-export class NewAthleteFormComponent implements OnInit {
+export class EditAthleteFormComponent implements OnInit {
 
-  @Output() NewAthleteAdded = new EventEmitter<void>();
-  @Input() CompetitionId!: number;
-  
+  @Output() AthleteUpdated = new EventEmitter<IAthlete>();
+  @Input() Athlete!: IAthlete;
+
   form!: FormGroup;
   formSubmittedAtLeastOnce: boolean = false;
 
@@ -27,13 +28,16 @@ export class NewAthleteFormComponent implements OnInit {
     private toastService: ToastService) { }
 
   ngOnInit(): void {
+
+    const date = moment(this.Athlete.BirthDate).toDate();
+
     this.form = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
-      Surname: new FormControl('', [Validators.required]),
-      Email: new FormControl('', [Validators.required]),
-      BirthDate: new FormControl('', [Validators.required]),
-      Telephone: new FormControl('', [Validators.required]),
-      Gender: new FormControl(Gender.MALE, [Validators.required])
+      Name: new FormControl(this.Athlete.Name, [Validators.required]),
+      Surname: new FormControl(this.Athlete.Surname, [Validators.required]),
+      Email: new FormControl(this.Athlete.Email, [Validators.required, Validators.email]),
+      BirthDate: new FormControl({ day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear() }, [Validators.required]),
+      Telephone: new FormControl(this.Athlete.Telephone, [Validators.required]),
+      Gender: new FormControl(this.Athlete.Gender, [Validators.required])
     });
   }
 
@@ -62,16 +66,16 @@ export class NewAthleteFormComponent implements OnInit {
       Email: this.form.get('Email')?.value,
     };
 
-    const result = await this.competitionsService.RegisterToCompetition(this.CompetitionId, model);
+    const result = await this.competitionsService.UpdateRegistrationToCompetition(this.Athlete.IdCompetition, this.Athlete.Id, model);
     if (result.Status === StatusTypes.OK) {
-      this.toastService.showSuccess(`${model.Name} ${model.Surname} aggiunto con successo`);
-      this.NewAthleteAdded.emit();
+      this.toastService.showSuccess(`${model.Name} ${model.Surname} aggiornato con successo`);
+      this.AthleteUpdated.emit(this.Athlete);
       setTimeout(() => {
         this.form.reset();
         this.formSubmittedAtLeastOnce = false;
       }, 200);
     } else {
-      this.toastService.showDanger(`Errore nell'aggiunta del partecipante ${model.Name} ${model.Surname}`);
+      this.toastService.showDanger(`Errore nell'aggiornamento del partecipante ${model.Name} ${model.Surname}`);
     }
   }
 }

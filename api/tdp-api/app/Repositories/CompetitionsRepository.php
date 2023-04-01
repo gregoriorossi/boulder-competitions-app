@@ -59,6 +59,13 @@ class CompetitionsRepository {
         });
     }
 
+    function updateRegistration(string $competitionId, string $athleteId, $registrationData) {
+        return DB::table('competitions_registrations')
+            ->where('id_registration', $athleteId)
+            ->where('id_competition', $competitionId)
+            ->update($registrationData);
+    }
+
     function deleteRegistration(string $competitionId, string $athleteId) {
         $result = DB::table('competitions_registrations')
             ->where('id_registration', $athleteId)

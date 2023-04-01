@@ -40,4 +40,12 @@ export class BaseTdpApiService {
       .toPromise()
       .then((response) => response as T);
   }
+
+  protected put<T>(endpoint: string, body: any): Promise<T> {
+    const url = this.BuildUrl(endpoint);
+
+    return this.httpClient.put(url, body)
+      .toPromise()
+      .then((response) => response as T);
+  }
 }

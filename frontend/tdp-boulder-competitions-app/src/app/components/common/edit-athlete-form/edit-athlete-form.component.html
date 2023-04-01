@@ -1,0 +1,88 @@
+<form [formGroup]="form" (ngSubmit)="OnCreateClick()" novalidate>
+  <div class="form-group mb-2">
+    <label for="new-athlete-name" class="col-sm-2 col-form-label">Nome</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" name="new-athlete-name" formControlName="Name" required />
+      <div *ngIf="formSubmittedAtLeastOnce && name!.invalid" class="alert alert-danger">
+        <div *ngIf="name!.errors?.['required']">
+          Il nome è obbligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-2">
+    <label for="new-athlete-surname" class="col-sm-2 col-form-label">Cognome</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" name="new-athlete-surname" formControlName="Surname" required />
+      <div *ngIf="formSubmittedAtLeastOnce && surname!.invalid" class="alert alert-danger">
+        <div *ngIf="surname!.errors?.['required']">
+          Il cognome è obbligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-2">
+    <label for="new-athlete-email" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" name="new-athlete-email" formControlName="Email" required />
+      <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
+        <div *ngIf="email!.errors?.['required']">
+          L'email è obbligatoria.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-2 mr-sm-2">
+    <label for="new-competition-birth-date" class="col-md-12 col-form-label">Data di nascita</label>
+    <div class="input-group-append">
+      <div class="input-group-text"
+           (click)="d.toggle()">
+        &nbsp;<i class="fa fa-calendar"></i>&nbsp;
+      </div>
+    </div>
+    <input type="text"
+           autocomplete="off"
+           ngbDatepicker
+           #d="ngbDatepicker"
+           (click)="d.toggle()"
+           class="form-control"
+           formControlName="BirthDate"
+           name="new-competition-birth-date"
+           placeholder="Seleziona una data">
+    <div *ngIf="formSubmittedAtLeastOnce && birthDate!.invalid" class=" col-md-12 alert alert-danger">
+      <div *ngIf="birthDate!.errors?.['required']">
+        La data di nascita è obbligatoria.
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-2">
+    <label for="new-athlete-telephone" class="col-sm-2 col-form-label">Telefono</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" name="new-athlete-telephone" formControlName="Telephone" required />
+      <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
+        <div *ngIf="telephone!.errors?.['required']">
+          Il numero di telefono è obbligatorio
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-2">
+    <label for="new-athlete-gender" class="col-sm-2 col-form-label">Sesso</label>
+    <div class="col-sm-12">
+      <select class="form-control" name="new-athlete-gender" formControlName="Gender" required data-live-search="true">
+        <option value={{Gender.MALE}}>Uomo</option>
+        <option value={{Gender.FEMALE}}>Donna</option>
+      </select>
+      <div *ngIf="formSubmittedAtLeastOnce && gender!.invalid" class="alert alert-danger">
+        <div *ngIf="gender!.errors?.['required']">
+          Il sesso è obbligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group mt-2">
+    <div class="col-sm-12 create-button-container">
+      <button type="submit" class="btn btn-primary">Modifica</button>
+    </div>
+  </div>
+</form>
