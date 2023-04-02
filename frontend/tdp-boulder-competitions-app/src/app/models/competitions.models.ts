@@ -54,7 +54,7 @@ export interface IProblemsGroupColor {
 }
 
 export interface IProblem {
-  Id?: string;
+  Id: number;
   Title: string;
   Sent?: boolean; //todo rimuovere?
   CompetitionId: number;

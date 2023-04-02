@@ -39,8 +39,7 @@ Route::post('competitions/setState', [CompetitionsController::class, 'setState']
 Route::get('problems/{competitionId}/colors', [ProblemsController::class, 'getColorsByCompetitionId']);
 Route::get('problems/{competitionId}', [ProblemsController::class, 'getProblemsByCompetitionId']);
 
-Route::post('problems', [ProblemsController::class, 'store']);
-Route::put('problems/{problem}', [ProblemsController::class, 'update']);
+Route::put('problems/{competitionId}/{problemId}', [ProblemsController::class, 'updateProblem']);
 Route::post('problems/delete', [ProblemsController::class, 'deleteProblem']);
 Route::post('problems/storeMultiple', [ProblemsController::class, 'storeMultiple']);
 

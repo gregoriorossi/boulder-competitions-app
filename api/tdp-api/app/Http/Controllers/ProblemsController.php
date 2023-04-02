@@ -28,38 +28,21 @@ class ProblemsController extends Controller
         return response()->json($colorGroups, 200);
     }
 
-    public function update(Request $request, Problem $problem)
+    public function updateProblem(string $competitionId, string $problemId, Request $request)
     {
-        $problem->update($request->all());
-
-        return response()->json($problem, 200);
-    }
-
-    public function store(Request $request)
-    {
-        $competitionId = $request->input('competitionId');
-        $competition = Competition::findOrFail($competitionId);
-
-        $problem = array(
-            'title' => $request->input('title'),
-            'color' => $request->input('color'),
-            'difficulty' => $request->input('difficulty'),
-        );
-
-        $problem = Problem::create($problem);
-        $competition->problems()->save($problem);
+        $title = $request->input('Title');
+        $this->problemsRepository->updateProblem($competitionId, $problemId, $title);
+        return response()->json(null, 204);
     }
 
     public function storeMultiple(Request $request)
     {
-        $competitionId = $request->input('competitionId');
-        $competition = Competition::findOrFail($competitionId);
-
-        $problems = $request->problems;
-        
-        foreach($problems as $problem) {
-            $competition->problems()->save(Problem::create($problem));
-        }
+        $competitionId = $request->input('CompetitionId');
+        $colorId = $request->input('ColorId');
+        $problems = $request->Problems;
+ 
+        $colors = $this->problemsRepository->storeMultiple($competitionId, $colorId, $problems);
+        return response()->json(null, 204);
     }
 
     public function deleteProblem(Request $request)

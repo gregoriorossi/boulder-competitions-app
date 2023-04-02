@@ -17,6 +17,7 @@ export const TDPApiEndpoints = {
     DeleteProblem: "problems/delete",
     Get: (competitionId: number) => `problems/${competitionId}`,
     GetColorsByCompetitionId: (competitionId: number) => `problems/${competitionId}/colors`,
-    StoreMultiple: "problems/storeMultiple"
+    StoreMultiple: "problems/storeMultiple",
+    UpdateProblem: (competitionId: number, problemId: number) => `problems/${competitionId}/${problemId}`,
   }
 }

@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ColorCodes } from '../../../../models/common.models';
-import { IProblem } from '../../../../models/competitions.models';
-import { IStoreMultipleProblemsRequest } from '../../../../models/problems.models';
+import { IProblemColor } from '../../../../models/competitions.models';
+import { IStoreMultipleProblemsRequest, IStoreMultipleProblemsRequestProblem } from '../../../../models/problems.models';
 import { ProblemsService } from '../../../../services/problems.service';
 import { ToastService } from '../../../../services/toast.service';
 
@@ -14,21 +13,22 @@ import { ToastService } from '../../../../services/toast.service';
 })
 export class AddProblemsButtonComponent implements OnInit {
 
-  @Input() CompetitionId!: number | undefined;
+  @Input() CompetitionId!: number;
 
   form!: FormGroup;
   formSubmittedAtLeastOnce: boolean = false;
   CreateButtonDisabled: boolean = false;
 
-  colors: ColorCodes[] = [];
+  colors: IProblemColor[] = [];
 
   constructor(
     private modalService: NgbModal,
     private problemsService: ProblemsService,
     private toastService: ToastService) { }
 
-  ngOnInit(): void {
-    this.colors = this.GetColors();
+  async ngOnInit(): Promise<void> {
+    this.colors = await this.GetColors();
+
     this.form = new FormGroup({
       ProblemsNamesLower: new FormControl('1', [Validators.required]),
       ProblemsNamesUpper: new FormControl('2', [Validators.required]),
@@ -52,8 +52,9 @@ export class AddProblemsButtonComponent implements OnInit {
 
     const problems = this.BuildProblemsFromForm();
     const model: IStoreMultipleProblemsRequest = {
-      competitionId: this.CompetitionId!,
-      problems: problems
+      CompetitionId: this.CompetitionId,
+      ColorId: this.color?.value,
+      Problems: problems
     };
 
     this.problemsService.StoreMultiple(model)
@@ -61,34 +62,28 @@ export class AddProblemsButtonComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  OnColorClick = (color: ColorCodes) => {
-    this.form.patchValue({ ProblemsColor: color });
+  OnColorClick = (color: IProblemColor) => {
+    this.form.patchValue({ ProblemsColor: color.Id });
   }
 
-  IsColorSelected = (color: ColorCodes) => {
-    return color === this.color?.value;
+  IsColorSelected = (color: IProblemColor) => {
+    return color.Id === this.color?.value;
   }
 
-  private GetColors = (): ColorCodes[] => {
-    return [
-      ColorCodes.WHITE,
-      ColorCodes.BLUE,
-      ColorCodes.GREEN,
-      ColorCodes.YELLOW,
-      ColorCodes.RED,
-      ColorCodes.BLACK
-    ];
+  private GetColors = async (): Promise<any[]> => {
+    const colors = await this.problemsService.GetColorsByCompetitionId(this.CompetitionId);
+    return colors;
   }
 
-  private BuildProblemsFromForm = (): IProblem[] => {
+  private BuildProblemsFromForm = (): IStoreMultipleProblemsRequestProblem[] => {
     const lowerLimit: number = Number.parseInt(this.form.get('ProblemsNamesLower')?.value);
     const upperLimit: number = Number.parseInt(this.form.get('ProblemsNamesUpper')?.value);
-    const problems: IProblem[] = [];
+    const problems: IStoreMultipleProblemsRequestProblem[] = [];
 
     for (let i = lowerLimit; i <= upperLimit; i++) {
-      //problems.push({
-      //  Title: i.toString()
-      //});
+      problems.push({
+        Title: i.toString()
+      });
     }
 
     return problems;

@@ -11,7 +11,7 @@ import { CompetitionsUtils } from '../../../utils/competitions.utils';
 export class CompetitionProblemsComponent implements OnInit {
 
   ProblemGroups: IProblemsGroupColor[] = [];
-  @Input() CompetitionId!: number | undefined;
+  @Input() CompetitionId!: number;
 
   CompetitionsUtils = CompetitionsUtils;
 
@@ -20,8 +20,8 @@ export class CompetitionProblemsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.LoadProblems();
 
-    this.problemsService.problemsUpdatedObservable$.subscribe(() => {
-      this.LoadProblems();
+    this.problemsService.problemsUpdatedObservable$.subscribe(async () => {
+      await this.LoadProblems();
     }); 
   }
 
@@ -29,7 +29,7 @@ export class CompetitionProblemsComponent implements OnInit {
     this.ProblemGroups = await this.problemsService.GetByCompetitionId(this.CompetitionId!);
   }
 
-  OnProblemChange = ($event: any): void => {
-    console.log($event);
+  OnProblemEdited = async (): Promise<void> => {
+    await this.LoadProblems();
   }
 }

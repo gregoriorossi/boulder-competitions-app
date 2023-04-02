@@ -26,6 +26,7 @@ class ProblemsRepository {
             ->join('competitions_colors', 'problems.color_id', '=', 'competitions_colors.id_color')
             ->select('problems.*', 'competitions_colors.color')
             ->where('color_id', $colorId)
+            ->orderBy('title')
             ->get();
 
         return $result->map(function($problem, $key) {
@@ -47,6 +48,19 @@ class ProblemsRepository {
         });
     }
 
+    function updateProblem(string $competitionId, string $problemId, string $title) {
+        $data = array(
+            "title" => $title
+        );
+
+        $result = DB::Table('problems')
+            ->where('id', $problemId)
+            ->where('competition_id', $competitionId)
+            ->update($data);
+
+        return $result > 0;
+    }
+
     function deleteProblem(string $competitionId, string $problemId) {
         $result = DB::Table('problems')
             ->where('id', $problemId)
@@ -54,6 +68,20 @@ class ProblemsRepository {
             ->delete();
 
         return $result > 0;
+    }
+
+    function storeMultiple($competitionId, $colorId, $problems) {
+        foreach($problems as $problem) {
+            print_r($problem);
+            $data = array(
+                "title" => $problem["Title"],
+                "competition_id" => $competitionId,
+                "color_id" => $colorId
+            );
+
+            DB::Table('problems')
+                ->insert($data);
+        }
     }
 
     function deleteSentProblems(string $competitionId, string $athleteId) {

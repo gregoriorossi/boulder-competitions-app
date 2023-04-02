@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { IProblemColor, IProblemsGroupColor } from '../models/competitions.models';
-import { IStoreMultipleProblemsRequest } from '../models/problems.models';
+import { IStoreMultipleProblemsRequest, IUpdateProblemRequest } from '../models/problems.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
 @Injectable({
@@ -28,6 +28,14 @@ export class ProblemsService extends BaseTdpApiService {
 
   public async StoreMultiple(model: IStoreMultipleProblemsRequest): Promise<void> {
     await this.post(TDPApiEndpoints.Problems.StoreMultiple, model);
+  }
+
+  public async UpdateProblem(model: IUpdateProblemRequest): Promise<void> {
+    const data = {
+      Title: model.Title
+    };
+
+    await this.put(TDPApiEndpoints.Problems.UpdateProblem(model.CompetitionId, model.ProblemId), data);
   }
 
   public async DeleteProblem(competitionId: number, problemId: number): Promise<any> {

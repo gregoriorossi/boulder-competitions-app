@@ -16,7 +16,8 @@
     <ng-container *ngFor="let problem of group.Problems">
       <app-editable-problem [CompetitionId]="CompetitionId"
                             [Problem]="problem"
-                            [Color]="group.Color">
+                            [Color]="group.Color"
+                            (OnEdit)="OnProblemEdited()">
     </app-editable-problem>
     </ng-container>
   </div>

@@ -35,7 +35,7 @@
         <ng-container *ngFor="let color of colors">
           <span class="problem-color-box"
                 [class.selected]="IsColorSelected(color)"
-                [ngStyle]="{'background-color': color}"
+                [ngStyle]="{'background-color': color.Color}"
                 (click)="OnColorClick(color)">
             &nbsp;
           </span>
