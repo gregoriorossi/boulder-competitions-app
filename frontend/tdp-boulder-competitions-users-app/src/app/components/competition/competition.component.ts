@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { GetCompetitionToRegisterForStatus, ICompetition } from "../../models/competitions.models";
+import { GetCompetitionToRegisterForStatus, ICompetitionInfo } from "../../models/competitions.models";
 import { CompetitionsService } from "../../services/competitions.service";
 import { DialogsService } from "../../services/dialogs.service";
 import { DateUtils } from "../../utils/date.utils";
@@ -12,7 +12,7 @@ import { DateUtils } from "../../utils/date.utils";
 })
 export class CompetitonComponent implements OnInit {
 
-  Competition!: ICompetition;
+  Competition!: ICompetitionInfo;
   CompetitionStatus!: GetCompetitionToRegisterForStatus;
 
   CompetitionComponentTabs = CompetitionComponentTabs;
@@ -20,7 +20,7 @@ export class CompetitonComponent implements OnInit {
 
   ready: boolean = false;
 
-  competitionId!: string;
+  competitionId!: number;
   userId!: string;
 
   DateUtils = DateUtils;
@@ -35,13 +35,13 @@ export class CompetitonComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.activetedRoute.params.subscribe(async params => {
-      this.competitionId = params["id"];
+      this.competitionId = Number.parseInt(params["id"]);
       this.userId = params["user"];
 
       // TODO check se l'utente è iscritto
 
-      const result = await this.competitionsService.GetCompetition(this.competitionId);
-      this.Competition = result.Competition;
+      const result = await this.competitionsService.GetCompetitionInfo(this.competitionId);
+      this.Competition = result;
 
       this.ready = true;
     });

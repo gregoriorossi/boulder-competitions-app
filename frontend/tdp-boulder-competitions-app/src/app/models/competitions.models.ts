@@ -1,17 +1,17 @@
 import { Gender, IAthlete } from "./athletes.models";
 
 export interface ICompetition {
-  id: number;
-  title: string;
-  event_date: Date;
-  state: CompetitionStateType;
+  Id: number;
+  Title: string;
+  EventDate: Date;
+  State: CompetitionStateType;
 }
 
 export interface ICompetitionInfo extends ICompetition {
-  description: string;
-  cover_image: string;
-  email_subject: string;
-  email_body: string;
+  Description: string;
+  CoverImage: string;
+  EmailSubject: string;
+  EmailBody: string;
 }
 
 export interface IUpdateCompetitionInfoRequest {
@@ -23,13 +23,13 @@ export interface IUpdateCompetitionInfoRequest {
   email_body: string;
 }
 
-export interface ICompetitionDetails {
-  id: number;
-  title: string;
-  event_date: Date;
-  state: CompetitionStateType;
-  Athletes: ICompetitionAthlete[];
-}
+//export interface ICompetitionDetails {
+//  Id: number;
+//  Title: string;
+//  EventDate: Date;
+//  State: CompetitionStateType;
+//  Athletes: ICompetitionAthlete[];
+//}
 
 
 export enum CompetitionStateType {

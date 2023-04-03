@@ -41,15 +41,15 @@ export class CompetitionInfoGaraComponent implements OnInit {
 
     this.competitionInfo = await this.competitionsService.GetCompetitionInfo(this.CompetitionId!);
 
-    const date = moment(this.competitionInfo.event_date).toDate();
+    const date = moment(this.competitionInfo.EventDate).toDate();
     console.log(date);
     this.form = new FormGroup({
-      Title: new FormControl(this.competitionInfo.title, [Validators.required]),
+      Title: new FormControl(this.competitionInfo.Title, [Validators.required]),
       Date: new FormControl({ day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear()}, [Validators.required]),
-      Description: new FormControl(this.competitionInfo.description, [Validators.required]),
-      EmailSubject: new FormControl(this.competitionInfo.email_subject, [Validators.required]),
-      EmailBody: new FormControl(this.competitionInfo.email_body, [Validators.required]),
-      CoverImage: new FormControl(this.competitionInfo.cover_image, []),
+      Description: new FormControl(this.competitionInfo.Description, [Validators.required]),
+      EmailSubject: new FormControl(this.competitionInfo.EmailSubject, [Validators.required]),
+      EmailBody: new FormControl(this.competitionInfo.EmailBody, [Validators.required]),
+      CoverImage: new FormControl(this.competitionInfo.CoverImage, []),
     });
 
     this.Ready = true;

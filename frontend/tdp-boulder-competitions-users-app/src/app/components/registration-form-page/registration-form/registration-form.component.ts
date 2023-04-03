@@ -17,7 +17,7 @@ export class RegistrationFormComponent implements OnInit {
 
   @Output() OnRegistration = new EventEmitter<void>();
   @Output() OnRegistrationError = new EventEmitter<void>();
-  @Input() CompetitionId!: string;
+  @Input() CompetitionId!: number;
 
   Gender = Gender;
 
@@ -28,8 +28,7 @@ export class RegistrationFormComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private competitionsService: CompetitionsService,
-    private toastService: ToastService)
-  { }
+    private toastService: ToastService) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -38,7 +37,8 @@ export class RegistrationFormComponent implements OnInit {
       Name: new FormControl('', [Validators.required]),
       Surname: new FormControl('', [Validators.required]),
       BirthDate: new FormControl(null, [Validators.required]),
-      Gender: new FormControl(Gender.MALE, [Validators.required])
+      Gender: new FormControl(Gender.MALE, [Validators.required]),
+      Telephone: new FormControl('', [Validators.required])
     });
   }
 
@@ -47,6 +47,7 @@ export class RegistrationFormComponent implements OnInit {
   get surname() { return this.form!.get('Surname') }
   get birthDate() { return this.form!.get('BirthDate') }
   get gender() { return this.form!.get('Gender') }
+  get telephone() { return this.form!.get('Telephone') }
 
   OnRegisterClick = async (): Promise<void> => {
     this.formSubmittedAtLeastOnce = true;

@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TDPApiEndpoints } from "../constants/endpoints";
-import { CompetitionStateType, GetCompetitionToRegisterForStatus, ICompetition, IGetCompetitionProblemsByAthleteRequest, IGetCompetitionProblemsByAthleteResponse, IGetCompetitionToRegisterForResponse, IRank, IRegisterToCompetitionRequest, RankingType } from "../models/competitions.models";
+import { IGetCompetitionProblemsByAthleteRequest, IGetCompetitionProblemsByAthleteResponse, IGetCompetitionInfoResponse, IRank, IRegisterToCompetitionRequest, RankingType, ICompetitionInfo } from "../models/competitions.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
+import * as moment from 'moment';
 
 
 @Injectable({
@@ -15,49 +16,22 @@ export class CompetitionsService extends BaseTdpApiService {
     super(httpClient);
   }
 
-  public GetCompetition = async (competitionId: string): Promise<IGetCompetitionToRegisterForResponse> => {
-    // return await this.get(TDPApiEndpoints.Competitions.CanRegisterForCompetiton(competitionId));
-    let state = CompetitionStateType.CLOSED;
-    if (competitionId === "ongoing")
-      state = CompetitionStateType.ONGOING;
-    else if (competitionId === "draft")
-      state = CompetitionStateType.DRAFT;
+  public GetCompetitionInfo = async (competitionId: number): Promise<ICompetitionInfo> => {
+    const result = await this.get(TDPApiEndpoints.Competitions.GetInfo(competitionId)) as IGetCompetitionInfoResponse;
 
-    return Promise.resolve({
-      Status: GetCompetitionToRegisterForStatus.OPEN,
-      Competition: {
-        Description: "<p>60 blocchi per <b>tutti i livelli</b><br/></p><p>Programma della giornata:<br/>15:00 Iscrizioni gara<br/>16:00 Inizio meeting<br />20:00 Fine meeting",
-        Title: "Boulder Meeting 2022",
-        ID: "test",
-        Date: new Date(2023, 5, 2, 15, 0, 0),
-        FormImageCover: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp",
-        State: state
-      }
-    });
+    const eventDate = moment(result.EventDate).toDate();
+    return {
+      Id: result.Id,
+      Description: result.Description,
+      EventDate: eventDate,
+      PublicId: result.PublicId,
+      State: result.State,
+      Title: result.Title,
+      FormImageCover: '' // TODO
+    }
   }
 
-  public GetCompetitionToRegisterFor = async (competitionId: string): Promise<IGetCompetitionToRegisterForResponse> =>  {
-    // return await this.get(TDPApiEndpoints.Competitions.CanRegisterForCompetiton(competitionId));
-    let state = CompetitionStateType.CLOSED;
-    if (competitionId === "ongoing")
-      state = CompetitionStateType.ONGOING;
-    else if (competitionId === "draft")
-      state = CompetitionStateType.DRAFT;
-
-    return Promise.resolve({
-      Status: GetCompetitionToRegisterForStatus.OPEN,
-      Competition: {
-        Description: "<p>60 blocchi per <b>tutti i livelli</b><br/></p><p>Programma della giornata:<br/>15:00 Iscrizioni gara<br/>16:00 Inizio meeting<br />20:00 Fine meeting",
-        Title: "Boulder Meeting 2022",
-        ID: "test",
-        Date: new Date(2023, 5, 2, 15, 0, 0),
-        FormImageCover: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp",
-        State: state
-      }
-    });
-  }
-
-  public RegisterToCompetition = async (competitionId: string, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
+  public RegisterToCompetition = async (competitionId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
     try {
       const result = await this.post(TDPApiEndpoints.Competitions.Register(competitionId), data);
       return {
@@ -75,7 +49,7 @@ export class CompetitionsService extends BaseTdpApiService {
     return Promise.resolve("fdafds"); // id competition and user id
   }
 
-  public GetCompetitionProblemsByAthleteRequest = async (competitionId: string, athleteId: string): Promise<IGetCompetitionProblemsByAthleteResponse> => {
+  public GetCompetitionProblemsByAthleteRequest = async (competitionId: number, athleteId: string): Promise<IGetCompetitionProblemsByAthleteResponse> => {
     const model: IGetCompetitionProblemsByAthleteRequest = {
       CompetitionId: competitionId,
       AthleteId: athleteId
@@ -148,7 +122,7 @@ export class CompetitionsService extends BaseTdpApiService {
     });
   }
 
-  public GetRanking = async (competitionId: string, rankingType: RankingType): Promise<IRank[]> => {
+  public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IRank[]> => {
     let ranking: IRank[] = [];
 
     if (rankingType === RankingType.GENERAL) {

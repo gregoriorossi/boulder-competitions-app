@@ -19,7 +19,7 @@ export class CompetitionResultsComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.id);
+    this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.Id);
   }
 
   get Header(): IProblemsGroupColor[] {

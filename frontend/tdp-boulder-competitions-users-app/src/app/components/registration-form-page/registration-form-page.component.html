@@ -10,7 +10,7 @@
             <div [innerHTML]="competition.Description">
             </div>
 
-            <app-registration-form [CompetitionId]="competition.ID"
+            <app-registration-form [CompetitionId]="competition.Id"
                                    (OnRegistration)="OnRegistration()"
                                    (OnRegistrationError)="OnRegistrationError()">
             </app-registration-form>

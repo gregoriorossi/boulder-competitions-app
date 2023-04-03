@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CompetitionStateType, ICompetitionDetails, IRank, RankingType } from '../../../../models/competitions.models';
+import { CompetitionStateType, ICompetitionInfo, IRank, RankingType } from '../../../../models/competitions.models';
 import { CompetitionsService } from '../../../../services/competitions.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CompetitionsService } from '../../../../services/competitions.service';
 })
 export class CompetitionRankingsComponent implements OnInit {
 
-  @Input() Competition!: ICompetitionDetails;
+  @Input() Competition!: ICompetitionInfo;
 
   public RankingTypes = RankingType;
   rankingType: RankingType = RankingType.GENERAL;
@@ -32,7 +32,7 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   get HasCompetitionStarted(): boolean {
-    return this.Competition.state !== CompetitionStateType.DRAFT;
+    return this.Competition.State !== CompetitionStateType.DRAFT;
   }
 
   GetSectionTitle = (): string => {

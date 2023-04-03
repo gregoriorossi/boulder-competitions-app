@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { CompetitionStateType, ICompetition, IGetCompetitionProblemsByAthleteResponse, IProblemsGroupColor } from "../../../models/competitions.models";
+import { CompetitionStateType, ICompetitionInfo, IGetCompetitionProblemsByAthleteResponse, IProblemsGroupColor } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
 import { ColorsUtils } from "../../../utils/colors.utils";
 
@@ -11,7 +11,7 @@ import { ColorsUtils } from "../../../utils/colors.utils";
 export class CompetitonProblemsComponent implements OnInit {
 
   @Input() UserId!: string;
-  @Input() Competition!: ICompetition;
+  @Input() Competition!: ICompetitionInfo;
 
   protected ProblemGroups: IProblemsGroupColor[] = [];
 
@@ -20,7 +20,7 @@ export class CompetitonProblemsComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.Competition.ID, this.UserId)
+    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.Competition.Id, this.UserId)
     this.ProblemGroups = response.ProblemsGroups;
   }
 

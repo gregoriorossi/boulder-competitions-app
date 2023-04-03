@@ -1,10 +1,22 @@
-export interface ICompetition {
-  ID: string;
-  Title: string;
+export interface ICompetitionInfo {
+  Id: number;
   Description: string;
+  EventDate: Date;
+  PublicId: string;
+  State: number;
+  Title: string;
   FormImageCover: string;
-  Date: Date;
-  State: CompetitionStateType
+}
+
+export interface IGetCompetitionInfoResponse {
+  Id: number;
+  Description: string; 
+  EmailBody: string;
+  EmailSubject: string;
+  EventDate: string;
+  PublicId: string;
+  State: number;
+  Title: string;
 }
 
 export enum GetCompetitionToRegisterForStatus {
@@ -12,11 +24,6 @@ export enum GetCompetitionToRegisterForStatus {
   DRAFT = 2,
   CLOSED = 3,
   NOT_EXISTS = 4
-}
-
-export interface IGetCompetitionToRegisterForResponse {
-  Status: GetCompetitionToRegisterForStatus;
-  Competition: ICompetition;
 }
 
 export interface IRegisterToCompetitionRequest {
@@ -33,7 +40,7 @@ export interface IGetCompetitionProblemsByAthleteResponse {
 }
 
 export interface IGetCompetitionProblemsByAthleteRequest {
-  CompetitionId: string;
+  CompetitionId: number;
   AthleteId: string;
 }
 

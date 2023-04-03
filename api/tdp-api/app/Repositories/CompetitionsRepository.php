@@ -17,6 +17,34 @@ class CompetitionsRepository {
         }
     }
 
+    function setState(string $competitionId, $stateId) {
+        $data = array(
+            "state" => $stateId
+        );
+
+        return DB::table('competitions')
+            ->where('id', $competitionId)
+            ->update($data);
+    }
+
+    function getInfo(string $competitionId) {
+        $info = DB::table('competitions')
+            ->where('id', $competitionId)
+            ->first();
+
+        return [
+            'Id' => $info->id,
+            'Description' => $info->description,
+            'EmailBody' => $info->email_body,
+            'EmailSubject' => $info->email_subject,
+            'EventDate' => $info->event_date,
+            'PublicId'=> $info->public_id,
+            'State' => $info->state,
+            'Title' => $info->title
+            // immagine
+        ];
+    }
+
     function IsRegisteredToCompetition(string $competitionId, string $email) {
         $result = DB::table('competitions_registrations')
             ->where('id_competition', $competitionId)
@@ -26,7 +54,8 @@ class CompetitionsRepository {
     }
 
     function RegisterUserToCompetition($registrationData) {
-        return DB::table('competitions_registrations')->insert($registrationData);
+        return DB::table('competitions_registrations')
+            ->insert($registrationData);
     }
      
     function AddColorToCompetition(string $color, string $competitionId, int $order) {

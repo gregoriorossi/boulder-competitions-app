@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CompetitionStateType, IProblem, ICompetitionDetails } from '../../models/competitions.models';
+import { CompetitionStateType, IProblem, ICompetitionInfo } from '../../models/competitions.models';
 import { StatusTypes } from '../../models/services.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
@@ -13,7 +13,7 @@ import { ToastService } from '../../services/toast.service';
 })
 export class CompetitionComponent implements OnInit {
 
-  competition!: ICompetitionDetails | void;
+  competition!: ICompetitionInfo | void;
   competitionId: number = 0;
   boulderProblems: IProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO_GARA;
@@ -74,16 +74,16 @@ export class CompetitionComponent implements OnInit {
   }
 
   IsStartButtonVisible = (): boolean => {
-    return this.competition!.state === CompetitionStateType.DRAFT;
+    return this.competition!.State === CompetitionStateType.DRAFT;
   }
 
   IsCloseButtonVisible = (): boolean => {
-    return this.competition!.state === CompetitionStateType.ONGOING;
+    return this.competition!.State === CompetitionStateType.ONGOING;
   }
 
   private DeleteCompetition = async (): Promise<void> => {
 
-    const result: StatusTypes = await this.competitionsService.DeleteCompetition(this.competition!.id);
+    const result: StatusTypes = await this.competitionsService.DeleteCompetition(this.competition!.Id);
 
     if (result === StatusTypes.OK) {
       this.toastService.showSuccess("Gara cancellata correttamente");
@@ -96,7 +96,7 @@ export class CompetitionComponent implements OnInit {
 
   private SetCompetitionState = async (state: CompetitionStateType): Promise<void> => {
 
-    const result: StatusTypes = await this.competitionsService.SetState(this.competition!.id, state);
+    const result: StatusTypes = await this.competitionsService.SetState(this.competition!.Id, state);
 
     if (result === StatusTypes.OK) {
       this.toastService.showSuccess("Gara modificata correttamente");
@@ -108,7 +108,7 @@ export class CompetitionComponent implements OnInit {
   }
 
   private LoadCompetition = async (): Promise<void> => {
-    this.competition = await this.competitionsService.GetCompetition(this.competitionId);
+    this.competition = await this.competitionsService.GetCompetitionInfo(this.competitionId);
   }
 }
 

@@ -28,6 +28,7 @@ export class CompetitionAthletesComponent implements OnInit {
   { }
 
   async ngOnInit(): Promise<void> {
+    console.log(this.Competition);
     await this.LoadAthletes();
 
     this.competitionsService.athleteRegisteredToCompetition.subscribe(async (athlete) => {
@@ -61,12 +62,12 @@ export class CompetitionAthletesComponent implements OnInit {
   }
 
   private LoadAthletes = async () => {
-    this.athletes = await this.competitionsService.GetAthletes(this.Competition.id);
+    this.athletes = await this.competitionsService.GetAthletes(this.Competition.Id);
   }
 
   private DeleteAthlete = async (athlete: IAthlete) => {
     const athleteFullName: string = `${athlete.Name} ${athlete.Surname}`;
-    const result = await this.competitionsService.DeleteRegistrationToCompetition(this.Competition.id, athlete.Id);
+    const result = await this.competitionsService.DeleteRegistrationToCompetition(this.Competition.Id, athlete.Id);
     if (result === StatusTypes.OK) {
       this.toastService.showSuccess(`${athleteFullName} cancellato con successo`);
     } else {

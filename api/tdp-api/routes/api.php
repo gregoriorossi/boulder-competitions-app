@@ -22,8 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('competitions', [CompetitionsController::class, 'index']);
-Route::get('competitions/{competitionId}', [CompetitionsController::class, 'show']);
-Route::get('competitions/{competitionId}/info', [CompetitionsController::class, 'fullInfo']);
+Route::get('competitions/{competitionId}/info', [CompetitionsController::class, 'info']);
 Route::post('competitions/{competitionId}/info', [CompetitionsController::class, 'updateInfo']);
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 

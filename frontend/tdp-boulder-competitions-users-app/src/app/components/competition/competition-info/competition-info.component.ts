@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ICompetition } from "../../../models/competitions.models";
+import { ICompetitionInfo } from "../../../models/competitions.models";
 
 @Component({
   selector: 'app-competition-info',
@@ -8,7 +8,7 @@ import { ICompetition } from "../../../models/competitions.models";
 })
 export class CompetitonInfoComponent implements OnInit {
 
-  @Input() Competition!: ICompetition;
+  @Input() Competition!: ICompetitionInfo;
 
   ngOnInit(): void {
   }

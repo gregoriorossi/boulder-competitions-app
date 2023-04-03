@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ICompetition } from "../../models/competitions.models";
+import { ICompetitionInfo } from "../../models/competitions.models";
 import { IRegistrationFormPageContent } from "../../models/registration.models";
 import { CompetitionsService } from "../../services/competitions.service";
 
@@ -11,7 +11,7 @@ import { CompetitionsService } from "../../services/competitions.service";
 })
 export class RegistrationFormPageComponent implements OnInit {
 
-  protected competition!: ICompetition;
+  protected competition!: ICompetitionInfo;
 
   content!: IRegistrationFormPageContent;
   isErrorMessageVisible: boolean = false;
@@ -30,8 +30,9 @@ export class RegistrationFormPageComponent implements OnInit {
 
     this.activetedRoute.params.subscribe(async params => {
       const competitionId = params["id"];
-      const result = await this.competitionsService.GetCompetitionToRegisterFor(competitionId);
-      this.competition = result.Competition;
+
+      const result = await this.competitionsService.GetCompetitionInfo(competitionId);
+      this.competition = result;
     });
   }
 

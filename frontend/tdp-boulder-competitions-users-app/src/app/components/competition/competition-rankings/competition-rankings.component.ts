@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { CompetitionStateType, ICompetition, IRank, RankingType } from "../../../models/competitions.models";
+import { CompetitionStateType, ICompetitionInfo, IRank, RankingType } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
 
 @Component({
@@ -9,7 +9,7 @@ import { CompetitionsService } from "../../../services/competitions.service";
 })
 export class CompetitionRankingsComponent implements OnInit {
 
-  @Input() Competition!: ICompetition;
+  @Input() Competition!: ICompetitionInfo;
    
   public RankingTypes = RankingType;
   rankingType: RankingType = RankingType.GENERAL;
@@ -28,7 +28,7 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   LoadRanking = async (): Promise<void> => {
-    this.ranking = await this.competitionsService.GetRanking(this.Competition.ID, this.rankingType);
+    this.ranking = await this.competitionsService.GetRanking(this.Competition.Id, this.rankingType);
   }
 
   get HasCompetitionStarted(): boolean {

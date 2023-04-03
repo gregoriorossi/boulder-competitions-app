@@ -33,20 +33,9 @@ class CompetitionsController extends Controller
             ->get(['id', 'title', 'state', 'event_date']);
     }
 
-    public function show(string $competitionId)
+    public function info(string $competitionId)
     {
-        return DB::table('competitions')
-            ->where('id', $competitionId)
-            ->first(['id', 'title', 'state', 'event_date']);
-    }
-
-    public function fullInfo(string $competitionId)
-    {
-        $result = DB::table('competitions')
-            ->where('id', $competitionId)
-            ->first();
-
-        return $result;
+        return $this->competitionsRepository->getInfo($competitionId);
     }
 
     public function updateInfo(string $competitionId, Request $request)
@@ -100,12 +89,9 @@ class CompetitionsController extends Controller
     public function setState(Request $request)
     {
         $competitionId = $request->input('competitionId');
-        $competition = Competition::findOrFail($competitionId);
-
         $stateId = $request->input('state');
-        $state = CompetitionState::findOrFail($stateId);
-        $competition->state = $stateId;
-        $competition->save();
+        $this->competitionsRepository->setState($competitionId, $stateId);
+
         return response()->json(null, 204);
     }
 
