@@ -6,7 +6,7 @@
           <th scope="col">Partecipanti</th>
           <ng-container *ngFor="let group of Header">
             <ng-container *ngFor="let problem of group.Problems">
-              <th scope="col">
+              <th scope="col" class="text-center">
                 <h4>
                   <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Title}}</span>
                 </h4>
@@ -22,7 +22,10 @@
             <ng-container *ngFor="let group of result.ProblemsGroups">
               <ng-container *ngFor="let problem of group.Problems">
                 <td class="text-center">
-                  <input class="form-check-input" type="checkbox" [checked]="GetRandomBool()">
+                  <input class="form-check-input"
+                         type="checkbox"
+                         [checked]="problem.Sent"
+                         (click)="OnProblemClick(problem, result.Athlete)">
                 </td>
               </ng-container>
             </ng-container>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { IAthlete } from '../models/athletes.models';
-import { ICompetition, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, IProblemsGroupColor, ICompetitionInfo, IUpdateCompetitionInfoRequest, IRegisterToCompetitionRequest } from '../models/competitions.models';
+import { ICompetition, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, ICompetitionInfo, IUpdateCompetitionInfoRequest, IRegisterToCompetitionRequest } from '../models/competitions.models';
 import { IResponse, StatusTypes } from '../models/services.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
@@ -189,110 +189,7 @@ export class CompetitionsService extends BaseTdpApiService {
     }
   }
 
-  public GetResults = (competitionId: number): Promise<ICompetitionResult[]> => {
-    return Promise.resolve([
-      //{
-      //  Athlete: { Name: "Gianluca", Surname: "Nicoletti", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Scarlett", Surname: "Johansson", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Luca", Surname: "Giurato", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Michael", Surname: "Scott", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Ricky", Surname: "Gervais", BirthDate: new Date(1970, 2, 1), Gender: Gender.MALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Susy", Surname: "Monte", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Laura", Surname: "Rogora", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Diletta", Surname: "Leotta", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-      //{
-      //  Athlete: { Name: "Jane", Surname: "Doe", BirthDate: new Date(1970, 2, 1), Gender: Gender.FEMALE, Email: "john.doe@gmail.com" },
-      //  ProblemsGroups: this.GetTestProblems()
-      //},
-    ]);
-  }
-
-  private GetTestProblems = (): IProblemsGroupColor[] => {
-    return [
-      //{
-      //  Color: '#FFF',
-      //  Difficulty: 1,
-      //  Problems: [
-      //    { ID: "1", Name: "1" },
-      //    { ID: "2", Name: "2" },
-      //    { ID: "3", Name: "3" },
-      //    { ID: "4", Name: "4" },
-      //    { ID: "5", Name: "5" }
-      //  ]
-      //},
-      //{
-      //  Color: '#00F',
-      //  Difficulty: 2,
-      //  Problems: [
-      //    { ID: "1", Name: "1" },
-      //    { ID: "2", Name: "2" },
-      //    { ID: "3", Name: "3" },
-      //    { ID: "4", Name: "4" },
-      //    { ID: "5", Name: "5" },
-      //    { ID: "6", Name: "6" }
-      //  ]
-      //},
-      //{
-      //  Color: '#0F0',
-      //  Difficulty: 3,
-      //  Problems: [
-      //    { ID: "1", Name: "1" },
-      //    { ID: "2", Name: "2" },
-      //    { ID: "3", Name: "3" },
-      //    { ID: "4", Name: "4" },
-      //    { ID: "5", Name: "5" }
-      //  ]
-      //},
-      //{
-      //  Color: '#FF0',
-      //  Difficulty: 4,
-      //  Problems: [
-      //    { ID: "1", Name: "1" },
-      //    { ID: "2", Name: "2" },
-      //    { ID: "3", Name: "3" },
-      //    { ID: "4", Name: "4" }
-      //  ]
-      //},
-      //{
-      //  Color: '#F00',
-      //  Difficulty: 5,
-      //  Problems: [
-      //    { ID: "1", Name: "1" },
-      //    { ID: "2", Name: "2" },
-      //    { ID: "2", Name: "3" }
-      //  ]
-      //},
-      //{
-      //  Color: '#000',
-      //  Difficulty: 6,
-      //  Problems: [
-      //    { ID: "1", Name: "1" },
-      //    { ID: "2", Name: "2" }
-      //  ]
-      //}
-    ];
+  public GetResults = async (competitionId: number): Promise<ICompetitionResult[]> => {
+    return await this.get(TDPApiEndpoints.Competitions.GetResults(competitionId));
   }
 }

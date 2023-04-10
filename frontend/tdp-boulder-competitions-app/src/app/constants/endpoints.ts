@@ -4,6 +4,7 @@ export const TDPApiEndpoints = {
     GetAll: 'competitions',
     GetAthletes: (id: number) => `competitions/${id}/athletes`,
     GetInfo: (id: number) => `competitions/${id}/info`,
+    GetResults: (id: number) => `competitions/${id}/results`,
     UpdateInfo: (id: number) => `competitions/${id}/info`,
     Create: 'competitions',
     EditCompetition: (id: number) => `competitions/${id}`,
@@ -17,6 +18,7 @@ export const TDPApiEndpoints = {
     DeleteProblem: "problems/delete",
     Get: (competitionId: number) => `problems/${competitionId}`,
     GetColorsByCompetitionId: (competitionId: number) => `problems/${competitionId}/colors`,
+    SetSentStateToProblem: (competitionId: number) => `problems/${competitionId}/setSent`,
     StoreMultiple: "problems/storeMultiple",
     UpdateProblem: (competitionId: number, problemId: number) => `problems/${competitionId}/${problemId}`,
   }

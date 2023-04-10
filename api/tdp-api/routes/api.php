@@ -26,6 +26,7 @@ Route::get('competitions/{competitionId}/info', [CompetitionsController::class, 
 Route::post('competitions/{competitionId}/info', [CompetitionsController::class, 'updateInfo']);
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 Route::get('competitions/{competitionId}/download/athletes', [CompetitionsController::class, 'downloadAthletes']);
+Route::get('competitions/{competitionId}/results', [CompetitionsController::class, 'getResults']);
 
 Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
 Route::put('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'updateRegistration']);
@@ -42,5 +43,6 @@ Route::get('problems/{competitionId}', [ProblemsController::class, 'getProblemsB
 Route::put('problems/{competitionId}/{problemId}', [ProblemsController::class, 'updateProblem']);
 Route::post('problems/delete', [ProblemsController::class, 'deleteProblem']);
 Route::post('problems/storeMultiple', [ProblemsController::class, 'storeMultiple']);
+Route::post('problems/{competitionId}/setSent', [ProblemsController::class, 'setSent']);
 
 

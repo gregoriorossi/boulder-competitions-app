@@ -23,15 +23,6 @@ export interface IUpdateCompetitionInfoRequest {
   email_body: string;
 }
 
-//export interface ICompetitionDetails {
-//  Id: number;
-//  Title: string;
-//  EventDate: Date;
-//  State: CompetitionStateType;
-//  Athletes: ICompetitionAthlete[];
-//}
-
-
 export enum CompetitionStateType {
   DRAFT = 1,
   ONGOING = 2,
@@ -56,7 +47,7 @@ export interface IProblemsGroupColor {
 export interface IProblem {
   Id: number;
   Title: string;
-  Sent?: boolean; //todo rimuovere?
+  Sent?: boolean; 
   CompetitionId: number;
   Color: string;
 }

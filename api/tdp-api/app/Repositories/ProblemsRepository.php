@@ -39,6 +39,48 @@ class ProblemsRepository {
         });
     }
 
+    function getSentProblemsByAthlete($athleteId, $competitionId) {
+        $result = DB::Table('sent_problems')
+            ->where('athlete_id', $athleteId)
+            ->where('competition_id', $competitionId)
+            ->get();
+
+        return $result->map(function($sentProblem, $key) {
+            return [
+                'Id' => $sentProblem->id,
+                'ProblemId' => $sentProblem->problem_id,
+                'AthleteId' => $sentProblem->athlete_id,
+                'CompetitionId' => $sentProblem->competition_id
+            ];
+        }); 
+    }
+
+    function setSentProblemsToProblemsGroups($problemsGroups, $sentProblems) {
+        $groups = unserialize(serialize($problemsGroups));
+
+        for($i = 0; $i < count($groups); $i++) {
+            $group = $groups[$i];
+
+            for($j = 0; $j < count($group['Problems']); $j++) {
+                $problem = $group['Problems'][$j];
+                $problem['Sent'] = $this->isSentProblem($problem['Id'], $sentProblems);
+                $group['Problems'][$j] = $problem;
+            }
+        }
+        return $groups;
+    }
+
+    function isSentProblem($problemId, $sentProblems) {
+        foreach($sentProblems as $problem) {
+            $isSent = $problem['ProblemId'] == $problemId;
+            if ($isSent) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     function getColorGroupsByCompetitionId(string $competitionId) {
         $colors = $this->getColorsByCompetitionId($competitionId);
         
@@ -72,7 +114,6 @@ class ProblemsRepository {
 
     function storeMultiple($competitionId, $colorId, $problems) {
         foreach($problems as $problem) {
-            print_r($problem);
             $data = array(
                 "title" => $problem["Title"],
                 "competition_id" => $competitionId,
@@ -91,5 +132,30 @@ class ProblemsRepository {
         ->delete();
 
         return $result > 0;
+    }
+
+    function deleteSentProblem(string $competitionId, string $problemId, string $athleteId) {
+        $result = DB::Table('sent_problems')
+        ->where('competition_id', $competitionId)
+        ->where('problem_id', $problemId)
+        ->where('athlete_id', $athleteId)
+        ->delete();
+
+        return $result > 0;
+    }
+
+    function setSent($competitionId, $problemId, $athleteId, $sent) {
+        $this->deleteSentProblem($competitionId, $problemId, $athleteId);
+
+        if ($sent) {
+            $data = array(
+                "athlete_id" => $athleteId,
+                "competition_id" => $competitionId,
+                "problem_id" => $problemId
+            );
+
+            $result = DB::Table('sent_problems')
+                ->insert($data);
+        }
     }
 }

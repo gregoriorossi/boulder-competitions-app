@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ICompetition, ICompetitionResult, IProblemsGroupColor } from "../../../../models/competitions.models";
+import { IAthlete } from "../../../../models/athletes.models";
+import { ICompetition, ICompetitionResult, IProblem, IProblemsGroupColor } from "../../../../models/competitions.models";
 import { CompetitionsService } from "../../../../services/competitions.service";
+import { ProblemsService } from "../../../../services/problems.service";
+import { ToastService } from "../../../../services/toast.service";
 import { ColorsUtils } from "../../../../utils/colors.utils";
 
 
@@ -15,11 +18,14 @@ export class CompetitionResultsComponent implements OnInit {
 
   CompetitionResults: ICompetitionResult[] = [];
   
-  constructor(private competitionsService: CompetitionsService) {
-  }
+  constructor(
+    private competitionsService: CompetitionsService,
+    private problemsService: ProblemsService,
+    private toastService: ToastService)
+  {}
 
   async ngOnInit(): Promise<void> {
-    this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.Id);
+    await this.LoadResults();
   }
 
   get Header(): IProblemsGroupColor[] {
@@ -30,7 +36,19 @@ export class CompetitionResultsComponent implements OnInit {
     return ColorsUtils.GetCssCByColor(color);
   }
 
-  GetRandomBool = () => {
-    return Math.random() < 0.5;
+  OnProblemClick = async (problem: IProblem, athlete: IAthlete): Promise<void> => {
+    try {
+      const sent = !problem.Sent;
+      await this.problemsService.SetSentStateToProblem(problem.CompetitionId, problem.Id, athlete.Id, sent);
+    } catch (err) {
+      console.log(err);
+      this.toastService.showDanger("Errore, il servizio non funziona");
+    } finally {
+      await this.LoadResults();
+    }
+  }
+
+  private LoadResults = async (): Promise<void> => {
+    this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.Id);
   }
 }

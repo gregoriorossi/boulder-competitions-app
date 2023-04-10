@@ -5,6 +5,14 @@ use Illuminate\Support\Facades\DB;
 
 class CompetitionsRepository {
     
+    protected ProblemsRepository $problemsRepository;
+
+    public function __construct(
+        ProblemsRepository $problemsRepository
+    ) {
+        $this->problemsRepository = $problemsRepository;
+    }
+
     function CreateNewCompetition($data) {
         $competitionId = DB::Table('competitions')->insertGetId($data);
         
@@ -99,6 +107,21 @@ class CompetitionsRepository {
                 'Email'=> $athlete->email,
                 'Telephone' => $athlete->telephone,
                 'Gender' => $athlete->gender,
+            ];
+        });
+    }
+
+    function getResults(string $competitionId) {
+        $athletes = $this->getAthletes($competitionId);
+        $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
+
+        return $athletes->map(function($athlete, $key) use ($problemsGroups, $competitionId) {
+            $sentProblems = $this->problemsRepository->getSentProblemsByAthlete($athlete['Id'], $competitionId);
+            $problemsGroupsWithSentProblems = $this->problemsRepository->setSentProblemsToProblemsGroups($problemsGroups, $sentProblems);
+
+            return [
+                'Athlete' => $athlete,
+                'ProblemsGroups' => $problemsGroupsWithSentProblems
             ];
         });
     }

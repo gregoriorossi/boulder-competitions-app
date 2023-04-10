@@ -44,6 +44,14 @@ export class ProblemsService extends BaseTdpApiService {
       problemId: problemId
     });
   }
+  
+  public async SetSentStateToProblem(competitionId: number, problemId: number, athleteId: number, sent: boolean) {
+    return await this.post(TDPApiEndpoints.Problems.SetSentStateToProblem(competitionId), {
+      AthleteId: athleteId,
+      ProblemId: problemId,
+      Sent: sent
+    });
+  }
 
   public ProblemsUpdated(): void {
     this.problemsUpdated$.next({});

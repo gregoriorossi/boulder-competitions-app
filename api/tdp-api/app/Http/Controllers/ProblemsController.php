@@ -58,5 +58,15 @@ class ProblemsController extends Controller
             return response()->json(null, 500);
         }
     }
+
+    public function setSent(string $competitionId, Request $request)
+    {
+        $athleteId = $request->input('AthleteId');
+        $problemId = $request->input('ProblemId');
+        $sent = $request->input('Sent');
+        $this->problemsRepository->setSent($competitionId, $problemId, $athleteId, $sent);
+
+        return response()->json(null, 204);
+    }
 }
 
