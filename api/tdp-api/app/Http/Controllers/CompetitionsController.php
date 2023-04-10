@@ -70,6 +70,10 @@ class CompetitionsController extends Controller
         return $this->competitionsRepository->getResults($competitionId);
     }
 
+    function getRanking(string $competitionId) {
+        return $this->competitionsRepository->getRanking($competitionId);
+    }
+
     public function store(Request $request)
     {
         $competitionData = array(

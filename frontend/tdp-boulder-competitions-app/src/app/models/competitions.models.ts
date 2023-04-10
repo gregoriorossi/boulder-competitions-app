@@ -84,9 +84,16 @@ export enum RankingType {
 }
 
 export interface IRank {
-  FullName: string;
   Position: number;
-  Score: number;
+  Id: number
+  IdCompetition: number
+  Name: string
+  Surname: string
+  BirthDate: string
+  Email: string
+  Telephone: string
+  Gender: string
+  Score: number
 }
 
 export interface ICompetitionResult {

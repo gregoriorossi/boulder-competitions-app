@@ -126,6 +126,26 @@ class CompetitionsRepository {
         });
     }
 
+    function getRanking(string $competitionId) {
+        $athletes = $this->getAthletes($competitionId);
+        $problemsScores = $this->problemsRepository->getProblemsScores($competitionId);
+        $ranking = array();
+
+        for($i = 0; $i < count($athletes); $i++) {
+            $athlete = $athletes[$i];
+            $athlete['Score'] = $this->getTotalScore($competitionId, $athlete['Id'], $problemsScores);
+            array_push($ranking, $athlete);
+        }
+
+        usort($ranking, fn($a, $b) => $b['Score'] <=> $a['Score']);
+
+        for($i = 0; $i < count($ranking); $i++) {
+            $ranking[$i]["Position"] = $i+1;
+        }
+
+        return $ranking;
+    }
+
     function updateRegistration(string $competitionId, string $athleteId, $registrationData) {
         return DB::table('competitions_registrations')
             ->where('id_registration', $athleteId)
@@ -140,5 +160,28 @@ class CompetitionsRepository {
             ->delete();
 
         return $result;
+    }
+
+    private function getTotalScore($competitionId, $athleteId, $problemsScores) {
+        $sentProblems = $this->problemsRepository->getSentProblemsByAthlete($athleteId, $competitionId);
+        $totalScore = 0;
+
+        foreach($sentProblems as $problem) {
+            $score = $this->getScore($problem['ProblemId'], $problemsScores);
+            $totalScore += $score;
+        }
+
+        return $totalScore;
+    }
+
+    private function getScore($problemId, $problemsScores) {
+     
+        foreach($problemsScores as $score) {
+            if ($problemId == $score["Id"]) {
+                return $score["Score"];
+            }
+        }
+
+        return 0;
     }
 }

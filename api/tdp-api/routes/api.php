@@ -27,6 +27,7 @@ Route::post('competitions/{competitionId}/info', [CompetitionsController::class,
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 Route::get('competitions/{competitionId}/download/athletes', [CompetitionsController::class, 'downloadAthletes']);
 Route::get('competitions/{competitionId}/results', [CompetitionsController::class, 'getResults']);
+Route::get('competitions/{competitionId}/ranking', [CompetitionsController::class, 'getRanking']);
 
 Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
 Route::put('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'updateRegistration']);

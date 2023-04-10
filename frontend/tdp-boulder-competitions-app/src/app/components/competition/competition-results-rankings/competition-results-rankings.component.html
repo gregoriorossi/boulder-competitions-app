@@ -12,7 +12,8 @@
                            [Competition]="Competition">
   </app-competition-results>
 
-  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RANKINGS)">
+  <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionResultsAndRankingsTabs.RANKINGS)"
+                            [Competition]="Competition">
   </app-competition-rankings>
 </div>
 <div class="row" *ngIf="!HasCompetitionStarted">

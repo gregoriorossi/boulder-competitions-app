@@ -158,4 +158,28 @@ class ProblemsRepository {
                 ->insert($data);
         }
     }
+
+    function getProblemsScores($competitionId) {
+        $problems = DB::Table('problems')
+            ->where('competition_id', $competitionId)
+            ->get();
+
+        return $problems->map(function($problem, $key) {
+            $score = 0;
+            $timesSent = DB::Table('sent_problems')
+                ->where('problem_id', $problem->id)
+                ->where('competition_id', $problem->competition_id)
+                ->count();
+
+            if ($timesSent > 0) {
+                $score = 1000 / $timesSent;
+            }   
+
+            return [
+                'Id' => $problem->id,
+                'CompetitionId' => $problem->competition_id,
+                'Score' => $score
+            ];
+        });
+    }
 }
