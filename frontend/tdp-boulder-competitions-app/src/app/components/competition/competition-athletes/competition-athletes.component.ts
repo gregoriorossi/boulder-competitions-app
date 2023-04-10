@@ -57,6 +57,19 @@ export class CompetitionAthletesComponent implements OnInit {
     this.dialogsService.Confirm(message, "", "Conferma", "Annulla", confirmFn, () => { })
   }
 
+  OnDownloadButtonClick = async (): Promise<void> => {
+    
+    await this.competitionsService.DownloadAthletes(this.Competition.Id);
+    
+    //const blob: Blob = new Blob([data], { type: "application/xlsx" });
+
+    //var downloadURL = window.URL.createObjectURL(data);
+    //var link = document.createElement('a');
+    //link.href = downloadURL;
+    //link.download = "help.pdf";
+    //link.click();
+  }
+
   OnSendEmailClick = (athlete: IAthlete): void => {
     alert('Sending email to ' + athlete.Name + " " + athlete.Surname);
   }

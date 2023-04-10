@@ -17,6 +17,21 @@ class CompetitionsRepository {
         }
     }
 
+    function getAll() {
+        $result = DB::table('competitions')
+            ->orderBy('event_date', 'desc')
+            ->get(['id', 'title', 'state', 'event_date']);
+
+        return $result->map(function($competition, $key) {
+            return [
+                'Id' => $competition->id,
+                'Title' => $competition->title,
+                'State' => $competition->state,
+                'EventDate' => $competition->event_date
+            ];
+        });
+    }
+
     function setState(string $competitionId, $stateId) {
         $data = array(
             "state" => $stateId

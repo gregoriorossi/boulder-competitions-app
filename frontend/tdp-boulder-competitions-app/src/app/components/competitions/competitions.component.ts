@@ -51,7 +51,6 @@ export class CompetitionsComponent implements OnInit {
 
     this.dialogsService.Confirm(message, "Tutti i dati verranno cancellati", "Cancella", "Annulla", confirmFn, async () => {
       await this.competitionsService.DeleteCompetition(competitionId);
-
     });
   }
 

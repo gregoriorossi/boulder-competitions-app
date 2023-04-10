@@ -1,5 +1,6 @@
 export const TDPApiEndpoints = {
   Competitions: {
+    DownloadAthletes: (id:number) => `competitions/${id}/download/athletes`,
     GetAll: 'competitions',
     GetAthletes: (id: number) => `competitions/${id}/athletes`,
     GetInfo: (id: number) => `competitions/${id}/info`,

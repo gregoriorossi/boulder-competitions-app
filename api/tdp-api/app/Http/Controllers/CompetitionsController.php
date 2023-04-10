@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Repositories\CompetitionsRepository;
 use App\Repositories\ProblemsRepository;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Exports\AthletesExport;
 
 class CompetitionsController extends Controller
 {
@@ -28,9 +30,7 @@ class CompetitionsController extends Controller
 
     public function index()
     {
-        return DB::table('competitions')
-            ->orderBy('event_date', 'desc')
-            ->get(['id', 'title', 'state', 'event_date']);
+        return $this->competitionsRepository->getAll();
     }
 
     public function info(string $competitionId)
@@ -58,6 +58,12 @@ class CompetitionsController extends Controller
 
     public function getAthletes(string $competitionId) {
         return $this->competitionsRepository->getAthletes($competitionId);
+    }
+
+    public function downloadAthletes(string $competitionId) {
+        $athletes = $this->competitionsRepository->getAthletes($competitionId);
+        $export = new AthletesExport($athletes);
+        return Excel::download($export, 'partecipanti.xlsx');
     }
  
     public function store(Request $request)

@@ -13,7 +13,7 @@ export class BaseTdpApiService {
     }
   }
 
-  private BuildUrl = (endpoint: string) => {
+  protected BuildUrl = (endpoint: string) => {
     return this.baseAddress + endpoint;
   }
 
@@ -24,6 +24,12 @@ export class BaseTdpApiService {
       .toPromise()
       .then((response) => response as T);
   }
+
+  //protected getBlob(endpoint: string): Promise<Blob> {
+  //  const url = this.BuildUrl(endpoint);
+
+  //  return this.httpClient.get(url, { responseType: 'blob'})
+  //}
 
   protected post<T>(endpoint: string, body: any): Promise<T> {
     const url = this.BuildUrl(endpoint);

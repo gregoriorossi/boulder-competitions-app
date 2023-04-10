@@ -53,6 +53,11 @@ export class CompetitionsService extends BaseTdpApiService {
     return await this.get(TDPApiEndpoints.Competitions.GetAthletes(competitionId));
   }
 
+  public async DownloadAthletes(competitionId: number): Promise<any> {
+    const url = this.BuildUrl(TDPApiEndpoints.Competitions.DownloadAthletes(competitionId))
+    window.open(url, "_blank");
+  }
+
   public async SetState(competitionId: number, state: CompetitionStateType): Promise<StatusTypes> {
     try {
       const request = {
