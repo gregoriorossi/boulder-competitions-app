@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CompetitionStateType, IProblem, ICompetitionInfo } from '../../models/competitions.models';
+import { CompetitionStateType, IProblem, ICompetition } from '../../models/competitions.models';
 import { StatusTypes } from '../../models/services.models';
 import { CompetitionsService } from '../../services/competitions.service';
 import { DialogsService } from '../../services/dialogs.service';
@@ -13,8 +13,8 @@ import { ToastService } from '../../services/toast.service';
 })
 export class CompetitionComponent implements OnInit {
 
-  competition!: ICompetitionInfo | void;
-  competitionId: number = 0;
+  competition!: ICompetition | void;
+  competitionPath: string = "";
   boulderProblems: IProblem[] = [];
   activeTab: CompetitionComponentTabs = CompetitionComponentTabs.INFO_GARA;
   CompetitionComponentTabs = CompetitionComponentTabs;
@@ -29,7 +29,7 @@ export class CompetitionComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.activetedRoute.params.subscribe(async params => {
-      this.competitionId = params['id'];
+      this.competitionPath = params['path'];
       this.LoadCompetition();
     });
   }
@@ -44,7 +44,7 @@ export class CompetitionComponent implements OnInit {
 
   TabActiveClass = (tabType: CompetitionComponentTabs) => {
     return tabType === this.activeTab ? "active" : "";
-  }
+  } 
 
   OnDeleteCompetitionClick = async (): Promise<void> => {
     const message = `Cancellare la gara?`;
@@ -108,7 +108,7 @@ export class CompetitionComponent implements OnInit {
   }
 
   private LoadCompetition = async (): Promise<void> => {
-    this.competition = await this.competitionsService.GetCompetitionInfo(this.competitionId);
+    this.competition = await this.competitionsService.GetBasicInfoByPublicPath(this.competitionPath);
   }
 }
 

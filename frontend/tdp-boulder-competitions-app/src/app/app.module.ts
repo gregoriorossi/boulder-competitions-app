@@ -72,7 +72,7 @@ import { EditAthleteFormComponent } from './components/common/edit-athlete-form/
     AngularEditorModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
-      { path: 'gare/:id', component: CompetitionComponent },
+      { path: 'gare/:path', component: CompetitionComponent },
       { path: '', redirectTo: '/gare', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }
     ])

@@ -4,6 +4,7 @@ export interface ICompetition {
   Id: number;
   Title: string;
   EventDate: Date;
+  PublicPath: string;
   State: CompetitionStateType;
 }
 

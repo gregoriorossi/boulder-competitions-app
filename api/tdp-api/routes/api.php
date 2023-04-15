@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Competition;
 use App\Http\Controllers\CompetitionsController;
+use App\Http\Controllers\CompetitionsBackendController;
 use App\Http\Controllers\ProblemsController;
 
 /*
@@ -21,9 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('competitions', [CompetitionsController::class, 'index']);
-Route::get('competitions/{competitionId}/info', [CompetitionsController::class, 'info']);
-Route::post('competitions/{competitionId}/info', [CompetitionsController::class, 'updateInfo']);
+
+// BACKEND
+Route::get('competitionsBackend/getAll', [CompetitionsBackendController::class, 'index']);
+Route::post('competitionsBackend/create', [CompetitionsBackendController::class, 'createCompetition']);
+Route::get('competitionsBackend/basicInfoByPublicPath/{publicPath}', [CompetitionsBackendController::class, 'basicInfoByPublicPath']);
+Route::get('competitionsBackend/{id}/info', [CompetitionsBackendController::class, 'info']);
+Route::post('competitionsBackend/{competitionId}/info', [CompetitionsBackendController::class, 'updateInfo']);
+
+
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 Route::get('competitions/{competitionId}/download/athletes', [CompetitionsController::class, 'downloadAthletes']);
 Route::get('competitions/{competitionId}/results', [CompetitionsController::class, 'getResults']);
@@ -33,7 +40,7 @@ Route::post('competitions/{competitionId}/register', [CompetitionsController::cl
 Route::put('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'updateRegistration']);
 Route::delete('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'deleteRegistration']);
 
-Route::post('competitions', [CompetitionsController::class, 'store']);
+
 Route::put('competitions/{competition}', [CompetitionsController::class, 'update']);
 Route::delete('competitions/{competition}', [CompetitionsController::class, 'delete']);
 Route::post('competitions/setState', [CompetitionsController::class, 'setState']);

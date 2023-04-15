@@ -28,34 +28,6 @@ class CompetitionsController extends Controller
         $this->problemsRepository = $problemsRepository;
     }
 
-    public function index()
-    {
-        return $this->competitionsRepository->getAll();
-    }
-
-    public function info(string $competitionId)
-    {
-        return $this->competitionsRepository->getInfo($competitionId);
-    }
-
-    public function updateInfo(string $competitionId, Request $request)
-    {
-        $competitionData = array(
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'event_date' => Carbon::parse($request->input('event_date')),
-            //'cover_image' => $request->input('cover_image'),
-            'email_subject' => $request->input('email_subject'),
-            'email_body' => $request->input('email_body')
-        );
-        
-        DB::table('competitions')
-            ->where('id', $competitionId)
-            ->update($competitionData);
-
-        return response()->json(null, 200);
-    }
-
     public function getAthletes(string $competitionId) {
         return $this->competitionsRepository->getAthletes($competitionId);
     }
@@ -72,18 +44,6 @@ class CompetitionsController extends Controller
 
     function getRanking(string $competitionId) {
         return $this->competitionsRepository->getRanking($competitionId);
-    }
-
-    public function store(Request $request)
-    {
-        $competitionData = array(
-            'title' => $request->input('title'),
-            'event_date' => $request->input('event_date'),
-            'state' => 1,
-            'public_id' => Str::uuid()->toString()
-        );
-
-        $this->competitionsRepository->CreateNewCompetition($competitionData);
     }
 
     public function update(Request $request, Competition $competition)

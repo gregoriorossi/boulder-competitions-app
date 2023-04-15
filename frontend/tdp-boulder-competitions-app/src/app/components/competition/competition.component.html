@@ -36,14 +36,14 @@
   </ul>
 
   <app-competition-info-gara *ngIf="IsTabContentVisible(CompetitionComponentTabs.INFO_GARA)"
-                             [CompetitionId]="competitionId">
+                             [CompetitionId]="competition.Id">
   </app-competition-info-gara>
 
   <app-competition-athletes *ngIf="IsTabContentVisible(CompetitionComponentTabs.ATHLETES)"
                             [Competition]="competition">
   </app-competition-athletes>
   <app-competition-problems *ngIf="IsTabContentVisible(CompetitionComponentTabs.PROBLEMS)"
-                            [CompetitionId]="competitionId">
+                            [CompetitionId]="competition.Id">
   </app-competition-problems>
 
   <app-competition-results-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"

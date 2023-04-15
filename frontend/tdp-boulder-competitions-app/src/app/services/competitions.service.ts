@@ -25,6 +25,10 @@ export class CompetitionsService extends BaseTdpApiService {
     return await this.get(TDPApiEndpoints.Competitions.GetAll);
   }
 
+  public async GetBasicInfoByPublicPath(path: string): Promise<ICompetition> {
+    return await this.get(TDPApiEndpoints.Competitions.GetBasicInfoByPublicPath(path));
+  }
+
   public async GetCompetitionInfo(id: number): Promise<ICompetitionInfo> {
     return await this.get(TDPApiEndpoints.Competitions.GetInfo(id));
   }

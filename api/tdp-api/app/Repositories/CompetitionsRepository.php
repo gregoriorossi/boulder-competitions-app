@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CompetitionsRepository {
     
@@ -28,16 +29,23 @@ class CompetitionsRepository {
     function getAll() {
         $result = DB::table('competitions')
             ->orderBy('event_date', 'desc')
-            ->get(['id', 'title', 'state', 'event_date']);
+            ->get(['id', 'title', 'state', 'event_date', 'public_path']);
 
         return $result->map(function($competition, $key) {
             return [
                 'Id' => $competition->id,
                 'Title' => $competition->title,
                 'State' => $competition->state,
-                'EventDate' => $competition->event_date
+                'EventDate' => $competition->event_date,
+                'PublicPath' => $competition->public_path
             ];
         });
+    }
+
+    function updateInfo($competitionId, $competitionData) {
+        return DB::table('competitions')
+            ->where('id', $competitionId)
+            ->update($competitionData);
     }
 
     function setState(string $competitionId, $stateId) {
@@ -50,9 +58,23 @@ class CompetitionsRepository {
             ->update($data);
     }
 
-    function getInfo(string $competitionId) {
+    function basicInfoByPath(string $public_path) {
         $info = DB::table('competitions')
-            ->where('id', $competitionId)
+            ->where('public_path', $public_path)
+            ->first();
+
+        return [
+            'Id' => $info->id,
+            'EventDate' => $info->event_date,
+            'PublicPath'=> $info->public_path,
+            'State' => $info->state,
+            'Title' => $info->title
+        ];
+    }
+
+    function getInfo(string $id) {
+        $info = DB::table('competitions')
+            ->where('id', $id)
             ->first();
 
         return [
@@ -61,7 +83,7 @@ class CompetitionsRepository {
             'EmailBody' => $info->email_body,
             'EmailSubject' => $info->email_subject,
             'EventDate' => $info->event_date,
-            'PublicId'=> $info->public_id,
+            'PublicPath'=> $info->public_path,
             'State' => $info->state,
             'Title' => $info->title
             // immagine
@@ -160,6 +182,35 @@ class CompetitionsRepository {
             ->delete();
 
         return $result;
+    }
+
+    function toAvailableUrlFriendly(string $text, string $competitionId = "", int $number = 1) {
+        $slug = Str::slug($text, "-");
+        
+        if ($number > 1) {
+            $slug = $slug . "-" . $number;
+        }
+
+        $isAvailable = $this->IsPublicPathAvailable($slug, $competitionId);
+
+        if ($isAvailable) {
+            return $slug;
+        } else {
+            return $this->toAvailableUrlFriendly($text, $number + 1);
+        }
+    }
+
+    private function IsPublicPathAvailable(string $path, string $competitionId) {
+        $query = DB::table('competitions')
+            ->where('public_path', $path);
+
+        if (strlen($competitionId) > 0) {
+            $query->where('id', '!=', $competitionId);
+        }
+         
+        $result = $query->count();
+
+        return $result == 0;
     }
 
     private function getTotalScore($competitionId, $athleteId, $problemsScores) {

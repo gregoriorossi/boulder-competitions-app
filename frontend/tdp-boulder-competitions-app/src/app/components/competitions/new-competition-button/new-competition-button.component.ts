@@ -67,7 +67,7 @@ export class NewCompetitionButtonComponent implements OnInit {
         this.formSubmittedAtLeastOnce = false;
       }, 200);
     } else {
-      this.toastService.showDanger('Errore nella cancellazione della gara');
+      this.toastService.showDanger('Errore nella creazione della gara');
     }
 
     this.CreateButtonDisabled = false;

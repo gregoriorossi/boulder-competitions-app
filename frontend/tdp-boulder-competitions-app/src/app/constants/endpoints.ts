@@ -1,13 +1,14 @@
 export const TDPApiEndpoints = {
   Competitions: {
     DownloadAthletes: (id:number) => `competitions/${id}/download/athletes`,
-    GetAll: 'competitions',
+    GetAll: 'competitionsBackend/getAll',
     GetAthletes: (id: number) => `competitions/${id}/athletes`,
-    GetInfo: (id: number) => `competitions/${id}/info`,
+    GetInfo: (id: number) => `competitionsBackend/${id}/info`,
+    GetBasicInfoByPublicPath: (path: string) => `competitionsBackend/basicInfoByPublicPath/${path}`,
     GetRanking: (id: number) => `competitions/${id}/ranking`,
     GetResults: (id: number) => `competitions/${id}/results`,
-    UpdateInfo: (id: number) => `competitions/${id}/info`,
-    Create: 'competitions',
+    UpdateInfo: (id: number) => `competitionsBackend/${id}/info`,
+    Create: 'competitionsBackend/create',
     EditCompetition: (id: number) => `competitions/${id}`,
     Delete: (id: number) => `competitions/${id}`,
     DeleteRegistration: (competitionId: number, athleteId: number) => `competitions/${competitionId}/${athleteId}/register`,
