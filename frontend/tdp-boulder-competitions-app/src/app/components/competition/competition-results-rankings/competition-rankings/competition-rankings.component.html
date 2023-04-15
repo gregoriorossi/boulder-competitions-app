@@ -7,11 +7,10 @@
     <div class="input-group mb-3">
       <select class="form-select" [(ngModel)]="rankingType" (ngModelChange)="OnRankingTypeChange($event)">
         <option [value]="RankingTypes.GENERAL">Generale</option>
-        <option [value]="RankingTypes.MAN">Maschile</option>
-        <option [value]="RankingTypes.WOMAN">Femminile</option>
-        <option [value]="RankingTypes.YOUNG">Giovani</option>
+        <option [value]="RankingTypes.MALE">Maschile</option>
+        <option [value]="RankingTypes.FEMALE">Femminile</option>
       </select>
-      <button type="button" class="btn btn-secondary" (click)="OnDownloadClick()">
+      <button type="button" class="btn btn-secondary" (click)="OnDownloadButtonClick()">
         <i class="fa fa-download"></i>&nbsp;Scarica classifica
       </button>
     </div>

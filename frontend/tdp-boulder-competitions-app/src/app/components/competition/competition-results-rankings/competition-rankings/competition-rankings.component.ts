@@ -37,16 +37,14 @@ export class CompetitionRankingsComponent implements OnInit {
   GetSectionTitle = (): string => {
     if (this.rankingType === RankingType.GENERAL)
       return "Classifica Generale";
-    if (this.rankingType === RankingType.MAN)
+    if (this.rankingType === RankingType.MALE)
       return "Classifica Maschile";
-    if (this.rankingType === RankingType.WOMAN)
+    else 
       return "Classifica Femminile";
-    else
-      return "Classifica Giovani";
   }
 
-  OnDownloadClick = (): void => {
-    alert('download!');
+  OnDownloadButtonClick = async (): Promise<void> => {
+    await this.competitionsService.DownloadRanking(this.Competition.Id, this.rankingType);
   }
 }
 

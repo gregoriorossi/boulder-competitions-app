@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Repositories\CompetitionsRepository;
 use App\Repositories\ProblemsRepository;
 use Carbon\Carbon;
+use App\Models\Exports\RankingExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CompetitionsBackendController extends Controller {
 
@@ -64,5 +66,15 @@ class CompetitionsBackendController extends Controller {
         
         $this->competitionsRepository->updateInfo($competitionId, $competitionData);
         return response()->json(null, 200);
+    }    
+
+    function getRanking(string $competitionId, string $type) {
+        return $this->competitionsRepository->getRanking($competitionId, $type);
+    }
+
+    public function downloadRanking(string $competitionId, string $type) {
+        $ranking = $this->competitionsRepository->getRanking($competitionId, $type);
+        $export = new RankingExport(collect($ranking));
+        return Excel::download($export, 'classifica.xlsx');
     }
 }

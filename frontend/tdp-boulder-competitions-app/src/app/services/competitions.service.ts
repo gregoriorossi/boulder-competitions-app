@@ -58,7 +58,12 @@ export class CompetitionsService extends BaseTdpApiService {
   }
 
   public async DownloadAthletes(competitionId: number): Promise<any> {
-    const url = this.BuildUrl(TDPApiEndpoints.Competitions.DownloadAthletes(competitionId))
+    const url = this.BuildUrl(TDPApiEndpoints.Competitions.DownloadAthletes(competitionId));
+    window.open(url, "_blank");
+  }
+
+  public async DownloadRanking(competitionId: number, type: RankingType): Promise<any> {
+    const url = this.BuildUrl(TDPApiEndpoints.Competitions.DownloadRanking(competitionId, type));
     window.open(url, "_blank");
   }
 
@@ -109,7 +114,7 @@ export class CompetitionsService extends BaseTdpApiService {
   }
 
   public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IRank[]> => {
-    return await this.get(TDPApiEndpoints.Competitions.GetRanking(competitionId));
+    return await this.get(TDPApiEndpoints.Competitions.GetRanking(competitionId, rankingType));
   }
 
   public async DeleteCompetition(competitionId: number): Promise<StatusTypes> {

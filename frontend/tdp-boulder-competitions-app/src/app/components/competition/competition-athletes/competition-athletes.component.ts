@@ -58,16 +58,7 @@ export class CompetitionAthletesComponent implements OnInit {
   }
 
   OnDownloadButtonClick = async (): Promise<void> => {
-    
     await this.competitionsService.DownloadAthletes(this.Competition.Id);
-    
-    //const blob: Blob = new Blob([data], { type: "application/xlsx" });
-
-    //var downloadURL = window.URL.createObjectURL(data);
-    //var link = document.createElement('a');
-    //link.href = downloadURL;
-    //link.download = "help.pdf";
-    //link.click();
   }
 
   OnSendEmailClick = (athlete: IAthlete): void => {

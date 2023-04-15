@@ -133,6 +133,18 @@ class CompetitionsRepository {
         });
     }
 
+    function getAthletesByType($competitionId, string $type) {
+        $athletes = $this->getAthletes($competitionId);
+
+        if (strlen($type) == 0 || $type == "GENERAL") {
+            return $athletes;
+        }
+
+        return $athletes->filter(function($athlete) use ($type) {
+            return $athlete["Gender"] == $type;
+        });
+    }
+
     function getResults(string $competitionId) {
         $athletes = $this->getAthletes($competitionId);
         $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
@@ -148,17 +160,18 @@ class CompetitionsRepository {
         });
     }
 
-    function getRanking(string $competitionId) {
-        $athletes = $this->getAthletes($competitionId);
+    function getRanking(string $competitionId, string $type = "") {
+        $athletes = $this->getAthletesByType($competitionId, $type);
+
         $problemsScores = $this->problemsRepository->getProblemsScores($competitionId);
         $ranking = array();
 
-        for($i = 0; $i < count($athletes); $i++) {
-            $athlete = $athletes[$i];
+        foreach($athletes as $currAthlete) {
+            $athlete = unserialize(serialize($currAthlete));
             $athlete['Score'] = $this->getTotalScore($competitionId, $athlete['Id'], $problemsScores);
             array_push($ranking, $athlete);
         }
-
+        
         usort($ranking, fn($a, $b) => $b['Score'] <=> $a['Score']);
 
         for($i = 0; $i < count($ranking); $i++) {

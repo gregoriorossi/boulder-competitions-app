@@ -29,12 +29,13 @@ Route::post('competitionsBackend/create', [CompetitionsBackendController::class,
 Route::get('competitionsBackend/basicInfoByPublicPath/{publicPath}', [CompetitionsBackendController::class, 'basicInfoByPublicPath']);
 Route::get('competitionsBackend/{id}/info', [CompetitionsBackendController::class, 'info']);
 Route::post('competitionsBackend/{competitionId}/info', [CompetitionsBackendController::class, 'updateInfo']);
+Route::get('competitionsBackend/{competitionId}/{type}/download/ranking', [CompetitionsBackendController::class, 'downloadRanking']);
+Route::get('competitionsBackend/{competitionId}/{type}/ranking', [CompetitionsBackendController::class, 'getRanking']);
 
 
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 Route::get('competitions/{competitionId}/download/athletes', [CompetitionsController::class, 'downloadAthletes']);
 Route::get('competitions/{competitionId}/results', [CompetitionsController::class, 'getResults']);
-Route::get('competitions/{competitionId}/ranking', [CompetitionsController::class, 'getRanking']);
 
 Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
 Route::put('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'updateRegistration']);

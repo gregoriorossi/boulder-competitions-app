@@ -79,9 +79,8 @@ export interface IRankingRow {
 
 export enum RankingType {
   GENERAL = "GENERAL",
-  MAN = "MAN",
-  WOMAN = "WOMAN",
-  YOUNG = "YOUNG"
+  MALE = "MALE",
+  FEMALE = "FEMALE"
 }
 
 export interface IRank {
