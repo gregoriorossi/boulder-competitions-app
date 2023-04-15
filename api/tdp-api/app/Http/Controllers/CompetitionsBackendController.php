@@ -68,6 +68,13 @@ class CompetitionsBackendController extends Controller {
         return response()->json(null, 200);
     }    
 
+    public function delete(string $competitionId)
+    {
+        $this->competitionsRepository->deleteCompetition($competitionId);
+
+        return response()->json(null, 204);
+    }
+
     function getRanking(string $competitionId, string $type) {
         return $this->competitionsRepository->getRanking($competitionId, $type);
     }

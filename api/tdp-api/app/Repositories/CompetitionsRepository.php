@@ -171,7 +171,7 @@ class CompetitionsRepository {
             $athlete['Score'] = $this->getTotalScore($competitionId, $athlete['Id'], $problemsScores);
             array_push($ranking, $athlete);
         }
-        
+
         usort($ranking, fn($a, $b) => $b['Score'] <=> $a['Score']);
 
         for($i = 0; $i < count($ranking); $i++) {
@@ -186,6 +186,28 @@ class CompetitionsRepository {
             ->where('id_registration', $athleteId)
             ->where('id_competition', $competitionId)
             ->update($registrationData);
+    }
+
+    public function deleteCompetition(string $idCompetition) {
+        DB::table('competitions')
+            ->where('id', $idCompetition)
+            ->delete();
+
+        DB::table('competitions_colors')
+            ->where('id_competition', $idCompetition)
+            ->delete();
+
+        DB::table('competitions_registrations')
+            ->where('id_competition', $idCompetition)
+            ->delete();
+
+        DB::table('problems')
+            ->where('competition_id', $idCompetition)
+            ->delete();
+
+        DB::table('sent_problems')
+            ->where('competition_id', $idCompetition)
+            ->delete();
     }
 
     function deleteRegistration(string $competitionId, string $athleteId) {

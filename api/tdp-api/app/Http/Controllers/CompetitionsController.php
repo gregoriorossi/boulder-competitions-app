@@ -49,13 +49,6 @@ class CompetitionsController extends Controller
         return response()->json($competition, 200);
     }
 
-    public function delete(Competition $competition)
-    {
-        $competition->delete();
-
-        return response()->json(null, 204);
-    }
-
     public function setState(Request $request)
     {
         $competitionId = $request->input('competitionId');

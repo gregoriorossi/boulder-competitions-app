@@ -2,6 +2,7 @@ import { RankingType } from "../models/competitions.models";
 
 export const TDPApiEndpoints = {
   Competitions: {
+    Delete: (id: number) => `competitionsBackend/${id}`,
     DownloadAthletes: (id: number) => `competitions/${id}/download/athletes`,
     DownloadRanking: (id: number, type: string) => `competitionsBackend/${id}/${type}/download/ranking`,
     GetAll: 'competitionsBackend/getAll',
@@ -13,7 +14,6 @@ export const TDPApiEndpoints = {
     UpdateInfo: (id: number) => `competitionsBackend/${id}/info`,
     Create: 'competitionsBackend/create',
     EditCompetition: (id: number) => `competitions/${id}`,
-    Delete: (id: number) => `competitions/${id}`,
     DeleteRegistration: (competitionId: number, athleteId: number) => `competitions/${competitionId}/${athleteId}/register`,
     RegisterAthleteToCompetition: (id: number) => `competitions/${id}/register`,
     UpdateRegistrationToCompetition: (competitionId: number, athleteId: number) => `competitions/${competitionId}/${athleteId}/register`,
