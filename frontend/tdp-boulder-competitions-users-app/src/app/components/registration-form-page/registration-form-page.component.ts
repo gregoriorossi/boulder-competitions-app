@@ -30,8 +30,8 @@ export class RegistrationFormPageComponent implements OnInit {
 
     this.activetedRoute.params.subscribe(async params => {
       const competitionId = params["id"];
-
-      const result = await this.competitionsService.GetCompetitionInfo(competitionId);
+      
+      const result = await this.competitionsService.GetCompetitionInfoByPath(competitionId);
       this.competition = result;
     });
   }

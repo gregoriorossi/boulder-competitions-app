@@ -28,6 +28,32 @@ class CompetitionsController extends Controller
         $this->problemsRepository = $problemsRepository;
     }
 
+    public function getAll() {
+        return $this->competitionsRepository->getAll();
+    }
+
+    public function isUserRegisteredToCompetition(string $competitionId, string $email) {
+        $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
+        $publicPath = "";
+
+        if ($isRegisteredToCompetition) {
+            $info = $this->competitionsRepository->getInfo($competitionId);
+            $publicPath = $info["PublicPath"];
+        }
+
+        $data = array(
+            "IsRegistered" => $isRegisteredToCompetition,
+            "PublicPath" => $publicPath
+        );
+
+        return response()->json($data, 200);
+    }
+
+    public function infoByPath(string $publicPath)
+    {
+        return $this->competitionsRepository->basicInfoByPath($publicPath);
+    }
+
     public function getAthletes(string $competitionId) {
         return $this->competitionsRepository->getAthletes($competitionId);
     }

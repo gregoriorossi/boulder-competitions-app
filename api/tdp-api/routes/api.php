@@ -26,11 +26,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // BACKEND
 Route::get('competitionsBackend/getAll', [CompetitionsBackendController::class, 'index']);
 Route::post('competitionsBackend/create', [CompetitionsBackendController::class, 'createCompetition']);
+Route::delete('competitionsBackend/{competitionId}', [CompetitionsBackendController::class, 'delete']);
 Route::get('competitionsBackend/basicInfoByPublicPath/{publicPath}', [CompetitionsBackendController::class, 'basicInfoByPublicPath']);
 Route::get('competitionsBackend/{id}/info', [CompetitionsBackendController::class, 'info']);
 Route::post('competitionsBackend/{competitionId}/info', [CompetitionsBackendController::class, 'updateInfo']);
 Route::get('competitionsBackend/{competitionId}/{type}/download/ranking', [CompetitionsBackendController::class, 'downloadRanking']);
 Route::get('competitionsBackend/{competitionId}/{type}/ranking', [CompetitionsBackendController::class, 'getRanking']);
+
+
+// FRONTEND
+Route::get('competitions/getAll', [CompetitionsController::class, 'getAll']);
+Route::get('competitions/isUserRegisteredToCompetition/{competitionId}/{email}', [CompetitionsController::class, 'isUserRegisteredToCompetition']);
+Route::get('competitions/{path}/infoByPath', [CompetitionsController::class, 'infoByPath']);
+
 
 
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Router } from "@angular/router";
+import { ICompetition } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
 import { ToastService } from "../../../services/toast.service";
 
@@ -14,17 +15,22 @@ export class AccessCompetitionFormComponent implements OnInit {
   @Output() OnSuccess = new EventEmitter<void>();
   @Output() OnError = new EventEmitter<void>();
 
+  Competitions: ICompetition[] = [];
+
   form!: FormGroup;
   formSubmittedAtLeastOnce: boolean = false;
   AccessButtonDisabled: boolean = false;
 
+  IsNotRegisteredMessageVisible: boolean = false;
+
   constructor(
-    private modalService: NgbModal,
+    private router: Router,
     private competitionsService: CompetitionsService,
-    private toastService: ToastService)
-  { }
+    private toastService: ToastService) { }
 
   async ngOnInit(): Promise<void> {
+
+    await this.LoadCompetitions();
 
     this.form = new FormGroup({
       Email: new FormControl('', [Validators.required, Validators.email]),
@@ -37,32 +43,38 @@ export class AccessCompetitionFormComponent implements OnInit {
 
   OnAccessClick = async (): Promise<void> => {
     this.formSubmittedAtLeastOnce = true;
+    this.IsNotRegisteredMessageVisible = false;
 
     if (!this.form.valid)
       return;
 
-    const model: any = {
-      CompetitionId: this.form.get('CompetitionId')?.value,
-      Email: this.form.get('Email')?.value
-    };
+    try {
+      const competitionId = this.form.get('CompetitionId')?.value;
+      const email = this.form.get('Email')?.value;
 
-    this.AccessButtonDisabled = true;
-    const result = await this.competitionsService.GetUserLinkToCompetition();
+      this.AccessButtonDisabled = true;
+      const result = await this.competitionsService.IsUserRegisteredToCompetition(competitionId, email);
 
-    //if (result.Status === StatusTypes.OK) {
-    //  this.modalService.dismissAll();
-    //  this.toastService.showSuccess('Registrazione avvenuta con successo');
-    //  this.OnRegistration.emit();
+      if (!result.IsRegistered) {
+        this.IsNotRegisteredMessageVisible = true;
+      } else {
+        const url: string = `/gara/${result.PublicPath}`;
+        this.router.navigate([url]);
+      }
 
-    //  setTimeout(() => {
-    //    this.form.reset();
-    //    this.formSubmittedAtLeastOnce = false;
-    //  }, 200);
-    //} else {
-    //  this.toastService.showDanger('Errore nella registrazione della gara');
-    //  this.OnRegistrationError.emit();
-    //}
+    } catch (err) {
+      this.toastService.showDanger("C'è stato un problema, riprovare");
+    } finally {
+      this.AccessButtonDisabled = false;
+    }
+  }
 
-    this.AccessButtonDisabled = false;
+  private LoadCompetitions = async (): Promise<void> => {
+    try {
+      this.Competitions = await this.competitionsService.GetAllCompetitions();
+    } catch (err) {
+      console.log(err);
+      this.toastService.showDanger("C'è stato un problema, riprovare");
+    }
   }
 }

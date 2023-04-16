@@ -17,6 +17,7 @@ import { CompetitonInfoComponent } from './components/competition/competition-in
 import { CompetitonProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
 import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
 import { CompetitonComponent } from './components/competition/competition.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RegistrationFormPageComponent } from './components/registration-form-page/registration-form-page.component';
 import { RegistrationFormComponent } from './components/registration-form-page/registration-form/registration-form.component';
 
@@ -45,8 +46,10 @@ import { RegistrationFormComponent } from './components/registration-form-page/r
     AppRoutingModule,
     RouterModule.forRoot([
       { path: 'registrati/:id', component: RegistrationFormPageComponent },
-      { path: 'gara/:id/:user', component: CompetitonComponent },
-      { path: 'accedi', component: AccessCompetitionComponent}
+      { path: 'gara/:path', component: CompetitonComponent },
+      { path: 'accedi', component: AccessCompetitionComponent },
+      { path: '', redirectTo: '/accedi', pathMatch: 'full' },
+      { path: '**', component: PageNotFoundComponent }
     ])
   ],
   providers: [

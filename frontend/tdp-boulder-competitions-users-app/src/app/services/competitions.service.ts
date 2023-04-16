@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TDPApiEndpoints } from "../constants/endpoints";
-import { IGetCompetitionProblemsByAthleteRequest, IGetCompetitionProblemsByAthleteResponse, IGetCompetitionInfoResponse, IRank, IRegisterToCompetitionRequest, RankingType, ICompetitionInfo } from "../models/competitions.models";
+import { IGetCompetitionProblemsByAthleteRequest, IGetCompetitionProblemsByAthleteResponse, IGetCompetitionInfoResponse, IRank, IRegisterToCompetitionRequest, RankingType, ICompetitionInfo, ICompetition, IIsUserRegisteredToCompetitionResponse } from "../models/competitions.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
 import * as moment from 'moment';
@@ -16,19 +16,19 @@ export class CompetitionsService extends BaseTdpApiService {
     super(httpClient);
   }
 
-  public GetCompetitionInfo = async (competitionId: number): Promise<ICompetitionInfo> => {
-    const result = await this.get(TDPApiEndpoints.Competitions.GetInfo(competitionId)) as IGetCompetitionInfoResponse;
+  public GetAllCompetitions = async (): Promise<ICompetition[]> => {
+    return await this.get(TDPApiEndpoints.Competitions.GetAll());
+  }
 
-    const eventDate = moment(result.EventDate).toDate();
-    return {
-      Id: result.Id,
-      Description: result.Description,
-      EventDate: eventDate,
-      PublicId: result.PublicId,
-      State: result.State,
-      Title: result.Title,
-      FormImageCover: '' // TODO
-    }
+  public IsUserRegisteredToCompetition = async (competitionId: number, email: string): Promise<IIsUserRegisteredToCompetitionResponse> => {
+    const result = await this.get(TDPApiEndpoints.Competitions.IsUserRegisteredToCompetition(competitionId, email)) as IIsUserRegisteredToCompetitionResponse;
+    return result;
+  }
+
+  public GetCompetitionInfoByPath = async (competitionPath: string): Promise<ICompetitionInfo> => {
+    const result = await this.get(TDPApiEndpoints.Competitions.GetInfoByPath(competitionPath)) as ICompetitionInfo;
+    return result;
+   
   }
 
   public RegisterToCompetition = async (competitionId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
@@ -43,10 +43,6 @@ export class CompetitionsService extends BaseTdpApiService {
         Status: StatusTypes.ERROR
       }
     }
-  }
-
-  public GetUserLinkToCompetition = async (): Promise<string> => {
-    return Promise.resolve("fdafds"); // id competition and user id
   }
 
   public GetCompetitionProblemsByAthleteRequest = async (competitionId: number, athleteId: string): Promise<IGetCompetitionProblemsByAthleteResponse> => {

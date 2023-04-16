@@ -1,3 +1,15 @@
+export interface ICompetition {
+  Id: number;
+  Title: string;
+  EventDate: Date;
+  PublicPath: string;
+}
+
+export interface IIsUserRegisteredToCompetitionResponse {
+  IsRegistered: boolean;
+  PublicPath: string;
+}
+
 export interface ICompetitionInfo {
   Id: number;
   Description: string;

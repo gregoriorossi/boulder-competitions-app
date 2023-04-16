@@ -20,7 +20,7 @@ export class CompetitonComponent implements OnInit {
 
   ready: boolean = false;
 
-  competitionId!: number;
+  competitionPath!: string;
   userId!: string;
 
   DateUtils = DateUtils;
@@ -35,13 +35,13 @@ export class CompetitonComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.activetedRoute.params.subscribe(async params => {
-      this.competitionId = Number.parseInt(params["id"]);
+      this.competitionPath = params["path"];
       this.userId = params["user"];
 
       // TODO check se l'utente è iscritto
 
-      const result = await this.competitionsService.GetCompetitionInfo(this.competitionId);
-      this.Competition = result;
+       const result = await this.competitionsService.GetCompetitionInfoByPath(this.competitionPath);
+      //this.Competition = result;
 
       this.ready = true;
     });
