@@ -44,6 +44,20 @@ export class CompetitionsService extends BaseTdpApiService {
     }
   }
 
+  public DeleteRegistration = async (competitionId: number, athleteId: number): Promise<IResponse> => {
+    try {
+      const result = this.delete(TDPApiEndpoints.Competitions.DeleteRegistration(competitionId, athleteId));
+      return {
+        Status: StatusTypes.OK
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        Status: StatusTypes.ERROR
+      }
+    }
+  }
+
   public GetCompetitionProblemsByAthleteRequest = async (competitionId: number, athleteId: string): Promise<IGetCompetitionProblemsByAthleteResponse> => {
     const model: IGetCompetitionProblemsByAthleteRequest = {
       CompetitionId: competitionId,

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Cookies } from "../../constants/cookies";
 import { GetCompetitionToRegisterForStatus, IAthlete, ICompetitionInfo } from "../../models/competitions.models";
+import { StatusTypes } from "../../models/services.models";
 import { CompetitionsService } from "../../services/competitions.service";
 import { DialogsService } from "../../services/dialogs.service";
 import { ToastService } from "../../services/toast.service";
@@ -82,9 +83,14 @@ export class CompetitonComponent implements OnInit {
   }
 
   OnUnsubscribeClick = (): void => {
-    const confirmFn = () => {
-      // chiama servizio
-      // reindirizza da qualche parte
+    const confirmFn = async (): Promise<void> => {
+      const result = await this.competitionsService.DeleteRegistration(this.Competition.Id, this.Athlete.Id);
+      if (result.Status === StatusTypes.OK) {
+        this.toastService.showSuccess("Registrazione cancellata con successo");
+        this.RedirectHome();
+      } else {
+        this.toastService.showDanger("Errore nella cancellazione della registrazione");
+      }
     };
     
     this.dialogsService.Confirm("Vuoi cancellare la tua iscrizione", "Ne sei veramente sicuro?", "Conferma", "Annulla", confirmFn, () => { });
