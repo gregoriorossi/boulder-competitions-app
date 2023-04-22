@@ -5,9 +5,21 @@ export interface ICompetition {
   PublicPath: string;
 }
 
+export interface IAthlete {
+  Id: number
+  IdCompetition: number
+  Name: string
+  Surname: string
+  BirthDate: string
+  Email: string
+  Telephone: string
+  Gender: string
+}
+
 export interface IIsUserRegisteredToCompetitionResponse {
   IsRegistered: boolean;
   PublicPath: string;
+  Athlete: IAthlete;
 }
 
 export interface ICompetitionInfo {

@@ -2,29 +2,10 @@
   <div class="col-12">
     <h4>{{Competition.Title}}</h4>
 
-    <h2>BOULDER MEETING</h2>
-
-    <p>&nbsp;</p>
-
-    <h4>24 SETTEMBRE</h4>
-
-    <p>&nbsp;</p>
-
-    <p>Programma della giornata:</p>
-
-    <ul>
-      <li>15:00 iscrizioni gara</li>
-      <li>16:00 inizio meeting</li>
-      <li>20:00 fine meeting boulder</li>
-      <li>20:30 classifiche e premiazioni</li>
-    </ul>
-
-    <p>&nbsp;</p>
-
-    <p>
-      Portare con s&eacute; magnesio liquido e pallina<br />
-      Palestra di Basaldella di Vivaro, in via Spilimbergo
-    </p>
+    <div class="row">
+      <div class="col-12" [innerHtml]="Competition.Description">
+      </div>
+    </div>
 
   </div>
 </div>

@@ -33,6 +33,9 @@
     <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.RANKINGS)">
       <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.RANKINGS)}}">Risultati e classifiche</a>
     </li>
+    <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.COMMUNICATION)">
+      <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.COMMUNICATION)}}">Invia Comunicazione</a>
+    </li>
   </ul>
 
   <app-competition-info-gara *ngIf="IsTabContentVisible(CompetitionComponentTabs.INFO_GARA)"
@@ -47,7 +50,10 @@
   </app-competition-problems>
 
   <app-competition-results-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"
-                            [Competition]="competition">
+                                    [Competition]="competition">
   </app-competition-results-rankings>
+  <app-competition-send-communication *ngIf="IsTabContentVisible(CompetitionComponentTabs.COMMUNICATION)"
+                                    [Competition]="competition">
+  </app-competition-send-communication>
 </ng-container>
 

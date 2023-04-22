@@ -32,6 +32,7 @@ import { CompetitionResultsComponent } from './components/competition/competitio
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { EditColorsButtonComponent } from './components/competition/competition-problems/edit-colors-button/edit-colors-button.component';
 import { EditAthleteFormComponent } from './components/common/edit-athlete-form/edit-athlete-form.component';
+import { CompetitionSendCommunicationComponent } from './components/competition/competition-send-communication/competition-send-communication.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { EditAthleteFormComponent } from './components/common/edit-athlete-form/
     CompetitionAthletesComponent,
     CompetitionProblemsComponent,
     CompetitionResultsComponent,
+    CompetitionSendCommunicationComponent,
     EditableProblemComponent,
     NewCompetitionButtonComponent,
     ToastComponent,

@@ -116,5 +116,6 @@ enum CompetitionComponentTabs {
   INFO_GARA = 0,
   ATHLETES = 1,
   RANKINGS = 2,
-  PROBLEMS = 3
+  PROBLEMS = 3,
+  COMMUNICATION = 4
 }

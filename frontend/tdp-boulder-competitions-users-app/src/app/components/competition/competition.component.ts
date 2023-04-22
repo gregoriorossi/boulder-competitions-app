@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { GetCompetitionToRegisterForStatus, ICompetitionInfo } from "../../models/competitions.models";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
+import { Cookies } from "../../constants/cookies";
+import { GetCompetitionToRegisterForStatus, IAthlete, ICompetitionInfo } from "../../models/competitions.models";
 import { CompetitionsService } from "../../services/competitions.service";
 import { DialogsService } from "../../services/dialogs.service";
+import { ToastService } from "../../services/toast.service";
 import { DateUtils } from "../../utils/date.utils";
+import { StringUtils } from "../../utils/string.utils";
 
 @Component({
   selector: 'app-competiton',
@@ -13,6 +17,7 @@ import { DateUtils } from "../../utils/date.utils";
 export class CompetitonComponent implements OnInit {
 
   Competition!: ICompetitionInfo;
+  Athlete!: IAthlete;
   CompetitionStatus!: GetCompetitionToRegisterForStatus;
 
   CompetitionComponentTabs = CompetitionComponentTabs;
@@ -21,29 +26,46 @@ export class CompetitonComponent implements OnInit {
   ready: boolean = false;
 
   competitionPath!: string;
-  userId!: string;
+  userEmail!: string;
 
   DateUtils = DateUtils;
 
   constructor(
     private competitionsService: CompetitionsService,
     private activetedRoute: ActivatedRoute,
-    private dialogsService: DialogsService)
+    private dialogsService: DialogsService,
+    private toastService: ToastService,
+    private cookieService: CookieService,
+    private router: Router  )
   { }
 
 
   async ngOnInit(): Promise<void> {
 
     this.activetedRoute.params.subscribe(async params => {
-      this.competitionPath = params["path"];
-      this.userId = params["user"];
+      try {
+        this.competitionPath = params["path"];
+        this.Competition = await this.competitionsService.GetCompetitionInfoByPath(this.competitionPath);
+        
+        this.userEmail = this.cookieService.get(Cookies.User);
+        if (StringUtils.IsNullOrEmpty(this.userEmail)) {
+          this.RedirectHome();
+        }
 
-      // TODO check se l'utente è iscritto
+        const isRegisteredResult = await this.competitionsService.IsUserRegisteredToCompetition(this.Competition.Id, this.userEmail);
+        const isRegistered: boolean = isRegisteredResult.IsRegistered;
+        if (!isRegistered) {
+          this.RedirectHome();
+        }
 
-       const result = await this.competitionsService.GetCompetitionInfoByPath(this.competitionPath);
-      //this.Competition = result;
+        this.Athlete = isRegisteredResult.Athlete;
 
-      this.ready = true;
+        this.ready = true;
+      } catch (err) {
+        console.log(err);
+        this.toastService.showDanger("Errore nel caricamento della gara");
+      }
+      
     });
   }
 
@@ -66,6 +88,10 @@ export class CompetitonComponent implements OnInit {
     };
     
     this.dialogsService.Confirm("Vuoi cancellare la tua iscrizione", "Ne sei veramente sicuro?", "Conferma", "Annulla", confirmFn, () => { });
+  }
+
+  private RedirectHome = (): void => {
+    this.router.navigate([""]);
   }
 }
 

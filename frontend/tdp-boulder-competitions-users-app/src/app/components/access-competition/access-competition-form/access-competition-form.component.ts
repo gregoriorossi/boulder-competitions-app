@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
 import { ICompetition } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
 import { ToastService } from "../../../services/toast.service";
@@ -26,7 +27,9 @@ export class AccessCompetitionFormComponent implements OnInit {
   constructor(
     private router: Router,
     private competitionsService: CompetitionsService,
-    private toastService: ToastService) { }
+    private toastService: ToastService,
+    private cookieService: CookieService)
+  { }
 
   async ngOnInit(): Promise<void> {
 
@@ -58,6 +61,7 @@ export class AccessCompetitionFormComponent implements OnInit {
       if (!result.IsRegistered) {
         this.IsNotRegisteredMessageVisible = true;
       } else {
+        this.cookieService.set('user', email, 1);
         const url: string = `/gara/${result.PublicPath}`;
         this.router.navigate([url]);
       }

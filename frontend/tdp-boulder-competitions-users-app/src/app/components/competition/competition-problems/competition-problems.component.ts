@@ -10,7 +10,7 @@ import { ColorsUtils } from "../../../utils/colors.utils";
 })
 export class CompetitonProblemsComponent implements OnInit {
 
-  @Input() UserId!: string;
+  @Input() UserEmail!: string;
   @Input() Competition!: ICompetitionInfo;
 
   protected ProblemGroups: IProblemsGroupColor[] = [];
@@ -20,7 +20,7 @@ export class CompetitonProblemsComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.Competition.Id, this.UserId)
+    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.Competition.Id, this.UserEmail)
     this.ProblemGroups = response.ProblemsGroups;
   }
 

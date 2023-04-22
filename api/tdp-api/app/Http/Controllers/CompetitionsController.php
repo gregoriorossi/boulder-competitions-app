@@ -35,15 +35,19 @@ class CompetitionsController extends Controller
     public function isUserRegisteredToCompetition(string $competitionId, string $email) {
         $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
         $publicPath = "";
+        $athlete = null;
 
         if ($isRegisteredToCompetition) {
             $info = $this->competitionsRepository->getInfo($competitionId);
             $publicPath = $info["PublicPath"];
+
+            $athlete = $this->competitionsRepository->getAthlete($competitionId, $email);
         }
 
         $data = array(
             "IsRegistered" => $isRegisteredToCompetition,
-            "PublicPath" => $publicPath
+            "PublicPath" => $publicPath,
+            "Athlete" => $athlete
         );
 
         return response()->json($data, 200);
@@ -51,7 +55,7 @@ class CompetitionsController extends Controller
 
     public function infoByPath(string $publicPath)
     {
-        return $this->competitionsRepository->basicInfoByPath($publicPath);
+        return $this->competitionsRepository->getInfoByPath($publicPath);
     }
 
     public function getAthletes(string $competitionId) {

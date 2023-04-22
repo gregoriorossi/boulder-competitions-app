@@ -20,7 +20,7 @@
 
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-0 mb-3 border-bottom">
     <p>
-      John Doe
+      {{Athlete.Name}} {{Athlete.Surname}}
     </p>
   </div>
 
@@ -43,7 +43,7 @@
 
   <app-competition-problems *ngIf="IsTabContentVisible(CompetitionComponentTabs.PROBLEMS)"
                             [Competition]="Competition"
-                            [UserId]="userId">
+                            [UserEmail]="userEmail">
   </app-competition-problems>
 
   <app-competition-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"

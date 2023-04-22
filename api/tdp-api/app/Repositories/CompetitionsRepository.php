@@ -72,6 +72,24 @@ class CompetitionsRepository {
         ];
     }
 
+    function getInfoByPath(string $public_path) {
+        $info = DB::table('competitions')
+            ->where('public_path', $public_path)
+            ->first();
+
+        return [
+            'Id' => $info->id,
+            'Description' => $info->description,
+            'EmailBody' => $info->email_body,
+            'EmailSubject' => $info->email_subject,
+            'EventDate' => $info->event_date,
+            'PublicPath'=> $info->public_path,
+            'State' => $info->state,
+            'Title' => $info->title
+            // immagine
+        ];
+    }
+
     function getInfo(string $id) {
         $info = DB::table('competitions')
             ->where('id', $id)
@@ -112,6 +130,24 @@ class CompetitionsRepository {
         DB::Table('competitions_colors')->insert($data);
     }
     
+    function getAthlete($competitionId, string $email) {
+        $athlete = DB::table('competitions_registrations')
+            ->where('id_competition', $competitionId)
+            ->where('email', $email)
+            ->first();
+
+        return [
+            'Id' => $athlete->id_registration,
+            'IdCompetition' => $athlete->id_competition,
+            'Name' => $athlete->name,
+            'Surname' => $athlete->surname,
+            'BirthDate' => $athlete->birth_date,
+            'Email'=> $athlete->email,
+            'Telephone' => $athlete->telephone,
+            'Gender' => $athlete->gender,
+        ];
+    }
+
     function getAthletes($competitionId) {
         $result = DB::table('competitions_registrations')
             ->where('id_competition', $competitionId)
