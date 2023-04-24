@@ -39,9 +39,7 @@ export class CompetitionRankingsComponent implements OnInit {
       return "Classifica Generale";
     if (this.rankingType === RankingType.MAN)
       return "Classifica Maschile";
-    if (this.rankingType === RankingType.WOMAN)
-      return "Classifica Femminile";
     else
-      return "Classifica Giovani";
+      return "Classifica Femminile";
   }
 }

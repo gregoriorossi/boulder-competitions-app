@@ -9,7 +9,6 @@
         <option [value]="RankingTypes.GENERAL">Generale</option>
         <option [value]="RankingTypes.MAN">Maschile</option>
         <option [value]="RankingTypes.WOMAN">Femminile</option>
-        <option [value]="RankingTypes.YOUNG">Giovani</option>
       </select>
     </div>
   </div>
@@ -26,7 +25,7 @@
       <tbody>
         <tr *ngFor="let rank of ranking">
           <th scope="row">{{ rank.Position }}</th>
-          <td>{{ rank.FullName }}</td>
+          <td>{{ rank.Surname }} {{ rank.Name }}</td>
           <td>{{ rank.Score }}</td>
         </tr>
       </tbody>

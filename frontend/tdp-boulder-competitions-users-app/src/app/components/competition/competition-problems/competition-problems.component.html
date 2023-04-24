@@ -2,6 +2,12 @@
   <i class="fa fa-exclamation-circle"></i>&nbsp;
   Non &egrave; possibile impostare i blocchi chiusi quando la gara non è in corso
 </div>
+
+<div class="alert alert-info" role="alert" *ngIf="!AreProblemsDisabled">
+  <i class="fa fa-info-circle"></i>&nbsp;
+  Seleziona i blocchi che hai chiuso!
+</div>
+
 <ng-container *ngIf="ProblemsGroups.length > 0">
   <div class="row mb-3" *ngFor="let group of ProblemsGroups">
     <div class="col-sm-12">

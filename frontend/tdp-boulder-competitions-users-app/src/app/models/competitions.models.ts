@@ -73,14 +73,20 @@ export interface IGetCompetitionProblemsByAthleteRequest {
 
 export enum RankingType {
   GENERAL = "GENERAL",
-  MAN = "MAN",
-  WOMAN = "WOMAN",
-  YOUNG = "YOUNG"
+  MAN = "MALE",
+  WOMAN = "FEMALE"
 }
 
 export interface IRank {
-  FullName: string;
   Position: number;
+  Id: number;
+  IdCompetition: number;
+  Name: string;
+  Surname: string;
+  BirthDate: string;
+  Email: string;
+  Telephone: string;
+  Gender: string;
   Score: number;
 }
 
