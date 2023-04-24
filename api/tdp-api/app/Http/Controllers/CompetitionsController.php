@@ -105,6 +105,7 @@ class CompetitionsController extends Controller
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
+            $this->competitionsRepository->sendRegistrationEmail($registrationData);
             return response()->json(null, 204);
         } else {
             // già registrato

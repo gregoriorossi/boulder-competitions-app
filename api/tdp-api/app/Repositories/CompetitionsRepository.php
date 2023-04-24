@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class CompetitionsRepository {
     
@@ -270,6 +271,28 @@ class CompetitionsRepository {
         } else {
             return $this->toAvailableUrlFriendly($text, $number + 1);
         }
+    }
+
+    function sendRegistrationEmail($registrationData) {
+        $info = $this->getInfo($registrationData['id_competition']);
+
+        $body = $info['EmailBody'];
+        $subject = $info['EmailSubject'];
+
+        $placeholders = ["{TitoloGara}", "{DataGara}", "{Partecipante}"];
+        
+        $partecipanteValue = $registrationData['name'] . " " . $registrationData['surname'];
+        $values = [$info['Title'], $info['EventDate'], $partecipanteValue];
+        
+        $body = str_replace($placeholders, $values, $body);
+        $subject = str_replace($placeholders, $values, $subject);
+
+        $details = [
+            'subject' => $subject,
+            'body'=> $body
+        ];
+
+        Mail::to($registrationData['email'])->send(new \App\Mail\RegistrationMail($details));
     }
 
     private function IsPublicPathAvailable(string $path, string $competitionId) {
