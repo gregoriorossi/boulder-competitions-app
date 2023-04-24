@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { CompetitionStateType, ICompetitionInfo, IGetCompetitionProblemsByAthleteResponse, IProblemsGroupColor } from "../../../models/competitions.models";
+import { CompetitionStateType, IAthlete, ICompetitionInfo, IProblem, IProblemsGroupColor } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
+import { ProblemsService } from "../../../services/problems.service";
+import { ToastService } from "../../../services/toast.service";
 import { ColorsUtils } from "../../../utils/colors.utils";
 
 @Component({
@@ -10,18 +12,18 @@ import { ColorsUtils } from "../../../utils/colors.utils";
 })
 export class CompetitonProblemsComponent implements OnInit {
 
-  @Input() UserEmail!: string;
+  @Input() Athlete!: IAthlete;
   @Input() Competition!: ICompetitionInfo;
 
-  protected ProblemGroups: IProblemsGroupColor[] = [];
+  protected ProblemsGroups: IProblemsGroupColor[] = [];
 
-  constructor(private competitionsService: CompetitionsService)
-  { }
+  constructor(private competitionsService: CompetitionsService,
+    private problemsService: ProblemsService,
+    private toastService: ToastService) { }
 
 
   async ngOnInit(): Promise<void> {
-    const response: IGetCompetitionProblemsByAthleteResponse = await this.competitionsService.GetCompetitionProblemsByAthleteRequest(this.Competition.Id, this.UserEmail)
-    this.ProblemGroups = response.ProblemsGroups;
+    await this.LoadResults();
   }
 
   GetCssColorClass = (color: string): string => {
@@ -32,7 +34,19 @@ export class CompetitonProblemsComponent implements OnInit {
     return this.Competition.State !== CompetitionStateType.ONGOING;
   }
 
-  OnProblemChange = ($event: any): void => {
-    console.log($event);
+  OnProblemChange = async ($event: any, problem: IProblem): Promise<void> => {
+
+    try {
+      const isSent = $event.target.checked;
+      await this.problemsService.SetSent(this.Competition.Id, problem.Id, this.Athlete.Id, isSent);
+    } catch (err) {
+      console.log(err);
+      this.toastService.showDanger("Errore, riprovare più tardi");
+      await this.LoadResults();
+    }
+  }
+
+  private LoadResults = async (): Promise<void> => {
+    this.ProblemsGroups = await this.competitionsService.GetResultsByAthleteId(this.Competition.Id, this.Athlete.Id);
   }
 }

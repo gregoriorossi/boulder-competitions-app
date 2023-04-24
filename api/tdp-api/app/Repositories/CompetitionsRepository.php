@@ -130,22 +130,22 @@ class CompetitionsRepository {
         DB::Table('competitions_colors')->insert($data);
     }
     
+    function getAthleteById($competitionId, string $athleteId) {
+        $athlete = DB::table('competitions_registrations')
+            ->where('id_competition', $competitionId)
+            ->where('id_registration', $athleteId)
+            ->first();
+
+        return $this->mapAthlete($athlete);
+    }
+
     function getAthlete($competitionId, string $email) {
         $athlete = DB::table('competitions_registrations')
             ->where('id_competition', $competitionId)
             ->where('email', $email)
             ->first();
 
-        return [
-            'Id' => $athlete->id_registration,
-            'IdCompetition' => $athlete->id_competition,
-            'Name' => $athlete->name,
-            'Surname' => $athlete->surname,
-            'BirthDate' => $athlete->birth_date,
-            'Email'=> $athlete->email,
-            'Telephone' => $athlete->telephone,
-            'Gender' => $athlete->gender,
-        ];
+        return $this->mapAthlete($athlete);
     }
 
     function getAthletes($competitionId) {
@@ -156,16 +156,7 @@ class CompetitionsRepository {
             ->get();
 
         return $result->map(function($athlete, $key) {
-            return [
-                'Id' => $athlete->id_registration,
-                'IdCompetition' => $athlete->id_competition,
-                'Name' => $athlete->name,
-                'Surname' => $athlete->surname,
-                'BirthDate' => $athlete->birth_date,
-                'Email'=> $athlete->email,
-                'Telephone' => $athlete->telephone,
-                'Gender' => $athlete->gender,
-            ];
+            return $this->mapAthlete($athlete);
         });
     }
 
@@ -194,6 +185,16 @@ class CompetitionsRepository {
                 'ProblemsGroups' => $problemsGroupsWithSentProblems
             ];
         });
+    }
+
+    function getResultsByAthlete(string $competitionId, string $athleteId) {
+        $athlete = $this->getAthleteById($competitionId, $athleteId);
+        $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
+
+        $sentProblems = $this->problemsRepository->getSentProblemsByAthlete($athleteId, $competitionId);
+        $problemsGroupsWithSentProblems = $this->problemsRepository->setSentProblemsToProblemsGroups($problemsGroups, $sentProblems);
+
+        return $problemsGroupsWithSentProblems;
     }
 
     function getRanking(string $competitionId, string $type = "") {
@@ -305,5 +306,18 @@ class CompetitionsRepository {
         }
 
         return 0;
+    }
+
+    private function mapAthlete($athlete) {
+        return [
+            'Id' => $athlete->id_registration,
+            'IdCompetition' => $athlete->id_competition,
+            'Name' => $athlete->name,
+            'Surname' => $athlete->surname,
+            'BirthDate' => $athlete->birth_date,
+            'Email'=> $athlete->email,
+            'Telephone' => $athlete->telephone,
+            'Gender' => $athlete->gender,
+        ];
     }
 }

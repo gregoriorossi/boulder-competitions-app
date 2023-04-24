@@ -79,6 +79,10 @@ class CompetitionsBackendController extends Controller {
         return $this->competitionsRepository->getRanking($competitionId, $type);
     }
 
+    public function getResults(string $competitionId) {
+        return $this->competitionsRepository->getResults($competitionId);
+    }
+
     public function downloadRanking(string $competitionId, string $type) {
         $ranking = $this->competitionsRepository->getRanking($competitionId, $type);
         $export = new RankingExport(collect($ranking));

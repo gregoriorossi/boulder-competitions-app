@@ -58,78 +58,10 @@ export class CompetitionsService extends BaseTdpApiService {
     }
   }
 
-  public GetCompetitionProblemsByAthleteRequest = async (competitionId: number, athleteId: string): Promise<IGetCompetitionProblemsByAthleteResponse> => {
-    const model: IGetCompetitionProblemsByAthleteRequest = {
-      CompetitionId: competitionId,
-      AthleteId: athleteId
-    };
-
-    return Promise.resolve({
-      ProblemsGroups: [
-        {
-          Color: '#FFF',
-          Difficulty: 1,
-          Problems: [
-            { ID: "1", Name: "1", Sent: false },
-            { ID: "2", Name: "2", Sent: true },
-            { ID: "3", Name: "3", Sent: false },
-            { ID: "4", Name: "4", Sent: true },
-            { ID: "5", Name: "5", Sent: false }
-          ]
-        },
-        {
-          Color: '#00F',
-          Difficulty: 2,
-          Problems: [
-            { ID: "1", Name: "1", Sent: true },
-            { ID: "2", Name: "2", Sent: true },
-            { ID: "3", Name: "3", Sent: false },
-            { ID: "4", Name: "4", Sent: true },
-            { ID: "5", Name: "5", Sent: false },
-            { ID: "6", Name: "6", Sent: false }
-          ]
-        },
-        {
-          Color: '#0F0',
-          Difficulty: 3,
-          Problems: [
-            { ID: "1", Name: "1", Sent: false },
-            { ID: "2", Name: "2", Sent: true },
-            { ID: "3", Name: "3", Sent: false },
-            { ID: "4", Name: "4", Sent: true },
-            { ID: "5", Name: "5", Sent: false }
-          ]
-        },
-        {
-          Color: '#FF0',
-          Difficulty: 4,
-          Problems: [
-            { ID: "1", Name: "1", Sent: false },
-            { ID: "2", Name: "2", Sent: true },
-            { ID: "3", Name: "3", Sent: false },
-            { ID: "4", Name: "4", Sent: true }
-          ]
-        },
-        {
-          Color: '#F00',
-          Difficulty: 5,
-          Problems: [
-            { ID: "1", Name: "1", Sent: false },
-            { ID: "2", Name: "2", Sent: true },
-            { ID: "2", Name: "3", Sent: true }
-          ]
-        },
-        {
-          Color: '#000',
-          Difficulty: 6,
-          Problems: [
-            { ID: "1", Name: "1", Sent: false },
-            { ID: "2", Name: "2", Sent: true }
-          ]
-        }
-      ]
-    });
+  public GetResultsByAthleteId = async (competitionId: number, athleteId: number): Promise<any> => {
+    return await this.get(TDPApiEndpoints.Competitions.GetResultsByAthleteId(competitionId, athleteId));
   }
+
 
   public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IRank[]> => {
     let ranking: IRank[] = [];

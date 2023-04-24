@@ -1,14 +1,16 @@
-<div class="row mb-3" *ngFor="let group of ProblemGroups">
-  <div class="col-sm-12">
-    <label class="checkbox-inline" *ngFor="let problem of group.Problems">
-      <input type="checkbox"
-             class="form-check-input"
-             [checked]="problem.Sent"
-             [disabled]="AreProblemsDisabled"
-             (change)="OnProblemChange($event)">
-      <label class="form-check-label">
-        <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Name}}</span>
+<ng-container *ngIf="ProblemsGroups.length > 0">
+  <div class="row mb-3" *ngFor="let group of ProblemsGroups">
+    <div class="col-sm-12">
+      <label class="checkbox-inline" *ngFor="let problem of group.Problems">
+        <input type="checkbox"
+               class="form-check-input"
+               [checked]="problem.Sent"
+               [disabled]="AreProblemsDisabled"
+               (change)="OnProblemChange($event, problem)">
+        <label class="form-check-label">
+          <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Title}}</span>
+        </label>
       </label>
-    </label>
+    </div>
   </div>
-</div>
+</ng-container>

@@ -10,7 +10,7 @@ export const TDPApiEndpoints = {
     GetInfo: (id: number) => `competitionsBackend/${id}/info`,
     GetBasicInfoByPublicPath: (path: string) => `competitionsBackend/basicInfoByPublicPath/${path}`,
     GetRanking: (id: number, type: RankingType) => `competitionsBackend/${id}/${type}/ranking`,
-    GetResults: (id: number) => `competitions/${id}/results`,
+    GetResults: (id: number) => `competitionsBackend/${id}/results`,
     UpdateInfo: (id: number) => `competitionsBackend/${id}/info`,
     Create: 'competitionsBackend/create',
     EditCompetition: (id: number) => `competitions/${id}`,

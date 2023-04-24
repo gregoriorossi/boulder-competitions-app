@@ -70,14 +70,18 @@ export interface IGetCompetitionProblemsByAthleteRequest {
 
 export interface IProblemsGroupColor {
   Color: string;
-  Difficulty: number;
-  Problems: IProblemSentStatus[];
+  Id: number;
+  IdCompetition: number;
+  Problems: IProblem[];
+  SortOrder: number;
 }
 
-export interface IProblemSentStatus {
-  ID: string;
-  Name: string;
+export interface IProblem {
+  Color: string;
+  CompetitionId: string;
+  Id: number;
   Sent: boolean;
+  Title: string;
 }
 
 export enum RankingType {

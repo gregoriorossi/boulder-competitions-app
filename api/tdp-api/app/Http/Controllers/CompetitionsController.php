@@ -68,8 +68,8 @@ class CompetitionsController extends Controller
         return Excel::download($export, 'partecipanti.xlsx');
     }
  
-    public function getResults(string $competitionId) {
-        return $this->competitionsRepository->getResults($competitionId);
+    public function getResults(string $competitionId, string $athleteId) {
+        return $this->competitionsRepository->getResultsByAthlete($competitionId, $athleteId);
     }
 
     public function update(Request $request, Competition $competition)
