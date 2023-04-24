@@ -30,11 +30,13 @@ class ProblemsRepository {
             ->get();
 
         return $result->map(function($problem, $key) {
+            $score = $this->getProblemScore($problem->competition_id, $problem->id);
             return [
                 'Id' => $problem->id,
                 'Title' => $problem->title,
                 'CompetitionId' => $problem->competition_id,
-                'Color' => $problem->color
+                'Color' => $problem->color,
+                'Score' => $score
             ];
         });
     }
@@ -45,7 +47,7 @@ class ProblemsRepository {
             ->where('competition_id', $competitionId)
             ->get();
 
-        return $result->map(function($sentProblem, $key) {
+        return $result->map(function($sentProblem, $key) { 
             return [
                 'Id' => $sentProblem->id,
                 'ProblemId' => $sentProblem->problem_id,
@@ -165,21 +167,25 @@ class ProblemsRepository {
             ->get();
 
         return $problems->map(function($problem, $key) {
-            $score = 0;
-            $timesSent = DB::Table('sent_problems')
-                ->where('problem_id', $problem->id)
-                ->where('competition_id', $problem->competition_id)
-                ->count();
-
-            if ($timesSent > 0) {
-                $score = 1000 / $timesSent;
-            }   
-
+            $score = $this->getProblemScore($problem->competition_id, $problem->id); 
             return [
                 'Id' => $problem->id,
                 'CompetitionId' => $problem->competition_id,
                 'Score' => $score
             ];
         });
+    }
+
+    private function getProblemScore($competitionId, $problemId) {
+        $score = 0;
+        $timesSent = DB::Table('sent_problems')
+            ->where('problem_id', $problemId)
+            ->where('competition_id', $competitionId)
+            ->count();
+
+        if ($timesSent > 0) {
+            $score = 1000 / $timesSent;
+        }   
+        return round($score);
     }
 }

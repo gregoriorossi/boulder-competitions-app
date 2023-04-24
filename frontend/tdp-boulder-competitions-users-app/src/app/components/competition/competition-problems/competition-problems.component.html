@@ -18,7 +18,7 @@
                [disabled]="AreProblemsDisabled"
                (change)="OnProblemChange($event, problem)">
         <label class="form-check-label">
-          <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Title}}</span>
+          <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Title}} {{PrintScore(problem)}}</span>
         </label>
       </label>
     </div>

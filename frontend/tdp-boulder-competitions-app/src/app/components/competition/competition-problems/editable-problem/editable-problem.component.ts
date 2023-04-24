@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IProblem } from '../../../../models/competitions.models';
+import { CompetitionStateType, ICompetition, IProblem } from '../../../../models/competitions.models';
 import { IUpdateProblemRequest } from '../../../../models/problems.models';
 import { ProblemsService } from '../../../../services/problems.service';
 import { ToastService } from '../../../../services/toast.service';
@@ -13,7 +13,7 @@ import { ColorsUtils } from '../../../../utils/colors.utils';
   styleUrls: ['./editable-problem.component.scss']
 })
 export class EditableProblemComponent implements OnInit {
-  @Input() CompetitionId!: number;
+  @Input() Competition!: ICompetition;
   @Input() Problem!: IProblem;
   @Input() Color!: string;
 
@@ -50,7 +50,7 @@ export class EditableProblemComponent implements OnInit {
     try {
       const model: IUpdateProblemRequest = {
         Title: this.problemName?.value,
-        CompetitionId: this.CompetitionId,
+        CompetitionId: this.Competition.Id,
         ProblemId: this.Problem.Id
       };
       await this.problemsService.UpdateProblem(model);
@@ -63,16 +63,23 @@ export class EditableProblemComponent implements OnInit {
     }
   }
 
-  // TODO fix tostring
   OnDeleteProblemClick = async (): Promise<void> => {
     try {
-      const result = await this.problemsService.DeleteProblem(this.CompetitionId!, this.Problem.Id);
+      const result = await this.problemsService.DeleteProblem(this.Competition.Id, this.Problem.Id);
       this.toastService.showSuccess("Blocco cancellato correttamente");
       this.OnEdit.emit();
     } catch (err) {
       console.log(err);
       this.toastService.showDanger("Errore nella cancellazione del blocco");
     }  
+  }
+
+  GetScore = (problem: IProblem): string => {
+    if (this.Competition.State === CompetitionStateType.DRAFT) {
+      return "";
+    }
+
+    return `(${problem.Score}pt)`;
   }
 }
 

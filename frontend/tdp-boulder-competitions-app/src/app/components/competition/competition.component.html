@@ -46,7 +46,7 @@
                             [Competition]="competition">
   </app-competition-athletes>
   <app-competition-problems *ngIf="IsTabContentVisible(CompetitionComponentTabs.PROBLEMS)"
-                            [CompetitionId]="competition.Id">
+                            [Competition]="competition">
   </app-competition-problems>
 
   <app-competition-results-rankings *ngIf="IsTabContentVisible(CompetitionComponentTabs.RANKINGS)"

@@ -14,6 +14,7 @@ export interface IProblem {
   Id: number;
   Sent: boolean;
   Title: string;
+  Score: number;
 }
 
 export interface ISetSentResponse {

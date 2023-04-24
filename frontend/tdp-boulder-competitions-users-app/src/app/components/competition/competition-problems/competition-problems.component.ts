@@ -36,6 +36,14 @@ export class CompetitonProblemsComponent implements OnInit {
     return this.Competition.State !== CompetitionStateType.ONGOING;
   }
 
+  PrintScore = (problem: IProblem): string => {
+    if (this.Competition.State === CompetitionStateType.DRAFT) {
+      return "";
+    }
+
+    return `(${problem.Score}pt)`;
+  }
+
   OnProblemChange = async ($event: any, problem: IProblem): Promise<void> => {
 
     try {

@@ -78,8 +78,9 @@ export class CompetitonComponent implements OnInit {
     return tabType === this.activeTab ? "active" : "";
   }
 
-  OnTabClick = (tabType: CompetitionComponentTabs): void => {
+  OnTabClick = async (tabType: CompetitionComponentTabs): Promise<void> => {
     this.activeTab = tabType;
+    this.Competition = await this.competitionsService.GetCompetitionInfoByPath(this.competitionPath);
   }
 
   OnUnsubscribeClick = (): void => {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IProblemsGroupColor } from '../../../models/competitions.models';
+import { ICompetition, IProblemsGroupColor } from '../../../models/competitions.models';
 import { ProblemsService } from '../../../services/problems.service';
 import { CompetitionsUtils } from '../../../utils/competitions.utils';
 
@@ -11,7 +11,7 @@ import { CompetitionsUtils } from '../../../utils/competitions.utils';
 export class CompetitionProblemsComponent implements OnInit {
 
   ProblemGroups: IProblemsGroupColor[] = [];
-  @Input() CompetitionId!: number;
+  @Input() Competition!: ICompetition;
 
   CompetitionsUtils = CompetitionsUtils;
 
@@ -26,7 +26,7 @@ export class CompetitionProblemsComponent implements OnInit {
   }
 
   private LoadProblems = async (): Promise<void> => {
-    this.ProblemGroups = await this.problemsService.GetByCompetitionId(this.CompetitionId!);
+    this.ProblemGroups = await this.problemsService.GetByCompetitionId(this.Competition.Id!);
   }
 
   OnProblemEdited = async (): Promise<void> => {

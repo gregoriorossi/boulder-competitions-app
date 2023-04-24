@@ -51,6 +51,7 @@ export interface IProblem {
   Sent?: boolean; 
   CompetitionId: number;
   Color: string;
+  Score: number;
 }
 
 export interface ICompetitionAthlete extends IAthlete {
