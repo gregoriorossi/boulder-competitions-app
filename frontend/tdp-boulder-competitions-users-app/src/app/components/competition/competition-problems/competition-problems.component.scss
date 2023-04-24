@@ -5,3 +5,7 @@
 .checkbox-inline .form-check-input {
     margin-right: 3px;
 }
+
+.form-check-input:disabled ~ .form-check-label, .form-check-input[disabled] ~ .form-check-label {
+    opacity: 1;
+}

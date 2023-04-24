@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Problem;
 use App\Models\Competition;
 use App\Repositories\ProblemsRepository;
+use App\Repositories\CompetitionsRepository;
+use App\Models\CompetitionState;
 
 class ProblemsController extends Controller
 {
+    protected $competitionsRepository;
     protected $problemsRepository;
 
     public function __construct(
+        CompetitionsRepository $competitionsRepository,
         ProblemsRepository $problemsRepository
     ) {
+        $this->competitionsRepository = $competitionsRepository;
         $this->problemsRepository = $problemsRepository;
     }
 
@@ -61,12 +66,26 @@ class ProblemsController extends Controller
 
     public function setSent(string $competitionId, Request $request)
     {
+        $competition = $this->competitionsRepository->getInfo($competitionId);
+        if ($competition["State"] !== CompetitionState::ONGOING) {
+
+            $data = array(
+                "Status" => "ERR_COMPETITION_NOT_ONGOING"
+            );
+
+            return response()->json($data, 200);
+        }
+
         $athleteId = $request->input('AthleteId');
         $problemId = $request->input('ProblemId');
         $sent = $request->input('Sent');
         $this->problemsRepository->setSent($competitionId, $problemId, $athleteId, $sent);
 
-        return response()->json(null, 204);
+        $data = array(
+            "Status" => "OK"
+        );
+
+        return response()->json($data, 200);
     }
 }
 

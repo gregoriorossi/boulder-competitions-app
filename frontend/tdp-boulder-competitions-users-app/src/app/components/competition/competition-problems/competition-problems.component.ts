@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { CompetitionStateType, IAthlete, ICompetitionInfo, IProblem, IProblemsGroupColor } from "../../../models/competitions.models";
+import { CompetitionStateType, IAthlete, ICompetitionInfo } from "../../../models/competitions.models";
+import { IProblem, IProblemsGroupColor } from "../../../models/problems.models";
+import { StatusTypes } from "../../../models/services.models";
 import { CompetitionsService } from "../../../services/competitions.service";
 import { ProblemsService } from "../../../services/problems.service";
 import { ToastService } from "../../../services/toast.service";
@@ -38,7 +40,12 @@ export class CompetitonProblemsComponent implements OnInit {
 
     try {
       const isSent = $event.target.checked;
-      await this.problemsService.SetSent(this.Competition.Id, problem.Id, this.Athlete.Id, isSent);
+      const result = await this.problemsService.SetSent(this.Competition.Id, problem.Id, this.Athlete.Id, isSent);
+
+      if (result.Status === StatusTypes.ERR_COMPETITION_NOT_ONGOING) {
+        this.toastService.showDanger('Non è possibile effettuare modifiche se la gara non è in corso');
+        await this.LoadResults();
+      }
     } catch (err) {
       console.log(err);
       this.toastService.showDanger("Errore, riprovare più tardi");

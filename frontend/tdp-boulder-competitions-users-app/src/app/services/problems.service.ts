@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TDPApiEndpoints } from "../constants/endpoints";
+import { ISetSentResponse } from "../models/problems.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
 
 @Injectable({
@@ -12,8 +13,8 @@ export class ProblemsService extends BaseTdpApiService {
     super(httpClient);
   }
 
-  public async SetSent(competitionId: number, problemId: number, athleteId: number, sent: boolean) {
-    await this.post(TDPApiEndpoints.Problems.SetSent(competitionId), {
+  public SetSent = async (competitionId: number, problemId: number, athleteId: number, sent: boolean): Promise<ISetSentResponse> => {
+    return await this.post(TDPApiEndpoints.Problems.SetSent(competitionId), {
       AthleteId: athleteId,
       ProblemId: problemId,
       Sent: sent

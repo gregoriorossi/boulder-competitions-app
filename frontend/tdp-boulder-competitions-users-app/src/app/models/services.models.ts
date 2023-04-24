@@ -5,6 +5,7 @@ export interface IResponse {
 }
 
 export enum StatusTypes {
-  OK,
-  ERROR
+  OK = "OK",
+  ERROR = "ERROR",
+  ERR_COMPETITION_NOT_ONGOING = "ERR_COMPETITION_NOT_ONGOING"
 }

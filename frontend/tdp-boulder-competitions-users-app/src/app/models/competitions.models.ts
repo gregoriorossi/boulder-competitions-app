@@ -1,3 +1,5 @@
+import { IProblemsGroupColor } from "./problems.models";
+
 export interface ICompetition {
   Id: number;
   Title: string;
@@ -68,21 +70,6 @@ export interface IGetCompetitionProblemsByAthleteRequest {
   AthleteId: string;
 }
 
-export interface IProblemsGroupColor {
-  Color: string;
-  Id: number;
-  IdCompetition: number;
-  Problems: IProblem[];
-  SortOrder: number;
-}
-
-export interface IProblem {
-  Color: string;
-  CompetitionId: string;
-  Id: number;
-  Sent: boolean;
-  Title: string;
-}
 
 export enum RankingType {
   GENERAL = "GENERAL",
