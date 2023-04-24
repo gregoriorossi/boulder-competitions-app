@@ -2,14 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\components\\competition",
-    "\\src\\components\\register-form",
-    "\\src\\constants",
-    "\\src\\environments",
-    "\\src\\models",
-    "\\src\\services",
-    "\\src\\utils"
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\competition",
+    "\\src\\app\\components\\competition\\competition-problems",
+    "\\src\\app\\components\\page-not-found",
+    "\\src\\app\\components\\registration-form-page\\registration-form",
+    "\\src\\app\\constants",
+    "\\src\\app\\models"
   ],
   "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
