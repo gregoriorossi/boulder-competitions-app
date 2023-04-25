@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { ICompetition } from "../../../models/competitions.models";
 import { CompetitionsService } from "../../../services/competitions.service";
@@ -26,6 +26,7 @@ export class AccessCompetitionFormComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activetedRoute: ActivatedRoute,
     private competitionsService: CompetitionsService,
     private toastService: ToastService,
     private cookieService: CookieService)
@@ -38,6 +39,22 @@ export class AccessCompetitionFormComponent implements OnInit {
     this.form = new FormGroup({
       Email: new FormControl('', [Validators.required, Validators.email]),
       CompetitionId: new FormControl('', [Validators.required])
+    });
+
+    this.activetedRoute.params.subscribe(async params => {
+      const competitionId = params["id"];
+
+      const competitionIdExists = this.Competitions.findIndex(c => c.Id == competitionId) > -1;
+      
+      if (competitionIdExists) {
+        this.form.patchValue({
+          CompetitionId: competitionId
+        });
+      } else if (this.Competitions.length) {
+        this.form.patchValue({
+          CompetitionId: this.Competitions[0].Id
+        });
+      }
     });
   }
 

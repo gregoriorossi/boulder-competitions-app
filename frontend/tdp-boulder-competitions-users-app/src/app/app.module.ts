@@ -48,6 +48,7 @@ import { RegistrationFormComponent } from './components/registration-form-page/r
     RouterModule.forRoot([
       { path: 'registrati/:id', component: RegistrationFormPageComponent },
       { path: 'gara/:path', component: CompetitonComponent },
+      { path: 'accedi/:id', component: AccessCompetitionComponent },
       { path: 'accedi', component: AccessCompetitionComponent },
       { path: '', redirectTo: '/accedi', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }

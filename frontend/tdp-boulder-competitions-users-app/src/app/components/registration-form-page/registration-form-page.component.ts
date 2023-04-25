@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ICompetitionInfo } from "../../models/competitions.models";
 import { IRegistrationFormPageContent } from "../../models/registration.models";
 import { CompetitionsService } from "../../services/competitions.service";
@@ -15,9 +15,9 @@ export class RegistrationFormPageComponent implements OnInit {
 
   content!: IRegistrationFormPageContent;
   isErrorMessageVisible: boolean = false;
-  isSuccessMessageVisible: boolean = false;
 
   constructor(
+    private router: Router,
     private activetedRoute: ActivatedRoute,
     private competitionsService: CompetitionsService) { }
 
@@ -37,7 +37,7 @@ export class RegistrationFormPageComponent implements OnInit {
   }
 
   OnRegistration = (): void => {
-    this.isSuccessMessageVisible = true;
+    this.router.navigate(["/accedi", this.competition.Id]);
   }
 
   OnRegistrationError = (): void => {

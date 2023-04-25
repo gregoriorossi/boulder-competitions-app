@@ -15,10 +15,6 @@
                                    (OnRegistrationError)="OnRegistrationError()">
             </app-registration-form>
 
-            <div class="alert alert-success" role="alert" *ngIf="isSuccessMessageVisible">
-              {{ content.SuccessMessage }}
-            </div>
-
             <div class="alert alert-danger" role="alert" *ngIf="isErrorMessageVisible">
               {{ content.ErrorMessage }}
             </div>
