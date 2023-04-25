@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { IAthlete } from "../../../../models/athletes.models";
-import { ICompetition, ICompetitionResult, IProblem, IProblemsGroupColor } from "../../../../models/competitions.models";
+import { CompetitionStateType, ICompetition, ICompetitionResult, IProblem, IProblemsGroupColor } from "../../../../models/competitions.models";
 import { CompetitionsService } from "../../../../services/competitions.service";
 import { ProblemsService } from "../../../../services/problems.service";
 import { ToastService } from "../../../../services/toast.service";
@@ -46,6 +46,14 @@ export class CompetitionResultsComponent implements OnInit {
     } finally {
       await this.LoadResults();
     }
+  }
+
+  GetScore = (problem: IProblem): string => {
+    if (this.Competition.State === CompetitionStateType.DRAFT) {
+      return "";
+    }
+
+    return `${problem.Score}pt`;
   }
 
   private LoadResults = async (): Promise<void> => {

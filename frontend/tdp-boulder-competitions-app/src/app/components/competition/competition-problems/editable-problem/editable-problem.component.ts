@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CompetitionStateType, ICompetition, IProblem } from '../../../../models/competitions.models';
+import { ICompetition, IProblem } from '../../../../models/competitions.models';
 import { IUpdateProblemRequest } from '../../../../models/problems.models';
 import { ProblemsService } from '../../../../services/problems.service';
 import { ToastService } from '../../../../services/toast.service';
@@ -72,14 +72,6 @@ export class EditableProblemComponent implements OnInit {
       console.log(err);
       this.toastService.showDanger("Errore nella cancellazione del blocco");
     }  
-  }
-
-  GetScore = (problem: IProblem): string => {
-    if (this.Competition.State === CompetitionStateType.DRAFT) {
-      return "";
-    }
-
-    return `(${problem.Score}pt)`;
   }
 }
 

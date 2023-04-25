@@ -21,6 +21,7 @@ import { CompetitonComponent } from './components/competition/competition.compon
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RegistrationFormPageComponent } from './components/registration-form-page/registration-form-page.component';
 import { RegistrationFormComponent } from './components/registration-form-page/registration-form/registration-form.component';
+import { NgbDateCustomParserFormatter } from './utils/ngbDateCustomParserFormatter';
 
 @NgModule({
   declarations: [
@@ -55,8 +56,8 @@ import { RegistrationFormComponent } from './components/registration-form-page/r
     ])
   ],
   providers: [
-    CookieService
-    //{ provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
+    CookieService,
+    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
   ],
   bootstrap: [AppComponent]
 })

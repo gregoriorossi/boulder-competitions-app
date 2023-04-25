@@ -8,7 +8,8 @@
             <ng-container *ngFor="let problem of group.Problems">
               <th scope="col" class="text-center">
                 <h4>
-                  <span class="badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Title}}</span>
+                  <span class="header-problem-name badge bg-primary {{GetCssColorClass(group.Color)}}">{{problem.Title}}</span>
+                  <span class="header-problem-score">{{GetScore(problem)}}</span>
                 </h4>
               </th>
             </ng-container>

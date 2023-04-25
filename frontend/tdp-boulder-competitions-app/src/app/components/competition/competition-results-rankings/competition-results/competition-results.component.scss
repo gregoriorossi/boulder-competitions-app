@@ -7,3 +7,12 @@ th:first-child, td:first-child {
 .competition-results-container {
     overflow: auto;
 }
+
+.header-problem-name,
+.header-problem-score {
+    display: block;
+}
+
+.header-problem-score {
+  font-size: 0.8rem;
+} 
