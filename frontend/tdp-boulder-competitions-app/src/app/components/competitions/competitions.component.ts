@@ -32,7 +32,7 @@ export class CompetitionsComponent implements OnInit {
   }
 
   OnViewCompetitionClick = (competition: ICompetition) => {
-    this.router.navigate(['/gare', competition.PublicPath]);
+    this.router.navigate(['gara', competition.PublicPath]);
   }
 
   IsViewButtonVisible = (state: CompetitionStateType): boolean => {

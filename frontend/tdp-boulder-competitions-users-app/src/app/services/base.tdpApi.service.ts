@@ -5,7 +5,7 @@ import { StringUtils } from "../utils/string.utils";
 
 export class BaseTdpApiService {
 
-  private baseAddress: string = environment.tdpBaseApieUrl;
+  private baseAddress: string = environment.tdpBaseApiUrl;
 
   constructor(protected httpClient: HttpClient) {
     if (StringUtils.IsNullOrEmpty(this.baseAddress)) {

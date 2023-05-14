@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/editors', function () {
+    return view('editors');
 });
+
+Route::get('/editors/{any}', function () {
+    return view('editors');
+})->where('any', '.*');
+
+Route::get('/', function () {
+    return view('users');
+}); 
+
+Route::get('/{any}', function () {
+    return view('users');
+})->where('any', '.*');   
+

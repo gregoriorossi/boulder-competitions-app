@@ -33,6 +33,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { EditColorsButtonComponent } from './components/competition/competition-problems/edit-colors-button/edit-colors-button.component';
 import { EditAthleteFormComponent } from './components/common/edit-athlete-form/edit-athlete-form.component';
 import { CompetitionSendCommunicationComponent } from './components/competition/competition-send-communication/competition-send-communication.component';
+import { SanitizeUrlPipe } from './pipes/sanitizeUrl.pipe';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { CompetitionSendCommunicationComponent } from './components/competition/
     CompetitionStateLabelComponent,
     AddProblemsButtonComponent,
     EditColorsButtonComponent,
-    EditAthleteFormComponent
+    EditAthleteFormComponent,
+    SanitizeUrlPipe
   ],
   imports: [
     BrowserModule,
@@ -74,8 +76,8 @@ import { CompetitionSendCommunicationComponent } from './components/competition/
     AngularEditorModule,
     RouterModule.forRoot([
       { path: 'gare', component: CompetitionsComponent },
-      { path: 'gare/:path', component: CompetitionComponent },
-      { path: '', redirectTo: '/gare', pathMatch: 'full' },
+      { path: 'gara/:path', component: CompetitionComponent },
+      { path: '', component: CompetitionsComponent },
       { path: '**', component: PageNotFoundComponent }
     ])
   ],
