@@ -88,31 +88,6 @@ class CompetitionsController extends Controller
         return response()->json(null, 204);
     }
 
-    public function register(string $competitionId, Request $request) {
-        $email = trim($request->input('Email'));
-
-        $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
-
-        if (!$isRegisteredToCompetition) {
-            $registrationData = array(
-                'id_competition' => $competitionId,
-                'email' => $email,
-                'name' => $request->input('Name'),
-                'surname' => $request->input('Surname'),
-                'telephone' => $request->input('Telephone'),
-                'birth_date' => Carbon::parse($request->input('BirthDate')),
-                'gender' => $request->input('Gender')
-            );
-
-            $this->competitionsRepository->RegisterUserToCompetition($registrationData);
-            $this->competitionsRepository->sendRegistrationEmail($registrationData);
-            return response()->json(null, 204);
-        } else {
-            // già registrato
-            return response()->json(null, 500);
-        }
-    }
-
     public function updateRegistration(string $competitionId, string $athleteId, Request $request) {
         $email = trim($request->input('Email'));
         $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
