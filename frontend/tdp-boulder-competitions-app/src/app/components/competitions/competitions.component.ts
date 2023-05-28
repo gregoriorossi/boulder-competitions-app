@@ -6,7 +6,7 @@ import { DateUtils } from '../../utils/date.utils';
 import { ToastService } from '../../services/toast.service';
 import { DialogsService } from '../../services/dialogs.service';
 import { StatusTypes } from '../../models/services.models';
-import { FormControl } from '@angular/forms';
+import { StringUtils } from '../../utils/string.utils';
 
 @Component({
   selector: 'app-competitions',
@@ -18,7 +18,7 @@ export class CompetitionsComponent implements OnInit {
   DateUtils = DateUtils;
 
   competitions: ICompetition[] = [];
-  textFilter = new FormControl('', { nonNullable: true });
+  textFilter = "";
   //textFilterObservable$!: Observable<ICompetition[]>;
 
   constructor(
@@ -56,6 +56,17 @@ export class CompetitionsComponent implements OnInit {
 
   OnCompetitionCreated = async (): Promise<void> => {
     await this.LoadCompetitions();
+  }
+
+  ApplyFilterToCompetitions = (competitions: ICompetition[]): ICompetition[] => {
+    if (StringUtils.IsNullOrEmpty(this.textFilter))
+      return competitions;
+
+    return competitions
+      .filter(c => {
+        const result = c.Title.indexOf(this.textFilter) > -1;
+        return result ? 1 : 0;
+      });
   }
 
   private LoadCompetitions = async (): Promise<void> => {

@@ -13,7 +13,9 @@
   <div class="mb-3 row">
     <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Cerca:</label>
     <div class="col-xs-3 col-sm-auto">
-      <input class="form-control" type="text" [formControl]="textFilter">
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="textFilter">
     </div>
   </div>
 </form>
@@ -28,7 +30,7 @@
     </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let competition of competitions">
+      <tr *ngFor="let competition of ApplyFilterToCompetitions(competitions)">
         <td>{{competition.Title}}</td>
         <td>{{DateUtils.FormatDate(competition.EventDate, "DD-MM-YYYY")}}</td>
         <td>
