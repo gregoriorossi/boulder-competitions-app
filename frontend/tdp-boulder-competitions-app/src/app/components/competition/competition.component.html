@@ -33,9 +33,9 @@
     <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.RANKINGS)">
       <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.RANKINGS)}}">Risultati e classifiche</a>
     </li>
-    <li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.COMMUNICATION)">
+    <!--<li class="nav-item" (click)="OnTabClick(CompetitionComponentTabs.COMMUNICATION)">
       <a class="nav-link {{TabActiveClass(CompetitionComponentTabs.COMMUNICATION)}}">Invia Comunicazione</a>
-    </li>
+    </li>-->
   </ul>
 
   <app-competition-info-gara *ngIf="IsTabContentVisible(CompetitionComponentTabs.INFO_GARA)"

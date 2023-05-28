@@ -46,5 +46,9 @@ export class CompetitionRankingsComponent implements OnInit {
   OnDownloadButtonClick = async (): Promise<void> => {
     await this.competitionsService.DownloadRanking(this.Competition.Id, this.rankingType);
   }
+
+  OnRefreshClick = async (): Promise<void> => {
+    this.ranking = await this.competitionsService.GetRanking(this.Competition.Id, this.rankingType)
+  }
 }
 

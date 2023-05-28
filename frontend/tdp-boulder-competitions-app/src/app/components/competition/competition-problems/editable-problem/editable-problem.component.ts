@@ -68,6 +68,7 @@ export class EditableProblemComponent implements OnInit {
       const result = await this.problemsService.DeleteProblem(this.Competition.Id, this.Problem.Id);
       this.toastService.showSuccess("Blocco cancellato correttamente");
       this.OnEdit.emit();
+      this.modalService.dismissAll();
     } catch (err) {
       console.log(err);
       this.toastService.showDanger("Errore nella cancellazione del blocco");

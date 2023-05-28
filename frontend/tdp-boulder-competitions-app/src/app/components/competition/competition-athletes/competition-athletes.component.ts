@@ -28,7 +28,6 @@ export class CompetitionAthletesComponent implements OnInit {
   { }
 
   async ngOnInit(): Promise<void> {
-    console.log(this.Competition);
     await this.LoadAthletes();
 
     this.competitionsService.athleteRegisteredToCompetition.subscribe(async (athlete) => {
@@ -61,8 +60,14 @@ export class CompetitionAthletesComponent implements OnInit {
     await this.competitionsService.DownloadAthletes(this.Competition.Id);
   }
 
-  OnSendEmailClick = (athlete: IAthlete): void => {
-    alert('Sending email to ' + athlete.Name + " " + athlete.Surname);
+  OnSendEmailClick = async (athlete: IAthlete): Promise<void> => {
+    const result = await this.competitionsService.SendRegistrationEmail(this.Competition.Id, athlete.Email);
+
+    if (result.Status === StatusTypes.OK) {
+      this.toastService.showSuccess(`Email inviata a ${athlete.Name} ${athlete.Surname} con successo`);
+    } else {
+      this.toastService.showDanger(`Errore nell'invio della email a ${athlete.Name} ${athlete.Surname}`);
+    }
   }
 
   private LoadAthletes = async () => {

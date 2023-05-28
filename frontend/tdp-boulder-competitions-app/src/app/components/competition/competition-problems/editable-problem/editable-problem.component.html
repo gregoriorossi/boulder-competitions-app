@@ -12,7 +12,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="form" (ngSubmit)="OnEditClick()" novalidate>
+    <form [formGroup]="form" novalidate>
       <div class="form-group mb-2">
         <label for="problems-names" class="col-sm-6 col-form-label">Nome blocco</label>
         <div class="row">
@@ -29,7 +29,7 @@
       <div class="form-group mt-2">
         <div class="col-sm-12 float-end">
           <button class="btn btn-danger float-start" [disabled]="DeleteButtonDisabled" (click)="OnDeleteProblemClick()">Elimina</button>
-          <button type="submit" class="btn btn-primary float-end" [disabled]="EditButtonDisabled">Salva</button>
+          <button class="btn btn-primary float-end" [disabled]="EditButtonDisabled" (click)="OnEditClick()">Salva</button>
         </div>
       </div>
     </form>

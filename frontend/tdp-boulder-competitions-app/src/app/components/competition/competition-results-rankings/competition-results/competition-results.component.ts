@@ -56,6 +56,14 @@ export class CompetitionResultsComponent implements OnInit {
     return `${problem.Score}pt`;
   }
 
+  get IsCompetitionClosed(): boolean {
+    return this.Competition.State === CompetitionStateType.CLOSED;
+  }
+
+  OnRefreshClick = async (): Promise<void> => {
+    await this.LoadResults();
+  }
+
   private LoadResults = async (): Promise<void> => {
     this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.Id);
   }
