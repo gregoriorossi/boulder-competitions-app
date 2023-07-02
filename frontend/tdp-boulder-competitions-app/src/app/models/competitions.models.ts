@@ -20,6 +20,7 @@ export interface IUpdateCompetitionInfoRequest {
   event_date: Date;
   description: string;
   cover_image: string;
+  cover_image_file: File | null;
   email_subject: string;
   email_body: string;
 }

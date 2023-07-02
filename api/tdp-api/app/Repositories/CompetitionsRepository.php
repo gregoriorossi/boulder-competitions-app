@@ -86,8 +86,8 @@ class CompetitionsRepository {
             'EventDate' => $info->event_date,
             'PublicPath'=> $info->public_path,
             'State' => $info->state,
-            'Title' => $info->title
-            // immagine
+            'Title' => $info->title,
+            'CoverImage' => asset("storage/" . $info->cover_image)
         ];
     }
 
@@ -105,7 +105,7 @@ class CompetitionsRepository {
             'PublicPath'=> $info->public_path,
             'State' => $info->state,
             'Title' => $info->title,
-            'CoverImage' => asset($info->cover_image)
+            'CoverImage' => asset("storage/" . $info->cover_image)
         ];
     }
 

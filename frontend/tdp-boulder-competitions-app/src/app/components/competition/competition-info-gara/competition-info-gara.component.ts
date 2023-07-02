@@ -29,6 +29,9 @@ export class CompetitionInfoGaraComponent implements OnInit {
 
   competitionInfo!: ICompetitionInfo;
 
+  coverImageFile: File|null = null;
+  coverImage: string = "";
+
   constructor(
     private competitionsService: CompetitionsService,
     private toastService: ToastService)
@@ -42,7 +45,7 @@ export class CompetitionInfoGaraComponent implements OnInit {
     this.competitionInfo = await this.competitionsService.GetCompetitionInfo(this.CompetitionId!);
 
     const date = moment(this.competitionInfo.EventDate).toDate();
-    console.log(date);
+
     this.form = new FormGroup({
       Title: new FormControl(this.competitionInfo.Title, [Validators.required]),
       Date: new FormControl({ day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear()}, [Validators.required]),
@@ -60,7 +63,6 @@ export class CompetitionInfoGaraComponent implements OnInit {
   get description() { return this.form!.get('Description') }
   get emailSubject() { return this.form!.get('EmailSubject') }
   get emailBody() { return this.form!.get('EmailBody') }
-  get coverImage() { return this.form!.get('CoverImage') }
 
   public OnSaveClick = async (): Promise<void> => {
     this.SaveButtonDisabled = true;
@@ -73,7 +75,8 @@ export class CompetitionInfoGaraComponent implements OnInit {
       description: this.description?.value,
       email_subject: this.emailSubject?.value,
       email_body: this.emailBody?.value,
-      cover_image: this.coverImage?.value
+      cover_image: this.coverImage,
+      cover_image_file: this.coverImageFile ? this.coverImageFile : null,
     }
 
     const result = await this.competitionsService.UpdateInfo(this.CompetitionId, data);
@@ -85,4 +88,9 @@ export class CompetitionInfoGaraComponent implements OnInit {
     this.SaveButtonDisabled = false;
   }
 
+  public OnCoverImageUpload = (event: any) => {
+    console.log(event);
+    this.coverImageFile = (event!.target as HTMLInputElement)!.files![0];
+    this.coverImage = (event!.target as HTMLInputElement).value;
+  }
 }

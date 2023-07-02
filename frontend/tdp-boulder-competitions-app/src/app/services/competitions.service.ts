@@ -35,7 +35,15 @@ export class CompetitionsService extends BaseTdpApiService {
 
   public async UpdateInfo(id: number, data: IUpdateCompetitionInfoRequest) {
     try {
-      const result = await this.post(TDPApiEndpoints.Competitions.UpdateInfo(id), data);
+      const formData: FormData = new FormData();
+      formData.append('title', data.title);
+      formData.append('event_date', data.event_date.toUTCString());
+      formData.append('description', data.description);
+      formData.append('cover_image', data.cover_image_file as Blob, data.cover_image);
+      formData.append('email_subject', data.email_subject);
+      formData.append('email_body', data.email_body);
+
+      await this.post(TDPApiEndpoints.Competitions.UpdateInfo(id), formData);
       return StatusTypes.OK;
     } catch (err) {
       console.log(err);
@@ -87,6 +95,20 @@ export class CompetitionsService extends BaseTdpApiService {
     try {
       const result = await this.post(TDPApiEndpoints.Competitions.RegisterAthleteToCompetition(competitionId), data);
       this.athleteRegisteredToCompetitionSubject.next(data);
+      return {
+        Status: StatusTypes.OK
+      }
+    } catch (err) {
+      console.log(err);
+      return {
+        Status: StatusTypes.ERROR
+      }
+    }
+  }
+
+  public SendRegistrationEmail = async (competitionId: number, email: string): Promise<IResponse> => {
+    try {
+      const result = await this.post(TDPApiEndpoints.Competitions.SendRegistrationEmail(competitionId), { email });
       return {
         Status: StatusTypes.OK
       }

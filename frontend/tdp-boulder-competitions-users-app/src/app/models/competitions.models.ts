@@ -31,7 +31,7 @@ export interface ICompetitionInfo {
   PublicId: string;
   State: number;
   Title: string;
-  FormImageCover: string;
+  CoverImage: string;
 }
 
 export interface IGetCompetitionInfoResponse {

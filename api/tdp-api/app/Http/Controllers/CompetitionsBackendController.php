@@ -76,7 +76,6 @@ class CompetitionsBackendController extends Controller {
             ]);
 
             $imageName = time().'.'.$request->cover_image->extension();
-            $publicPath = 
             $path = $request->file('cover_image')->store('images');
 
             return $path;
