@@ -16,7 +16,7 @@
           <input type="text" class="form-control" name="new-competition-title" formControlName="Title" required />
           <div *ngIf="formSubmittedAtLeastOnce && title!.invalid" class="alert alert-danger">
             <div *ngIf="title!.errors?.['required']">
-             Il titolo è obbligatorio.
+              Il titolo è obbligatorio.
             </div>
           </div>
         </div>
@@ -33,6 +33,8 @@
                autocomplete="off"
                ngbDatepicker
                #d="ngbDatepicker"
+               [minDate]="{year: 2023, month:1, day: 1}"
+               [maxDate]="{year: 2030, month: 12, day: 31}"
                (click)="d.toggle()"
                class="form-control"
                formControlName="Date"
@@ -40,7 +42,7 @@
                placeholder="Seleziona una data">
         <div *ngIf="formSubmittedAtLeastOnce && date!.invalid" class=" col-md-12 alert alert-danger">
           <div *ngIf="date!.errors?.['required']">
-           La data è obbligatoria.
+            La data è obbligatoria.
           </div>
         </div>
       </div>

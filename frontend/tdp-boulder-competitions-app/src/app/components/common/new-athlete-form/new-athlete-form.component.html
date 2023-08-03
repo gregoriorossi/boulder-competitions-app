@@ -43,6 +43,8 @@
     <input type="text"
            autocomplete="off"
            ngbDatepicker
+           [minDate]="{year: 1940, month:1, day: 1}"
+           [maxDate]="{year: 2020, month: 12, day: 31}"
            #d="ngbDatepicker"
            (click)="d.toggle()"
            class="form-control"
