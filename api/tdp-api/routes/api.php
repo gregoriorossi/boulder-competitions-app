@@ -49,6 +49,7 @@ Route::post('problems/{competitionId}/setSent', [ProblemsController::class, 'set
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
 Route::get('competitions/{competitionId}/download/athletes', [CompetitionsController::class, 'downloadAthletes']);
 
+Route::post('competitions/{competitionId}/register', [CompetitionsController::class, 'register']);
 Route::put('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'updateRegistration']);
 
 

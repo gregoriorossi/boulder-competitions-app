@@ -5,14 +5,24 @@ th:first-child, td:first-child {
 }
 
 .competition-results-container {
-    overflow: auto;
+  overflow: auto;
 }
 
 .header-problem-name,
 .header-problem-score {
-    display: block;
+  display: block;
 }
 
 .header-problem-score {
   font-size: 0.8rem;
-} 
+}
+
+.aggiorna-risultati {
+  float: right !important;
+}
+
+@media only screen and (max-width: 550px) {
+  .aggiorna-risultati {
+    float: left !important;
+  }
+}

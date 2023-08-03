@@ -52,8 +52,9 @@ export class CompetitonProblemsComponent implements OnInit {
 
       if (result.Status === StatusTypes.ERR_COMPETITION_NOT_ONGOING) {
         this.toastService.showDanger('Non è possibile effettuare modifiche se la gara non è in corso');
-        await this.LoadResults();
       }
+
+      await this.LoadResults();
     } catch (err) {
       console.log(err);
       this.toastService.showDanger("Errore, riprovare più tardi");

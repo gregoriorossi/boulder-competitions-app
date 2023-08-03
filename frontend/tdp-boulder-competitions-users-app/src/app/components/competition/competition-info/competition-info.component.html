@@ -1,7 +1,9 @@
 <div class="row">
-  <img *ngIf="IsCoverImageSet()"
-       [src]="Competition.CoverImage"
-       class="img-fluid" alt="Cover image">
+  <div class="col-md-6 col-sm-12">
+    <img *ngIf="IsCoverImageSet()"
+         [src]="Competition.CoverImage"
+         class="img-fluid" alt="Cover image">
+  </div>
   <div class="col-12" [innerHtml]="Competition.Description">
   </div>
 </div>

@@ -12,8 +12,10 @@
           </div>
         </div>
       </div>
-      <div class="input-group mb-2">
+      <div class="col-sm-12">
         <label for="competition-date" class="col-md-12 col-form-label">Data</label>
+      </div>
+      <div class="input-group mb-2">
         <div class="input-group-append">
           <div class="input-group-text"
                (click)="d.toggle()">
@@ -54,7 +56,6 @@
                class="form-control-file"
                name="competition-cover-image"
                (change)="OnCoverImageUpload($event)">
-      
         <img *ngIf="competitionInfo.CoverImage"
              [src]="competitionInfo.CoverImage | sanitizeUrl" class="img-fluid" alt="Responsive image">
       </div>
@@ -62,10 +63,10 @@
     <div class="col-md-6">
       <h4>Email di conferma</h4>
       <div class="alert alert-warning info-email" role="alert">
-          Puoi utilizzare i seguenti placeholder:<br />
-          {{ "{TitoloGara} per il titolo gara"}}<br />
-          {{ "{DataGara} per mostrare la data"}}<br />
-          {{ "{Partecipante} per mostrare il nome e il cognome dell'iscritto"}} 
+        Puoi utilizzare i seguenti placeholder:<br />
+        {{ "{TitoloGara} per il titolo gara"}}<br />
+        {{ "{DataGara} per mostrare la data"}}<br />
+        {{ "{Partecipante} per mostrare il nome e il cognome dell'iscritto"}}
       </div>
       <div class="form-group mb-2">
         <label for="competition-description" class="col-sm-6 col-form-label">Oggetto</label>
