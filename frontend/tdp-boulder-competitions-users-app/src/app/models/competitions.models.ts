@@ -59,6 +59,13 @@ export interface IRegisterToCompetitionRequest {
   BirthDate: Date;
   Telephone: string;
   Gender: string;
+  BirthPlace: string;
+  BirthProvince: string;
+  AddressCity: string;
+  AddressProvince: string;
+  AddressStreet: string;
+  AddressNumber: string;
+  IsMinor: boolean;
 }
 
 export interface IGetCompetitionProblemsByAthleteResponse {

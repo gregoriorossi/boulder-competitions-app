@@ -341,6 +341,13 @@ class CompetitionsRepository {
             'Email'=> $athlete->email,
             'Telephone' => $athlete->telephone,
             'Gender' => $athlete->gender,
+            'BirthPlace' => $athlete->birth_place,
+            'BirthProvince' => $athlete->birth_province,
+            'AddressCity' => $athlete->address_city,
+            'AddressProvince' => $athlete->address_province,
+            'AddressStreet' => $athlete->address_street,
+            'AddressNumber' => $athlete->address_number,
+            'IsMinor' => $athlete->is_minor === 1 ? true : false
         ];
     }
 }

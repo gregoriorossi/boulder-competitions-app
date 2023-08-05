@@ -122,11 +122,11 @@
         </div>
         <div class="col-12 mb-3">
             <div class="col-6">
-                Nato/a a<span class="form-value">Pordenone</span>
+                Nato/a a<span class="form-value">{{ $BirthPlace }}</span>
             </div>
             <div class="col-6">
-                Prov.<span class="form-value">PN</span>&nbsp;&nbsp;&nbsp;il
-                    <span class="form-value">08/12/1976</span>
+                Prov.<span class="form-value">{{ $BirthProvince }}</span>&nbsp;&nbsp;&nbsp;il
+                    <span class="form-value">{{ $BirthDate }}</span>
             </div>
         </div>
         <div class="col-12 mb-3">
@@ -134,11 +134,11 @@
                 Residente a<span class="form-value">Montereale Valcellina</span>
             </div>
             <div class="col-6">
-                Via<span class="form-value">Verdi</span>&nbsp;&nbsp;&nbsp;n°
-                    <span class="form-value">2C</span>
+                Via<span class="form-value">{{ $AddressStreet }}</span>&nbsp;&nbsp;&nbsp;n°
+                    <span class="form-value">{{ $AddressNumber }}</span>
             </div>
             <div class="col-6">
-                Prov.&nbsp;<span class="form-value">PN</span>
+                Prov.&nbsp;<span class="form-value">{{ $AddressProvince }}</span>
             </div>
         </div>
         <div class="col-12">
