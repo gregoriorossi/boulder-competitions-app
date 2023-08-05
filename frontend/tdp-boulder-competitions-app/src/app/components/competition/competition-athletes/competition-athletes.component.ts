@@ -70,6 +70,10 @@ export class CompetitionAthletesComponent implements OnInit {
     }
   }
 
+  OnDownloadConsentClick = (athlete: IAthlete) => {
+    this.competitionsService.DownloadConsent(this.Competition.Id, athlete.Id);
+  }
+
   private LoadAthletes = async () => {
     this.athletes = await this.competitionsService.GetAthletes(this.Competition.Id);
   }

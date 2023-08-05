@@ -11,6 +11,7 @@ export const TDPApiEndpoints = {
     GetBasicInfoByPublicPath: (path: string) => `competitionsBackend/basicInfoByPublicPath/${path}`,
     GetRanking: (id: number, type: RankingType) => `competitionsBackend/${id}/${type}/ranking`,
     GetResults: (id: number) => `competitionsBackend/${id}/results`,
+    DownloadConsent: (competitionId: number, athleteId: number) => `competitionsBackend/${competitionId}/${athleteId}/downloadConsent`,
     UpdateInfo: (id: number) => `competitionsBackend/${id}/info`,
     Create: 'competitionsBackend/create',
     EditCompetition: (id: number) => `competitions/${id}`,
@@ -21,7 +22,7 @@ export const TDPApiEndpoints = {
     SetState: `competitions/setState`
   },
   Problems: {
-    DeleteProblem: "problems/delete",
+    DeleteProblem: "problems/delete", 
     Get: (competitionId: number) => `problems/${competitionId}`,
     GetColorsByCompetitionId: (competitionId: number) => `problems/${competitionId}/colors`,
     SetSentStateToProblem: (competitionId: number) => `problems/${competitionId}/setSent`,

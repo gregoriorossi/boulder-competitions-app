@@ -8,6 +8,7 @@ use App\Repositories\ProblemsRepository;
 use Carbon\Carbon;
 use App\Models\Exports\RankingExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CompetitionsBackendController extends Controller {
 
@@ -151,5 +152,13 @@ class CompetitionsBackendController extends Controller {
             // già registrato
             return response()->json(null, 500);
         }
+    }
+
+    public function downloadConsent(string $competitionId, string $athleteId) {
+        $athlete = $this->competitionsRepository->getAthleteById($competitionId, $athleteId);
+
+        $fileName = 'delibera_' . $athlete["Surname"] . "_" . $athlete["Name"] . ".pdf";
+        $pdf = Pdf::loadView('athlete_module', $athlete);
+        return $pdf->download($fileName);
     }
 }
