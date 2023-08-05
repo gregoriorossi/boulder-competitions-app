@@ -48,7 +48,7 @@ export class RegistrationFormComponent implements OnInit {
       IsMinor: new FormControl(false, [Validators.required]),
       TutorSurname: new FormControl('', [this.TutorFieldsValidator]),
       TutorName: new FormControl('', [this.TutorFieldsValidator]),
-      TutorBirthDate: new FormControl('', [this.TutorFieldsValidator]),
+      TutorBirthDate: new FormControl(null, [this.TutorFieldsValidator]),
       TutorBirthPlace: new FormControl('', [this.TutorFieldsValidator]),
       TutorBirthProvince: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressCity: new FormControl('', [this.TutorFieldsValidator]),
@@ -56,6 +56,19 @@ export class RegistrationFormComponent implements OnInit {
       TutorAddressNumber: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressProvince: new FormControl('', [this.TutorFieldsValidator]),
     });
+
+    this.form.get('IsMinor')?.valueChanges
+      .subscribe(_value => {
+        this.form.get('TutorSurname')?.updateValueAndValidity();
+        this.form.get('TutorName')?.updateValueAndValidity();
+        this.form.get('TutorBirthDate')?.updateValueAndValidity();
+        this.form.get('TutorBirthPlace')?.updateValueAndValidity();
+        this.form.get('TutorBirthProvince')?.updateValueAndValidity();
+        this.form.get('TutorAddressCity')?.updateValueAndValidity();
+        this.form.get('TutorAddressStreet')?.updateValueAndValidity();
+        this.form.get('TutorAddressNumber')?.updateValueAndValidity();
+        this.form.get('TutorAddressProvince')?.updateValueAndValidity();
+      });
   }
 
   get email() { return this.form!.get('Email') }
@@ -88,6 +101,7 @@ export class RegistrationFormComponent implements OnInit {
       return;
 
     const date = this.form.get('BirthDate')?.value;
+    const tutorDate = this.form.get('BirthDate')?.value;
 
     const model: IRegisterToCompetitionRequest = {
       Email: this.form.get('Email')?.value,
@@ -103,6 +117,15 @@ export class RegistrationFormComponent implements OnInit {
       AddressProvince: this.form.get('AddressProvince')?.value,
       AddressStreet: this.form.get('AddressStreet')?.value,
       IsMinor: this.form.get('IsMinor')?.value,
+      TutorSurname: this.form.get('TutorSurname')?.value,
+      TutorName: this.form.get('TutorName')?.value,
+      TutorBirthDate: DateUtils.ToNoTimeZoneDate(tutorDate.year, tutorDate!.month - 1, tutorDate!.day),
+      TutorBirthPlace: this.form.get('TutorBirthPlace')?.value,
+      TutorBirthProvince: this.form.get('TutorBirthProvince')?.value,
+      TutorAddressCity: this.form.get('TutorAddressCity')?.value,
+      TutorAddressStreet: this.form.get('TutorAddressStreet')?.value,
+      TutorAddressNumber: this.form.get('TutorAddressNumber')?.value,
+      TutorAddressProvince: this.form.get('TutorAddressProvince')?.value
     };
 
     this.RegisterButtonDisabled = true;
@@ -133,7 +156,7 @@ export class RegistrationFormComponent implements OnInit {
     if (!formControl.parent) {
       return null;
     }
-    const isMinor: boolean = this.isMinor?.value;
+    const isMinor: boolean = formControl.parent.get('IsMinor')?.value;
 
     if (isMinor) {
       return Validators.required(formControl);

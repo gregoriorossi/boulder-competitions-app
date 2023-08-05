@@ -109,7 +109,16 @@ class CompetitionsController extends Controller
                 'address_province' => $request->input('AddressProvince'),
                 'address_street' => $request->input('AddressStreet'),
                 'address_number' => $request->input('AddressNumber'),
-                'is_minor' => $request->input('IsMinor')
+                'is_minor' => $request->input('IsMinor'),
+                'tutor_surname' => $request->input('TutorSurname'),               
+                'tutor_name' => $request->input('TutorName'),
+                'tutor_birth_date' => Carbon::parse($request->input('TutorBirthDate')),
+                'tutor_birth_place' => $request->input('TutorBirthPlace'),               
+                'tutor_birth_province' => $request->input('TutorBirthProvince'),
+                'tutor_address_city' => $request->input('TutorAddressCity'),
+                'tutor_address_street' => $request->input('TutorAddressStreet'),
+                'tutor_address_number' => $request->input('TutorAddressNumber'),
+                'tutor_address_province' => $request->input('TutorAddressProvince')
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);

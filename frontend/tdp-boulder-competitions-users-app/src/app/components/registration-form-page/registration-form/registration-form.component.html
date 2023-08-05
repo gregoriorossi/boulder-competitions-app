@@ -166,8 +166,124 @@
     </div>
   </fieldset>
 
-  <fieldset *ngIf="this.isMinor?.value">
+  <fieldset *ngIf="isMinor?.value">
     <legend class="scheduler-border">In qualità di tutore/tutrice legale del/della minorenne:</legend>
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-name" class="col-sm-12 col-form-label">Nome</label>
+          <input type="text" class="form-control" name="tutor-user-registration-name" formControlName="TutorName" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorName!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorName!.errors?.['required']">
+              Il nome è obbligatorio
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Cognome</label>
+          <input type="text" class="form-control" name="tutor-user-registration-surname" formControlName="TutorSurname" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorSurname!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorSurname!.errors?.['required']">
+              Il cognome è obbligatorio
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <label for="tutor-user-registration-birth-date" class="col-md-12 col-form-label">Data di nascita</label>
+    </div>
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-append">
+        <div class="input-group-text"
+             (click)="d2.toggle()">
+          &nbsp;<i class="fa fa-calendar"></i>&nbsp;
+        </div>
+      </div>
+      <input type="text"
+             autocomplete="off"
+             ngbDatepicker
+             #d2="ngbDatepicker"
+             [minDate]="{year: 1940, month:1, day: 1}"
+             [maxDate]="{year: 2020, month: 12, day: 31}"
+             (click)="d2.toggle()"
+             class="form-control"
+             formControlName="TutorBirthDate"
+             name="tutor-user-registration-birth-date"
+             placeholder="Seleziona una data">
+      <div *ngIf="formSubmittedAtLeastOnce && tutorBirthDate!.invalid" class=" col-md-12 alert alert-danger">
+        <div *ngIf="tutorBirthDate!.errors?.['required']">
+          La data di nascita è obbligatoria.
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Nato/a a</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-place" formControlName="TutorBirthPlace" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorBirthPlace!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorBirthPlace!.errors?.['required']">
+              Il luogo di nascita è obbligatorio
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Provincia di nascita</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-province" formControlName="TutorBirthProvince" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorBirthProvince!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorBirthProvince!.errors?.['required']">
+              La provincia di nascita è obbligatoria
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Residente a</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-province" formControlName="TutorAddressCity" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressCity!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressCity!.errors?.['required']">
+              La citt&agrave; di residenza è obbligatoria
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Provincia di residenza</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-province" formControlName="TutorAddressProvince" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressProvince!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressProvince!.errors?.['required']">
+              La provincia di residenza è obbligatoria
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">In via</label>
+          <input type="text" class="form-control" name="user-registration-birth-province" formControlName="TutorAddressStreet" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressStreet!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressStreet!.errors?.['required']">
+              La via di residenza è obbligatoria
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Numero civico</label>
+          <input type="text" class="form-control" name="user-registration-birth-province" formControlName="TutorAddressNumber" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressNumber!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressNumber!.errors?.['required']">
+              Il numero civico di residenza &egrave; obbligatorio
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </fieldset>
 
   <button type="submit" class="btn btn-success btn-lg mb-1" [disabled]="RegisterButtonDisabled">Registrati</button>
