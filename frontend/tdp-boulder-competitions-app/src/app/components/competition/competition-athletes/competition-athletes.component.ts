@@ -24,8 +24,7 @@ export class CompetitionAthletesComponent implements OnInit {
 
   constructor(private competitionsService: CompetitionsService,
     private toastService: ToastService,
-    private dialogsService: DialogsService)
-  { }
+    private dialogsService: DialogsService) { }
 
   async ngOnInit(): Promise<void> {
     await this.LoadAthletes();
@@ -72,6 +71,10 @@ export class CompetitionAthletesComponent implements OnInit {
 
   OnDownloadConsentClick = (athlete: IAthlete) => {
     this.competitionsService.DownloadConsent(this.Competition.Id, athlete.Id);
+  }
+
+  GetMinorCellClass = (isMinor: boolean) => {
+    return isMinor ? "fa-check" : "";
   }
 
   private LoadAthletes = async () => {

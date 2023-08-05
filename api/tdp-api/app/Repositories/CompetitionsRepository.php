@@ -347,7 +347,16 @@ class CompetitionsRepository {
             'AddressProvince' => $athlete->address_province,
             'AddressStreet' => $athlete->address_street,
             'AddressNumber' => $athlete->address_number,
-            'IsMinor' => $athlete->is_minor === 1 ? true : false
+            'IsMinor' => $athlete->is_minor === 1 ? true : false,
+            'TutorSurname' => $athlete->tutor_surname,      
+            'TutorName'           => $athlete->tutor_name,         
+            'TutorBirthDate'      => $athlete->tutor_birth_date,    
+            'TutorBirthPlace'     => $athlete->tutor_birth_place,   
+            'TutorBirthProvince'  => $athlete->tutor_birth_province,
+            'TutorAddressCity'    => $athlete->tutor_address_city,  
+            'TutorAddressStreet'  => $athlete->tutor_address_street,
+            'TutorAddressNumber'  => $athlete->tutor_address_number,
+            'TutorAddressProvince'=> $athlete->tutor_address_province
         ];
     }
 }

@@ -101,7 +101,7 @@ export class RegistrationFormComponent implements OnInit {
       return;
 
     const date = this.form.get('BirthDate')?.value;
-    const tutorDate = this.form.get('BirthDate')?.value;
+    const tutorDate = this.form.get('TutorBirthDate')?.value;
 
     const model: IRegisterToCompetitionRequest = {
       Email: this.form.get('Email')?.value,

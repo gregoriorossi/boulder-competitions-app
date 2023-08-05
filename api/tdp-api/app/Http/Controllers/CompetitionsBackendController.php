@@ -158,7 +158,13 @@ class CompetitionsBackendController extends Controller {
         $athlete = $this->competitionsRepository->getAthleteById($competitionId, $athleteId);
 
         $fileName = 'delibera_' . $athlete["Surname"] . "_" . $athlete["Name"] . ".pdf";
-        $pdf = Pdf::loadView('athlete_module', $athlete);
+
+        $birthDate = Carbon::parse($athlete["BirthDate"]);
+        $tutorBirthDate = Carbon::parse($athlete["TutorBirthDate"]);
+        $athlete["BirthDate"] = $birthDate->format('d-m-Y');
+        $athlete["TutorBirthDate"] = $tutorBirthDate->format('d-m-Y');
+        $viewName = $athlete["IsMinor"] ? 'athlete_module_minor' : 'athlete_module';
+        $pdf = Pdf::loadView($viewName, $athlete);
         return $pdf->download($fileName);
     }
 }

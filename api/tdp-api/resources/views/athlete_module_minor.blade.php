@@ -25,6 +25,10 @@
             font-weight: bold;
         }
 
+        .mb-1 {
+            margin-bottom: 10px;
+        }
+
         .mb-2 {
             margin-bottom: 20px;
         }
@@ -104,8 +108,8 @@
             </p>
         </div>
     </div>
-    
-    <div class="col-12 mb-3" style="font-size:1rem">
+    <!-- START MINOR --> 
+    <div class="col-12 mb-1" style="font-size:1rem">
         <div class="col-6 text-bold">
             Il/La sottoscritto/a:
         </div>
@@ -122,7 +126,7 @@
                 Nome<span class="form-value">{{ $Name }}</span>
             </div>
         </div>
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-1">
             <div class="col-6">
                 Nato/a a<span class="form-value">{{ $BirthPlace }}</span>
             </div>
@@ -131,9 +135,9 @@
                     <span class="form-value">{{ $BirthDate }}</span>
             </div>
         </div>
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-1">
             <div class="col-6">
-                Residente a<span class="form-value">Montereale Valcellina</span>
+                Residente a<span class="form-value">{{ $AddressCity }}</span>
             </div>
             <div class="col-6">
                 Via<span class="form-value">{{ $AddressStreet }}</span>&nbsp;&nbsp;&nbsp;n°
@@ -143,13 +147,55 @@
                 Prov.&nbsp;<span class="form-value">{{ $AddressProvince }}</span>
             </div>
         </div>
+    </div>
+     <!-- END MINOR --> 
+
+     <!-- START TUTOR --> 
+    <div class="col-12 mb-1 text-bold" style="font-size:1rem">
+        In qualit&agrave; di tutore/tutrice legale del/della minorenne:
+    </div>
+    <div class="col-12">
+        <div class="col-12">
+            <div class="col-6">
+                Cognome<span class="form-value">{{ $TutorSurname }}</span>
+            </div>
+            <div class="col-6">
+                Nome<span class="form-value">{{ $TutorName }}</span>
+            </div>
+        </div>
+        <div class="col-12 mb-1">
+            <div class="col-6">
+                Nato/a a<span class="form-value">{{ $TutorBirthPlace }}</span>
+            </div>
+            <div class="col-6">
+                Prov.<span class="form-value">{{ $TutorBirthProvince }}</span>&nbsp;&nbsp;&nbsp;il
+                    <span class="form-value">{{ $TutorBirthDate }}</span>
+            </div>
+        </div>
+        <div class="col-12 mb-1">
+            <div class="col-6">
+                Residente a<span class="form-value">{{ $TutorAddressCity }}</span>
+            </div>
+            <div class="col-6">
+                Via<span class="form-value">{{ $TutorAddressStreet }}</span>&nbsp;&nbsp;&nbsp;n°
+                    <span class="form-value">{{ $TutorAddressNumber }}</span>
+            </div>
+            <div class="col-6">
+                Prov.&nbsp;<span class="form-value">{{ $TutorAddressProvince }}</span>
+            </div>
+        </div>
         <div class="col-12">
             <div class="col-6">
                 Email<span class="form-value">{{ $Email }}</span>
             </div>
-            <div class="col-6"></div>
+            <div class="col-6">
+                Telefono<span class="form-value">{{ $Telephone }}</span>
+            </div>
         </div>
     </div>
+     <!-- END TUTOR --> 
+
+
     <div class="col-12 mb-4">
             <p class="text-bold text-center">Dichiara sotto la propria responsabilit&agrave; di:</p>
         <p class="text-justify">
@@ -173,12 +219,12 @@
         </div>
     </div>
 
-    <div class="col-12 text-bold text-center mb-3">
+    <div class="col-12 text-bold text-center mb-1">
         INOLTRE
     </div>
     
     <div class="col-12 mb-3">
-        <p class="text-justify mb-3">
+        <p class="text-justify mb-1">
         A titolo gratuito, senza limiti di tempo, anche ai sensi degli artt. 10 e 320 cod. civ. e degli artt. 96 e 97 legge 22.4.1941, n.
     633, Legge sul diritto d&rsquo;autore, alla pubblicazione e/o diffusione in qualsiasi forma delle proprie immagini sul sito internet
     della Societ&agrave;/Ente A.S.D. TESTE DI PIETRA ,sui canalisocial istituzionali (Facebook, Twitter, Youtube, ecc...)e/o su qualsiasi
