@@ -54,24 +54,27 @@ class CompetitionsBackendController extends Controller {
     {
         $title = $request->input('title');
         $public_path = $this->competitionsRepository->toAvailableUrlFriendly($title, $competitionId);
-        $cover_image = $this->handleCoverImage($request);
 
         $competitionData = array(
             'title' => $title,
             'description' => $request->input('description'),
             'event_date' => Carbon::parse($request->input('event_date')),
-            'cover_image' => $cover_image,
             'email_subject' => $request->input('email_subject'),
             'email_body' => $request->input('email_body'),
             'public_path' => $public_path
         );
         
+        $cover_image = $this->handleCoverImage($request);
+        if (!empty($cover_image)) {
+            $competitionData['cover_image'] = $cover_image;
+        }
+
         $this->competitionsRepository->updateInfo($competitionId, $competitionData);
         return response()->json(null, 200);
     }    
 
     private function handleCoverImage(Request $request) {
-        // try {
+        if ($request->cover_image !== null) {
             $request->validate([
                 'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
@@ -80,10 +83,9 @@ class CompetitionsBackendController extends Controller {
             $path = $request->file('cover_image')->store('images');
 
             return $path;
-
-        // } catch(Error $err) {
-        //     return null;
-        // }
+        } else {
+            return "";
+        }
     }
 
     public function delete(string $competitionId)

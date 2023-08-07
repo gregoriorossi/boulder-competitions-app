@@ -85,6 +85,8 @@ export class CompetitionInfoGaraComponent implements OnInit {
     } else {
       this.toastService.showDanger("Errore nel salvataggio!")
     }
+
+    this.competitionInfo = await this.competitionsService.GetCompetitionInfo(this.CompetitionId!);
     this.SaveButtonDisabled = false;
   }
 

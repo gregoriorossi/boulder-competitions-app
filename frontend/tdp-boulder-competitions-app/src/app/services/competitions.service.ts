@@ -39,9 +39,12 @@ export class CompetitionsService extends BaseTdpApiService {
       formData.append('title', data.title);
       formData.append('event_date', data.event_date.toUTCString());
       formData.append('description', data.description);
-      formData.append('cover_image', data.cover_image_file as Blob, data.cover_image);
       formData.append('email_subject', data.email_subject);
       formData.append('email_body', data.email_body);
+
+      if (data.cover_image_file) {
+        formData.append('cover_image', data.cover_image_file as Blob, data.cover_image);
+      }
 
       await this.post(TDPApiEndpoints.Competitions.UpdateInfo(id), formData);
       return StatusTypes.OK;
