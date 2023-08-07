@@ -34,6 +34,14 @@ export class CompetitionAthletesComponent implements OnInit {
     });
   }
 
+  get totalAthletesNumber(): number {
+    return this.athletes.length;
+  }
+
+  get totalMinorAthletes(): number {
+    return this.athletes.filter(a => a.IsMinor).length;
+  }
+
   GetGenderCellClass = (gender: Gender): string => {
     return gender === Gender.MALE ? "fa-mars" : "fa-venus";
   }

@@ -1,12 +1,13 @@
 <div class="container">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-md-12">
+      <span>Totale partecipanti: {{totalAthletesNumber}} ({{totalMinorAthletes}} minore/i)</span>
       <div class="btn-group float-end" role="group">
-        <button type="button" class="btn btn-secondary" (click)="OnDownloadAllConsentsClick()">
-          <i class="fa fa-download"></i>&nbsp;Delibere partecipanti
-        </button>
         <button type="button" class="btn btn-secondary" (click)="athletemodal.Open()">
           <i class="fa fa-plus"></i>&nbsp;Partecipante
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="OnDownloadAllConsentsClick()">
+          <i class="fa fa-download"></i>&nbsp;Delibere
         </button>
         <button type="button" class="btn btn-secondary" (click)="OnDownloadButtonClick()" title="Scarica un file Excel contenente tutti i partecipanti">
           <i class="fa fa-download"></i>&nbsp;Lista partecipanti
