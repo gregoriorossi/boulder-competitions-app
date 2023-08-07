@@ -125,6 +125,11 @@ export class CompetitionsService extends BaseTdpApiService {
     window.open(downloadUrl, "_blank");
   }
 
+  public DownloadAllConsents = (competitionId: number): void => {
+    const downloadUrl: string = this.BuildUrl(TDPApiEndpoints.Competitions.DownloadAllConsents(competitionId));
+    window.open(downloadUrl, "_blank");
+  }
+
   public UpdateRegistrationToCompetition = async (competitionId: number, athleteId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
     try {
       const result = await this.put(TDPApiEndpoints.Competitions.UpdateRegistrationToCompetition(competitionId, athleteId), data);

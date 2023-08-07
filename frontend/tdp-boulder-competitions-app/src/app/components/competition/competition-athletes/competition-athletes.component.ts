@@ -69,8 +69,12 @@ export class CompetitionAthletesComponent implements OnInit {
     }
   }
 
-  OnDownloadConsentClick = (athlete: IAthlete) => {
+  OnDownloadConsentClick = (athlete: IAthlete): void => {
     this.competitionsService.DownloadConsent(this.Competition.Id, athlete.Id);
+  }
+
+  OnDownloadAllConsentsClick = (): void => {
+    this.competitionsService.DownloadAllConsents(this.Competition.Id);
   }
 
   GetMinorCellClass = (isMinor: boolean) => {

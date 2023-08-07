@@ -11,6 +11,7 @@ export const TDPApiEndpoints = {
     GetBasicInfoByPublicPath: (path: string) => `competitionsBackend/basicInfoByPublicPath/${path}`,
     GetRanking: (id: number, type: RankingType) => `competitionsBackend/${id}/${type}/ranking`,
     GetResults: (id: number) => `competitionsBackend/${id}/results`,
+    DownloadAllConsents: (competitionId: number) => `competitionsBackend/${competitionId}/downloadAllConsents`,
     DownloadConsent: (competitionId: number, athleteId: number) => `competitionsBackend/${competitionId}/${athleteId}/downloadConsent`,
     UpdateInfo: (id: number) => `competitionsBackend/${id}/info`,
     Create: 'competitionsBackend/create',

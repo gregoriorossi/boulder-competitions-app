@@ -154,17 +154,43 @@ class CompetitionsBackendController extends Controller {
         }
     }
 
+    public function downloadAllConsents(string $competitionId) {
+        $competition = $this->competitionsRepository->getInfo($competitionId);
+        $athletes = $this->competitionsRepository->getAthletes($competitionId);
+
+        for ($i = 0; $i < count($athletes); $i++) {
+            $athlete = $this->FormatDatesForConsent($athletes[$i]);
+            $athletes[$i] = $athlete;
+        }
+
+        $fileName = $competition["PublicPath"] . ".pdf";
+        $data["athletes"] = $athletes;
+        $viewName = "athlete_module_container";
+        $pdf = Pdf::loadView($viewName,  $data);
+        return $pdf->download($fileName);
+    }
+    
     public function downloadConsent(string $competitionId, string $athleteId) {
         $athlete = $this->competitionsRepository->getAthleteById($competitionId, $athleteId);
-
         $fileName = 'delibera_' . $athlete["Surname"] . "_" . $athlete["Name"] . ".pdf";
+
+        $athlete = $this->FormatDatesForConsent($athlete);
+
+        $athletes = [$athlete];
+        $data["athletes"] = $athletes;
+        $viewName = "athlete_module_container";
+        $pdf = Pdf::loadView($viewName,  $data);
+        return $pdf->download($fileName);
+    }
+
+    private function FormatDatesForConsent($originalAthlete) {
+        $athlete = unserialize(serialize($originalAthlete));
 
         $birthDate = Carbon::parse($athlete["BirthDate"]);
         $tutorBirthDate = Carbon::parse($athlete["TutorBirthDate"]);
         $athlete["BirthDate"] = $birthDate->format('d-m-Y');
         $athlete["TutorBirthDate"] = $tutorBirthDate->format('d-m-Y');
-        $viewName = $athlete["IsMinor"] ? 'athlete_module_minor' : 'athlete_module';
-        $pdf = Pdf::loadView($viewName, $athlete);
-        return $pdf->download($fileName);
+
+        return $athlete;
     }
 }

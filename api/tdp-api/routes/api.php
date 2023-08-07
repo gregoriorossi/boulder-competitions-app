@@ -36,6 +36,7 @@ Route::get('competitionsBackend/{competitionId}/results', [CompetitionsBackendCo
 Route::post('competitionsBackend/{competitionId}/sendRegistrationEmail', [CompetitionsBackendController::class, 'sendRegistrationEmail']);
 Route::post('competitionsBackend/{competitionId}/register', [CompetitionsBackendController::class, 'register']);
 Route::get('competitionsBackend/{competitionId}/{athleteId}/downloadConsent', [CompetitionsBackendController::class, 'downloadConsent']);
+Route::get('competitionsBackend/{competitionId}/downloadAllConsents', [CompetitionsBackendController::class, 'downloadAllConsents']);
 
 
 // FRONTEND
