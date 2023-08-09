@@ -99,7 +99,6 @@ class CompetitionsController extends Controller
                 'email' => $email,
                 'name' => $request->input('Name'),
                 'surname' => $request->input('Surname'),
-                'telephone' => $request->input('Telephone'),
                 'birth_date' => Carbon::parse($request->input('BirthDate')),
                 'gender' => $request->input('Gender'),
                 'birth_place' => $request->input('BirthPlace'),
@@ -118,7 +117,8 @@ class CompetitionsController extends Controller
                 'tutor_address_city' => $request->input('TutorAddressCity'),
                 'tutor_address_street' => $request->input('TutorAddressStreet'),
                 'tutor_address_number' => $request->input('TutorAddressNumber'),
-                'tutor_address_province' => $request->input('TutorAddressProvince')
+                'tutor_address_province' => $request->input('TutorAddressProvince'),
+                'tutor_telephone' => $request->input('TutorTelephone')
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
@@ -139,7 +139,6 @@ class CompetitionsController extends Controller
             'email' => $email,
             'name' => $request->input('Name'),
             'surname' => $request->input('Surname'),
-            'telephone' => $request->input('Telephone'),
             'birth_date' => Carbon::parse($request->input('BirthDate')),
             'gender' => $request->input('Gender')
         );

@@ -189,7 +189,7 @@
                 Email<span class="form-value">{{ $Email }}</span>
             </div>
             <div class="col-6">
-                Telefono<span class="form-value">{{ $Telephone }}</span>
+                Telefono tutore/tutrice<span class="form-value">{{ $TutorTelephone }}</span>
             </div>
         </div>
     </div>

@@ -339,7 +339,6 @@ class CompetitionsRepository {
             'Surname' => $athlete->surname,
             'BirthDate' => $athlete->birth_date,
             'Email'=> $athlete->email,
-            'Telephone' => $athlete->telephone,
             'Gender' => $athlete->gender,
             'BirthPlace' => $athlete->birth_place,
             'BirthProvince' => $athlete->birth_province,
@@ -356,7 +355,8 @@ class CompetitionsRepository {
             'TutorAddressCity'    => $athlete->tutor_address_city,  
             'TutorAddressStreet'  => $athlete->tutor_address_street,
             'TutorAddressNumber'  => $athlete->tutor_address_number,
-            'TutorAddressProvince'=> $athlete->tutor_address_province
+            'TutorAddressProvince'=> $athlete->tutor_address_province,
+            'TutorTelephone' => $athlete->tutor_telephone
         ];
     }
 }

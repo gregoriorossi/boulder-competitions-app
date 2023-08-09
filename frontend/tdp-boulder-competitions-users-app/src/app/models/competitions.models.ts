@@ -57,7 +57,7 @@ export interface IRegisterToCompetitionRequest {
   Name: string;
   Surname: string;
   BirthDate: Date;
-  Telephone: string;
+  TutorTelephone: string;
   Gender: string;
   BirthPlace: string;
   BirthProvince: string;

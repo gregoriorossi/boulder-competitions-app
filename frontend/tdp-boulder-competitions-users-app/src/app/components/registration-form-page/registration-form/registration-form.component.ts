@@ -38,7 +38,6 @@ export class RegistrationFormComponent implements OnInit {
       Surname: new FormControl('', [Validators.required]),
       BirthDate: new FormControl(null, [Validators.required]),
       Gender: new FormControl(Gender.MALE, [Validators.required]),
-      Telephone: new FormControl('', [Validators.required]),
       BirthPlace: new FormControl('', [Validators.required]),
       AddressCity: new FormControl('', [Validators.required]),
       AddressNumber: new FormControl('', [Validators.required]),
@@ -55,6 +54,7 @@ export class RegistrationFormComponent implements OnInit {
       TutorAddressStreet: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressNumber: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressProvince: new FormControl('', [this.TutorFieldsValidator]),
+      TutorTelephone: new FormControl('', [Validators.required])
     });
 
     this.form.get('IsMinor')?.valueChanges
@@ -68,6 +68,7 @@ export class RegistrationFormComponent implements OnInit {
         this.form.get('TutorAddressStreet')?.updateValueAndValidity();
         this.form.get('TutorAddressNumber')?.updateValueAndValidity();
         this.form.get('TutorAddressProvince')?.updateValueAndValidity();
+        this.form.get('TutorTelephone')?.updateValueAndValidity();
       });
   }
 
@@ -76,7 +77,6 @@ export class RegistrationFormComponent implements OnInit {
   get surname() { return this.form!.get('Surname') }
   get birthDate() { return this.form!.get('BirthDate') }
   get gender() { return this.form!.get('Gender') }
-  get telephone() { return this.form!.get('Telephone') }
   get birthPlace() { return this.form!.get('BirthPlace') }
   get addressCity() { return this.form!.get('AddressCity') }
   get addressNumber() { return this.form!.get('AddressNumber') }
@@ -93,6 +93,8 @@ export class RegistrationFormComponent implements OnInit {
   get tutorAddressStreet() { return this.form!.get('TutorAddressStreet') }
   get tutorAddressNumber() { return this.form!.get('TutorAddressNumber') }
   get tutorAddressProvince() { return this.form!.get('TutorAddressProvince') }
+  get tutorTelephone() { return this.form!.get('TutorTelephone') }
+
 
   OnRegisterClick = async (): Promise<void> => {
     this.formSubmittedAtLeastOnce = true;
@@ -108,7 +110,6 @@ export class RegistrationFormComponent implements OnInit {
       Name: this.form.get('Name')?.value,
       Surname: this.form.get('Surname')?.value,
       BirthDate: DateUtils.ToNoTimeZoneDate(date.year, date!.month - 1, date!.day),
-      Telephone: this.form.get('Telephone')?.value,
       Gender: this.form.get('Gender')?.value,
       BirthPlace: this.form.get('BirthPlace')?.value,
       BirthProvince: this.form.get('BirthProvince')?.value,
@@ -125,7 +126,8 @@ export class RegistrationFormComponent implements OnInit {
       TutorAddressCity: this.form.get('TutorAddressCity')?.value,
       TutorAddressStreet: this.form.get('TutorAddressStreet')?.value,
       TutorAddressNumber: this.form.get('TutorAddressNumber')?.value,
-      TutorAddressProvince: this.form.get('TutorAddressProvince')?.value
+      TutorAddressProvince: this.form.get('TutorAddressProvince')?.value,
+      TutorTelephone: this.form.get('TutorTelephone')?.value
     };
 
     this.RegisterButtonDisabled = true;
