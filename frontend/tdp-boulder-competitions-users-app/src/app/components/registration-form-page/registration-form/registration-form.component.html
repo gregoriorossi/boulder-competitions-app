@@ -287,6 +287,17 @@
     </div>
   </fieldset>
 
+  <div class="form-group mb-2">
+
+    <input type="checkbox" class="form-check-input" name="user-privacy" formControlName="Privacy">
+    <label class="form-check-label" for="user-privacy">&nbsp;Ho letto l'<a href="">informativa</a> privacy e accetto le condizioni</label>
+
+    <div *ngIf="formSubmittedAtLeastOnce && privacy!.invalid" class="alert alert-danger">
+      <div *ngIf="privacy!.errors?.['required']">
+        &Egrave; obbligatorio accettare la policy privacy
+      </div>
+    </div>
+  </div>
   <button type="submit" class="btn btn-success btn-lg mb-1" [disabled]="RegisterButtonDisabled">Registrati</button>
 
 </form>

@@ -54,7 +54,8 @@ export class RegistrationFormComponent implements OnInit {
       TutorAddressStreet: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressNumber: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressProvince: new FormControl('', [this.TutorFieldsValidator]),
-      TutorTelephone: new FormControl('', [Validators.required])
+      TutorTelephone: new FormControl('', [Validators.required]),
+      Privacy: new FormControl(false, [Validators.requiredTrue])
     });
 
     this.form.get('IsMinor')?.valueChanges
@@ -94,7 +95,7 @@ export class RegistrationFormComponent implements OnInit {
   get tutorAddressNumber() { return this.form!.get('TutorAddressNumber') }
   get tutorAddressProvince() { return this.form!.get('TutorAddressProvince') }
   get tutorTelephone() { return this.form!.get('TutorTelephone') }
-
+  get privacy() { return this.form!.get('Privacy') }
 
   OnRegisterClick = async (): Promise<void> => {
     this.formSubmittedAtLeastOnce = true;
