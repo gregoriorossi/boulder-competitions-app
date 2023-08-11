@@ -15,6 +15,9 @@
             <div *ngIf="email!.errors?.['required']">
               La email &grave; obbligatoria
             </div>
+            <div *ngIf="email!.errors?.['email']">
+              La email inserita non &egrave; valida
+            </div>
           </div>
         </div>
 

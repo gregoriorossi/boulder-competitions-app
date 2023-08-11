@@ -122,7 +122,6 @@ class CompetitionsBackendController extends Controller {
             'email' => $athlete["Email"],
             'name' => $athlete["Name"],
             'surname' => $athlete["Surname"],
-            'telephone' => $athlete["Telephone"],
             'birth_date' => $athlete["BirthDate"],
             'gender' => $athlete["Gender"]
         );
@@ -142,7 +141,6 @@ class CompetitionsBackendController extends Controller {
                 'email' => $email,
                 'name' => $request->input('Name'),
                 'surname' => $request->input('Surname'),
-                'telephone' => $request->input('Telephone'),
                 'birth_date' => Carbon::parse($request->input('BirthDate')),
                 'gender' => $request->input('Gender')
             );

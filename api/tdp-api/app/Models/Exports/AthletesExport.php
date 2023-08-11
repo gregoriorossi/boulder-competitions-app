@@ -38,7 +38,6 @@ class AthletesExport implements
             $athlete['Name'],
             $athlete['Email'],
             Date::stringToExcel($athlete['BirthDate']),
-            ((string)$athlete['Telephone']),
             $this->getGender($athlete['Gender'])
         ];
     }

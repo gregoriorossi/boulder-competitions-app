@@ -33,7 +33,7 @@ export class RegistrationFormComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.form = new FormGroup({
-      Email: new FormControl('', [Validators.required]),
+      Email: new FormControl('', [Validators.required, Validators.email]),
       Name: new FormControl('', [Validators.required]),
       Surname: new FormControl('', [Validators.required]),
       BirthDate: new FormControl(null, [Validators.required]),
@@ -54,7 +54,7 @@ export class RegistrationFormComponent implements OnInit {
       TutorAddressStreet: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressNumber: new FormControl('', [this.TutorFieldsValidator]),
       TutorAddressProvince: new FormControl('', [this.TutorFieldsValidator]),
-      TutorTelephone: new FormControl('', [Validators.required]),
+      TutorTelephone: new FormControl('', [this.TutorFieldsValidator]),
       Privacy: new FormControl(false, [Validators.requiredTrue])
     });
 
@@ -121,7 +121,7 @@ export class RegistrationFormComponent implements OnInit {
       IsMinor: this.form.get('IsMinor')?.value,
       TutorSurname: this.form.get('TutorSurname')?.value,
       TutorName: this.form.get('TutorName')?.value,
-      TutorBirthDate: DateUtils.ToNoTimeZoneDate(tutorDate.year, tutorDate!.month - 1, tutorDate!.day),
+      TutorBirthDate: tutorDate ? DateUtils.ToNoTimeZoneDate(tutorDate.year, tutorDate!.month - 1, tutorDate!.day) : new Date(),
       TutorBirthPlace: this.form.get('TutorBirthPlace')?.value,
       TutorBirthProvince: this.form.get('TutorBirthProvince')?.value,
       TutorAddressCity: this.form.get('TutorAddressCity')?.value,
@@ -143,6 +143,8 @@ export class RegistrationFormComponent implements OnInit {
         this.form.reset();
         this.formSubmittedAtLeastOnce = false;
       }, 200);
+    } else if (result.Status === StatusTypes.ERR_USER_ALREADY_REGISTERED) {
+      this.toastService.showDanger('Errore nella registrazione, utente già registrato');
     } else {
       this.toastService.showDanger('Errore nella registrazione della gara');
       this.OnRegistrationError.emit();

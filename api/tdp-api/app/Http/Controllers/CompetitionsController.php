@@ -123,10 +123,15 @@ class CompetitionsController extends Controller
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
             $this->competitionsRepository->sendRegistrationEmail($registrationData);
-            return response()->json(null, 204);
+            $data = array(
+                'Status' => 'OK'
+            );
+            return response()->json($data, 200);
         } else {
-            // già registrato
-            return response()->json(null, 500);
+            $data = array(
+                'Status' => 'ERR_USER_ALREADY_REGISTERED'
+            );
+            return response()->json($data, 200);
         }
     }
     

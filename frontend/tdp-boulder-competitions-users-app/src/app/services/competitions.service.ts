@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TDPApiEndpoints } from "../constants/endpoints";
 import { IRank, IRegisterToCompetitionRequest, RankingType, ICompetitionInfo, ICompetition, IIsUserRegisteredToCompetitionResponse } from "../models/competitions.models";
+import { IProblem } from "../models/problems.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
 
@@ -32,10 +33,8 @@ export class CompetitionsService extends BaseTdpApiService {
 
   public RegisterToCompetition = async (competitionId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
     try {
-      const result = await this.post(TDPApiEndpoints.Competitions.Register(competitionId), data);
-      return {
-        Status: StatusTypes.OK
-      }
+      const result: IResponse = await this.post(TDPApiEndpoints.Competitions.Register(competitionId), data);
+      return result;
     } catch (err) {
       console.log(err);
       return {
