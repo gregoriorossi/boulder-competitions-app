@@ -126,7 +126,7 @@ class CompetitionsBackendController extends Controller {
             'gender' => $athlete["Gender"]
         );
 
-        $this->competitionsRepository->sendRegistrationEmail($data);
+        $this->competitionsRepository->sendRegistrationEmailToUser($data);
         return response()->json($athlete, 200);
     }
 
@@ -146,7 +146,8 @@ class CompetitionsBackendController extends Controller {
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
-            $this->competitionsRepository->sendRegistrationEmail($registrationData);
+            $this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
+            $this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
             return response()->json(null, 204);
         } else {
             // già registrato

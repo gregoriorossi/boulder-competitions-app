@@ -273,7 +273,7 @@ class CompetitionsRepository {
         }
     }
 
-    function sendRegistrationEmail($registrationData) {
+    function sendRegistrationEmailToUser($registrationData) {
         $info = $this->getInfo($registrationData['id_competition']);
 
         $body = $info['EmailBody'];
@@ -293,6 +293,29 @@ class CompetitionsRepository {
         ];
 
         Mail::to($registrationData['email'])->send(new \App\Mail\RegistrationMail($details));
+    }
+
+    function sendRegistrationEmailToTDP($registrationData) {
+        $tdpEmail = getenv('TDP_EMAIL_ADDRESS');
+        $info = $this->getInfo($registrationData['id_competition']);
+
+        $body = "{Partecipante} si è iscritto alla gara {TitoloGara} del {DataGara}";;
+        $subject = "Iscrizione {Partecipante} a {TitoloGara}";
+
+        $placeholders = ["{TitoloGara}", "{DataGara}", "{Partecipante}"];
+        
+        $partecipanteValue = $registrationData['name'] . " " . $registrationData['surname'];
+        $values = [$info['Title'], $info['EventDate'], $partecipanteValue];
+        
+        $body = str_replace($placeholders, $values, $body);
+        $subject = str_replace($placeholders, $values, $subject);
+
+        $details = [
+            'subject' => $subject,
+            'body'=> $body
+        ];
+
+        Mail::to($tdpEmail)->send(new \App\Mail\RegistrationMail($details));
     }
 
     private function IsPublicPathAvailable(string $path, string $competitionId) {

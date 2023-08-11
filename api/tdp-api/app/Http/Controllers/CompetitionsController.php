@@ -122,7 +122,9 @@ class CompetitionsController extends Controller
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
-            $this->competitionsRepository->sendRegistrationEmail($registrationData);
+            $this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
+            $this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
+
             $data = array(
                 'Status' => 'OK'
             );
