@@ -29,16 +29,19 @@ class ProblemsRepository {
             ->orderBy('title')
             ->get();
 
-        return $result->map(function($problem, $key) {
+        $problems = $result->map(function($problem, $key) {
             $score = $this->getProblemScore($problem->competition_id, $problem->id);
             return [
                 'Id' => $problem->id,
                 'Title' => $problem->title,
                 'CompetitionId' => $problem->competition_id,
                 'Color' => $problem->color,
-                'Score' => $score
+                'Score' => $score,
+                'SortableTitle' => intval($problem->title)
             ];
         });
+
+        return collect($problems)->sortBy('SortableTitle')->values()->all();
     }
 
     function getSentProblemsByAthlete($athleteId, $competitionId) {
