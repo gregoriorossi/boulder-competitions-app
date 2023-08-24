@@ -133,7 +133,7 @@
         </div>
         <div class="col-12 mb-3">
             <div class="col-6">
-                Residente a<span class="form-value">Montereale Valcellina</span>
+                Residente a<span class="form-value">{{ $AddressCity }}</span>
             </div>
             <div class="col-6">
                 Via<span class="form-value">{{ $AddressStreet }}</span>&nbsp;&nbsp;&nbsp;n°

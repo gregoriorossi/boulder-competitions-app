@@ -25,11 +25,12 @@ class ProblemsRepository {
         $result = DB::Table('problems')
             ->join('competitions_colors', 'problems.color_id', '=', 'competitions_colors.id_color')
             ->select('problems.*', 'competitions_colors.color')
+            ->selectRaw('CAST(tdp_problems.title AS UNSIGNED) as sortable_title')
             ->where('color_id', $colorId)
-            ->orderBy('title')
+            ->orderBy('sortable_title')
             ->get();
 
-        $problems = $result->map(function($problem, $key) {
+        return $result->map(function($problem, $key) {
             $score = $this->getProblemScore($problem->competition_id, $problem->id);
             return [
                 'Id' => $problem->id,
@@ -37,11 +38,9 @@ class ProblemsRepository {
                 'CompetitionId' => $problem->competition_id,
                 'Color' => $problem->color,
                 'Score' => $score,
-                'SortableTitle' => intval($problem->title)
+               'SortableTitle' => $problem->sortable_title
             ];
         });
-
-        return collect($problems)->sortBy('SortableTitle')->values()->all();
     }
 
     function getSentProblemsByAthlete($athleteId, $competitionId) {
@@ -70,6 +69,7 @@ class ProblemsRepository {
                 $problem = $group['Problems'][$j];
                 $problem['Sent'] = $this->isSentProblem($problem['Id'], $sentProblems);
                 $group['Problems'][$j] = $problem;
+                //print_r($group['Problems'][$j]);
             }
         }
         return $groups;

@@ -52,8 +52,7 @@ class AthletesExport implements
             $athlete['TutorBirthProvince'],
             $athlete['TutorAddressCity'],
             $athlete['TutorAddressProvince'],
-            $athlete['TutorAddressStreet'] . ', ' . $athlete['TutorAddressNumber'],
-            $athlete['TutorTelephone']
+            $athlete['TutorAddressStreet'] . ', ' . $athlete['TutorAddressNumber']
         ];
     }
 
@@ -79,7 +78,6 @@ class AthletesExport implements
             "Città di residenza Tutor", // Q
             "Provincia di residenza Tutor", // R
             "Indirizzo di residenza Tutor", // S
-            "Telefono Tutor" // T
         ];
     }
 
@@ -104,8 +102,7 @@ class AthletesExport implements
             'P' => NumberFormat::FORMAT_TEXT,
             'Q' => NumberFormat::FORMAT_TEXT,
             'R' => NumberFormat::FORMAT_TEXT,
-            'S' => NumberFormat::FORMAT_TEXT,
-            'T' => NumberFormat::FORMAT_GENERAL
+            'S' => NumberFormat::FORMAT_TEXT
         ];
     }
 
