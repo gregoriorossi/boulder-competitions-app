@@ -1,92 +1,276 @@
 <form [formGroup]="form" (ngSubmit)="OnCreateClick()" novalidate>
-  <div class="form-group mb-2">
-    <label for="new-athlete-name" class="col-sm-2 col-form-label">Nome</label>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" name="new-athlete-name" formControlName="Name" required />
-      <div *ngIf="formSubmittedAtLeastOnce && name!.invalid" class="alert alert-danger">
-        <div *ngIf="name!.errors?.['required']">
-          Il nome è obbligatorio.
+  <fieldset>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" formControlName="IsMinor">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Iscrizione minore</label>
+    </div>
+    <div class="form-group mb-2">
+      <label for="new-athlete-email" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" name="new-athlete-email" formControlName="Email" required />
+        <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
+          <div *ngIf="email!.errors?.['required']">
+            L'email è obbligatoria.
+          </div>
+          <div *ngIf="email!.errors?.['email']">
+            La email inserita non &egrave; valida
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="form-group mb-2">
-    <label for="new-athlete-surname" class="col-sm-2 col-form-label">Cognome</label>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" name="new-athlete-surname" formControlName="Surname" required />
-      <div *ngIf="formSubmittedAtLeastOnce && surname!.invalid" class="alert alert-danger">
-        <div *ngIf="surname!.errors?.['required']">
-          Il cognome è obbligatorio.
+    <div class="form-group mb-2">
+      <label for="new-athlete-gender" class="col-sm-2 col-form-label">Sesso</label>
+      <div class="col-sm-12">
+        <select class="form-control" name="new-athlete-gender" formControlName="Gender" required data-live-search="true">
+          <option value={{Gender.MALE}}>Uomo</option>
+          <option value={{Gender.FEMALE}}>Donna</option>
+        </select>
+        <div *ngIf="formSubmittedAtLeastOnce && gender!.invalid" class="alert alert-danger">
+          <div *ngIf="gender!.errors?.['required']">
+            Il sesso è obbligatorio.
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="form-group mb-2">
-    <label for="new-athlete-email" class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" name="new-athlete-email" formControlName="Email" required />
-      <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
-        <div *ngIf="email!.errors?.['required']">
-          L'email è obbligatoria.
+    <div class="form-group mb-2">
+      <label for="new-athlete-name" class="col-sm-2 col-form-label">Nome</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" name="new-athlete-name" formControlName="Name" required />
+        <div *ngIf="formSubmittedAtLeastOnce && name!.invalid" class="alert alert-danger">
+          <div *ngIf="name!.errors?.['required']">
+            Il nome è obbligatorio.
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-12">
-    <label for="competition-date" class="col-md-12 col-form-label">Data di nascita</label>
-  </div>
-  <div class="input-group mb-2 mr-sm-2">
-    <div class="input-group-append">
-      <div class="input-group-text"
-           (click)="d.toggle()">
-        &nbsp;<i class="fa fa-calendar"></i>&nbsp;
-      </div>
-    </div>
-    <input type="text"
-           autocomplete="off"
-           ngbDatepicker
-           [minDate]="{year: 1940, month:1, day: 1}"
-           [maxDate]="{year: 2020, month: 12, day: 31}"
-           #d="ngbDatepicker"
-           (click)="d.toggle()"
-           class="form-control"
-           formControlName="BirthDate"
-           name="new-competition-birth-date"
-           placeholder="Seleziona una data">
-    <div *ngIf="formSubmittedAtLeastOnce && birthDate!.invalid" class=" col-md-12 alert alert-danger">
-      <div *ngIf="birthDate!.errors?.['required']">
-        La data di nascita è obbligatoria.
-      </div>
-    </div>
-  </div>
-  <div class="form-group mb-2">
-    <label for="new-athlete-telephone" class="col-sm-2 col-form-label">Telefono</label>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" name="new-athlete-telephone" formControlName="Telephone" required />
-      <div *ngIf="formSubmittedAtLeastOnce && email!.invalid" class="alert alert-danger">
-        <div *ngIf="telephone!.errors?.['required']">
-          Il numero di telefono è obbligatorio
+    <div class="form-group mb-2">
+      <label for="new-athlete-surname" class="col-sm-2 col-form-label">Cognome</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" name="new-athlete-surname" formControlName="Surname" required />
+        <div *ngIf="formSubmittedAtLeastOnce && surname!.invalid" class="alert alert-danger">
+          <div *ngIf="surname!.errors?.['required']">
+            Il cognome è obbligatorio.
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="form-group mb-2">
-    <label for="new-athlete-gender" class="col-sm-2 col-form-label">Sesso</label>
     <div class="col-sm-12">
-      <select class="form-control" name="new-athlete-gender" formControlName="Gender" required data-live-search="true">
-        <option value={{Gender.MALE}}>Uomo</option>
-        <option value={{Gender.FEMALE}}>Donna</option>
-      </select>
-      <div *ngIf="formSubmittedAtLeastOnce && gender!.invalid" class="alert alert-danger">
-        <div *ngIf="gender!.errors?.['required']">
-          Il sesso è obbligatorio.
+      <label for="competition-date" class="col-md-12 col-form-label">Data di nascita</label>
+    </div>
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-append">
+        <div class="input-group-text"
+             (click)="d.toggle()">
+          &nbsp;<i class="fa fa-calendar"></i>&nbsp;
+        </div>
+      </div>
+      <input type="text"
+             autocomplete="off"
+             ngbDatepicker
+             [minDate]="{year: 1940, month:1, day: 1}"
+             [maxDate]="{year: 2020, month: 12, day: 31}"
+             #d="ngbDatepicker"
+             (click)="d.toggle()"
+             class="form-control"
+             formControlName="BirthDate"
+             name="new-competition-birth-date"
+             placeholder="Seleziona una data">
+      <div *ngIf="formSubmittedAtLeastOnce && birthDate!.invalid" class=" col-md-12 alert alert-danger">
+        <div *ngIf="birthDate!.errors?.['required']">
+          La data di nascita è obbligatoria.
         </div>
       </div>
     </div>
-  </div>
+    <div class="form-group mb-2">
+      <label for="user-registration-surname" class="col-sm-12 col-form-label">Nato/a a</label>
+      <input type="text" class="form-control" name="user-registration-birth-place" formControlName="BirthPlace" required />
+      <div *ngIf="formSubmittedAtLeastOnce && birthPlace!.invalid" class="alert alert-danger">
+        <div *ngIf="birthPlace!.errors?.['required']">
+          Il luogo di nascita è obbligatorio
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="user-registration-surname" class="col-sm-12 col-form-label">Provincia di nascita</label>
+      <input type="text" class="form-control" name="user-registration-birth-province" formControlName="BirthProvince" required />
+      <div *ngIf="formSubmittedAtLeastOnce && birthProvince!.invalid" class="alert alert-danger">
+        <div *ngIf="birthProvince!.errors?.['required']">
+          La provincia di nascita è obbligatoria
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="user-registration-surname" class="col-sm-12 col-form-label">Residente a</label>
+      <input type="text" class="form-control" name="user-registration-birth-province" formControlName="AddressCity" required />
+      <div *ngIf="formSubmittedAtLeastOnce && addressCity!.invalid" class="alert alert-danger">
+        <div *ngIf="addressCity!.errors?.['required']">
+          La citt&agrave; di residenza è obbligatoria
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="user-registration-surname" class="col-sm-12 col-form-label">Provincia di residenza</label>
+      <input type="text" class="form-control" name="user-registration-birth-province" formControlName="AddressProvince" required />
+      <div *ngIf="formSubmittedAtLeastOnce && addressProvince!.invalid" class="alert alert-danger">
+        <div *ngIf="addressProvince!.errors?.['required']">
+          La provincia di residenza è obbligatoria
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="user-registration-surname" class="col-sm-12 col-form-label">In via</label>
+      <input type="text" class="form-control" name="user-registration-birth-province" formControlName="AddressStreet" required />
+      <div *ngIf="formSubmittedAtLeastOnce && addressStreet!.invalid" class="alert alert-danger">
+        <div *ngIf="addressStreet!.errors?.['required']">
+          La via di residenza è obbligatoria
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="user-registration-surname" class="col-sm-12 col-form-label">Numero civico</label>
+      <input type="text" class="form-control" name="user-registration-birth-province" formControlName="AddressNumber" required />
+      <div *ngIf="formSubmittedAtLeastOnce && addressNumber!.invalid" class="alert alert-danger">
+        <div *ngIf="addressNumber!.errors?.['required']">
+          Il numero civico di residenza &egrave; obbligatorio
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset *ngIf="isMinor?.value">
+    <legend class="scheduler-border">In qualità di tutore/tutrice legale del/della minorenne:</legend>
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-name" class="col-sm-12 col-form-label">Nome</label>
+          <input type="text" class="form-control" name="tutor-user-registration-name" formControlName="TutorName" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorName!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorName!.errors?.['required']">
+              Il nome è obbligatorio
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Cognome</label>
+          <input type="text" class="form-control" name="tutor-user-registration-surname" formControlName="TutorSurname" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorSurname!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorSurname!.errors?.['required']">
+              Il cognome è obbligatorio
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <label for="tutor-user-registration-birth-date" class="col-md-12 col-form-label">Data di nascita</label>
+    </div>
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-append">
+        <div class="input-group-text"
+             (click)="d2.toggle()">
+          &nbsp;<i class="fa fa-calendar"></i>&nbsp;
+        </div>
+      </div>
+      <input type="text"
+             autocomplete="off"
+             ngbDatepicker
+             #d2="ngbDatepicker"
+             [minDate]="{year: 1940, month:1, day: 1}"
+             [maxDate]="{year: 2020, month: 12, day: 31}"
+             (click)="d2.toggle()"
+             class="form-control"
+             formControlName="TutorBirthDate"
+             name="tutor-user-registration-birth-date"
+             placeholder="Seleziona una data">
+      <div *ngIf="formSubmittedAtLeastOnce && tutorBirthDate!.invalid" class=" col-md-12 alert alert-danger">
+        <div *ngIf="tutorBirthDate!.errors?.['required']">
+          La data di nascita è obbligatoria.
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Nato/a a</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-place" formControlName="TutorBirthPlace" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorBirthPlace!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorBirthPlace!.errors?.['required']">
+              Il luogo di nascita è obbligatorio
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Provincia di nascita</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-province" formControlName="TutorBirthProvince" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorBirthProvince!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorBirthProvince!.errors?.['required']">
+              La provincia di nascita è obbligatoria
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Residente a</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-province" formControlName="TutorAddressCity" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressCity!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressCity!.errors?.['required']">
+              La citt&agrave; di residenza è obbligatoria
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Provincia di residenza</label>
+          <input type="text" class="form-control" name="tutor-user-registration-birth-province" formControlName="TutorAddressProvince" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressProvince!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressProvince!.errors?.['required']">
+              La provincia di residenza è obbligatoria
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">In via</label>
+          <input type="text" class="form-control" name="user-registration-birth-province" formControlName="TutorAddressStreet" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressStreet!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressStreet!.errors?.['required']">
+              La via di residenza è obbligatoria
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="tutor-user-registration-surname" class="col-sm-12 col-form-label">Numero civico</label>
+          <input type="text" class="form-control" name="user-registration-birth-province" formControlName="TutorAddressNumber" />
+          <div *ngIf="formSubmittedAtLeastOnce && tutorAddressNumber!.invalid" class="alert alert-danger">
+            <div *ngIf="tutorAddressNumber!.errors?.['required']">
+              Il numero civico di residenza &egrave; obbligatorio
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-2">
+      <label for="user-registration-telephone" class="col-sm-12 col-form-label">Telefono tutore/tutrice</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" name="user-registration-telephone" formControlName="TutorTelephone" required />
+        <div *ngIf="formSubmittedAtLeastOnce && tutorTelephone!.invalid" class="alert alert-danger">
+          <div *ngIf="tutorTelephone!.errors?.['required']">
+            Il numero di telefono è obbligatorio
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
   <div class="form-group mt-2">
     <div class="col-sm-12 create-button-container">
-      <button type="submit" class="btn btn-primary">Modifica</button>
+      <button type="submit" class="btn btn-primary" [disabled]="IsEditButtonDisabled">Modifica</button>
     </div>
   </div>
 </form>

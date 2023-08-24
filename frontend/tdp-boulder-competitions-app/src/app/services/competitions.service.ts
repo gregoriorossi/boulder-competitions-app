@@ -96,11 +96,12 @@ export class CompetitionsService extends BaseTdpApiService {
 
   public RegisterToCompetition = async (competitionId: number, data: IRegisterToCompetitionRequest): Promise<IResponse> => {
     try {
-      const result = await this.post(TDPApiEndpoints.Competitions.RegisterAthleteToCompetition(competitionId), data);
-      this.athleteRegisteredToCompetitionSubject.next(data);
-      return {
-        Status: StatusTypes.OK
+      const result: IResponse = await this.post(TDPApiEndpoints.Competitions.RegisterAthleteToCompetition(competitionId), data);
+
+      if (result.Status === StatusTypes.OK) {
+        this.athleteRegisteredToCompetitionSubject.next(data);
       }
+      return result;
     } catch (err) {
       console.log(err);
       return {

@@ -1,5 +1,3 @@
-import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
-
 export interface IResponse {
   Status: StatusTypes;
   Error?: number;
@@ -7,6 +5,7 @@ export interface IResponse {
 }
 
 export enum StatusTypes {
-  OK,
-  ERROR
+  OK = "OK",
+  ERROR = "ERROR",
+  ERR_USER_ALREADY_REGISTERED = "ERR_USER_ALREADY_REGISTERED"
 }

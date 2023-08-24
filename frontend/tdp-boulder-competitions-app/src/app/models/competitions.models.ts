@@ -108,6 +108,22 @@ export interface IRegisterToCompetitionRequest {
   Name: string;
   Surname: string;
   BirthDate: Date;
-  Telephone: string;
-  Gender: Gender;
+  TutorTelephone: string;
+  Gender: string;
+  BirthPlace: string;
+  BirthProvince: string;
+  AddressCity: string;
+  AddressProvince: string;
+  AddressStreet: string;
+  AddressNumber: string;
+  IsMinor: boolean;
+  TutorSurname: string;
+  TutorName: string;
+  TutorBirthDate: Date;
+  TutorBirthPlace: string;
+  TutorBirthProvince: string;
+  TutorAddressCity: string;
+  TutorAddressStreet: string;
+  TutorAddressNumber: string;
+  TutorAddressProvince: string;
 }

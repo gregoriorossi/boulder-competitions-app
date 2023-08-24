@@ -142,16 +142,40 @@ class CompetitionsBackendController extends Controller {
                 'name' => $request->input('Name'),
                 'surname' => $request->input('Surname'),
                 'birth_date' => Carbon::parse($request->input('BirthDate')),
-                'gender' => $request->input('Gender')
+                'gender' => $request->input('Gender'),
+                'birth_place' => $request->input('BirthPlace'),
+                'birth_province' => $request->input('BirthProvince'),
+                'address_city' => $request->input('AddressCity'),
+                'address_number' => $request->input('AddressNumber'),
+                'address_province' => $request->input('AddressProvince'),
+                'address_street' => $request->input('AddressStreet'),
+                'address_number' => $request->input('AddressNumber'),
+                'is_minor' => $request->input('IsMinor'),
+                'tutor_surname' => $request->input('TutorSurname'),               
+                'tutor_name' => $request->input('TutorName'),
+                'tutor_birth_date' => Carbon::parse($request->input('TutorBirthDate')),
+                'tutor_birth_place' => $request->input('TutorBirthPlace'),               
+                'tutor_birth_province' => $request->input('TutorBirthProvince'),
+                'tutor_address_city' => $request->input('TutorAddressCity'),
+                'tutor_address_street' => $request->input('TutorAddressStreet'),
+                'tutor_address_number' => $request->input('TutorAddressNumber'),
+                'tutor_address_province' => $request->input('TutorAddressProvince'),
+                'tutor_telephone' => $request->input('TutorTelephone')
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
             $this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
             $this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
-            return response()->json(null, 204);
+            
+            $data = array(
+                'Status' => 'OK'
+            );
+            return response()->json($data, 200);
         } else {
-            // già registrato
-            return response()->json(null, 500);
+            $data = array(
+                'Status' => 'ERR_USER_ALREADY_REGISTERED'
+            );
+            return response()->json($data, 200);
         }
     }
 
