@@ -13,13 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/editors', function () {
     return view('editors');
-});
+})->middleware('auth');
+
 
 Route::get('/editors/{any}', function () {
     return view('editors');
-})->where('any', '.*');
+})->where('any', '.*')->middleware('auth');
 
 Route::get('/', function () {
     return view('users');
@@ -28,4 +31,5 @@ Route::get('/', function () {
 Route::get('/{any}', function () {
     return view('users');
 })->where('any', '.*');   
+
 
