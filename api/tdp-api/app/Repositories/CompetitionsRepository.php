@@ -299,13 +299,14 @@ class CompetitionsRepository {
         $tdpEmail = getenv('TDP_EMAIL_ADDRESS');
         $info = $this->getInfo($registrationData['id_competition']);
 
-        $body = "{Partecipante} si è iscritto alla gara {TitoloGara} del {DataGara}";;
+        $body = "{Partecipante} si è iscritto alla gara {TitoloGara} del {DataGara}<br/><br/>{JsonData}";
         $subject = "Iscrizione {Partecipante} a {TitoloGara}";
 
-        $placeholders = ["{TitoloGara}", "{DataGara}", "{Partecipante}"];
+        $placeholders = ["{TitoloGara}", "{DataGara}", "{Partecipante}", "{JsonData}"];
         
         $partecipanteValue = $registrationData['name'] . " " . $registrationData['surname'];
-        $values = [$info['Title'], $info['EventDate'], $partecipanteValue];
+        
+        $values = [$info['Title'], $info['EventDate'], $partecipanteValue, json_encode($registrationData)];
         
         $body = str_replace($placeholders, $values, $body);
         $subject = str_replace($placeholders, $values, $subject);

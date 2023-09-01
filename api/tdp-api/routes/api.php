@@ -46,6 +46,7 @@ Route::get('competitions/{path}/infoByPath', [CompetitionsController::class, 'in
 Route::delete('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'deleteRegistration']);
 Route::get('competitions/{competitionId}/{athleteId}/results', [CompetitionsController::class, 'getResults']);
 Route::post('problems/{competitionId}/setSent', [ProblemsController::class, 'setSent']);
+Route::get('competitions/{competitionId}/{type}/ranking', [CompetitionsController::class, 'getRanking']);
 
 
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);
