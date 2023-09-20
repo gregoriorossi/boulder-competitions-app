@@ -31,7 +31,7 @@
   </thead>
   <tbody>
       <tr *ngFor="let competition of ApplyFilterToCompetitions(competitions)">
-        <td>{{competition.Title}}</td>
+        <td><a href="javascript:;" (click)="OnViewCompetitionClick(competition)">{{competition.Title}}</a></td>
         <td>{{DateUtils.FormatDate(competition.EventDate, "DD-MM-YYYY")}}</td>
         <td>
           <app-competition-state-label [State]="competition.State">

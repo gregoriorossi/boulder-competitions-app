@@ -89,6 +89,12 @@ export class CompetitionAthletesComponent implements OnInit {
     return isMinor ? "fa-check" : "";
   }
 
+  GetName = (athlete: IAthlete): string => {
+    return athlete.IsMinor
+      ? `${athlete.Name} (Tutor ${athlete.TutorName} ${athlete.TutorSurname})`
+      : athlete.Name;
+  }
+
   private LoadAthletes = async () => {
     this.athletes = await this.competitionsService.GetAthletes(this.Competition.Id);
   }
