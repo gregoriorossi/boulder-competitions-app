@@ -16,6 +16,7 @@
       <div class="btn-group me-2">
         <button *ngIf="IsCloseButtonVisible()" (click)="OnCloseCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-lock">&nbsp;</i>Termina</button>
         <button *ngIf="IsStartButtonVisible()" (click)="OnStartCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-play">&nbsp;</i>Inizia</button>
+        <button *ngIf="IsRestartButtonVisible()" (click)="OnStartCompetitionButtonClick()" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-play">&nbsp;</i>Riapri</button>
       </div>
     </div>
   </div>

@@ -81,6 +81,10 @@ export class CompetitionComponent implements OnInit {
     return this.competition!.State === CompetitionStateType.ONGOING;
   }
 
+  IsRestartButtonVisible = (): boolean => {
+    return this.competition!.State === CompetitionStateType.CLOSED;
+  }
+
   private DeleteCompetition = async (): Promise<void> => {
 
     const result: StatusTypes = await this.competitionsService.DeleteCompetition(this.competition!.Id);
