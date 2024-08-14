@@ -23,7 +23,6 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   OnRankingTypeChange = async (e: any): Promise<void> => {
-    console.log(e);
     await this.LoadRanking();
   }
 
@@ -31,9 +30,6 @@ export class CompetitionRankingsComponent implements OnInit {
     this.ranking = await this.competitionsService.GetRanking(this.Competition.Id, this.rankingType);
   }
 
-  get HasCompetitionStarted(): boolean {
-    return this.Competition.State !== CompetitionStateType.DRAFT;
-  }
   GetSectionTitle = (): string => {
     if (this.rankingType === RankingType.GENERAL)
       return "Classifica Generale";

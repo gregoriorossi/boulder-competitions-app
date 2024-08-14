@@ -20,7 +20,8 @@ export const TDPApiEndpoints = {
     RegisterAthleteToCompetition: (id: number) => `competitionsBackend/${id}/register`,
     SendRegistrationEmail: (id: number) => `competitionsBackend/${id}/sendRegistrationEmail`,
     UpdateRegistrationToCompetition: (competitionId: number, athleteId: number) => `competitions/${competitionId}/${athleteId}/register`,
-    SetState: `competitions/setState`
+    SetState: `competitions/setState`,
+    SetRankingsVisibility: (competitionId: number) => `competitionsBackend/${competitionId}/setRankingsVisibility`
   },
   Problems: {
     DeleteProblem: "problems/delete", 

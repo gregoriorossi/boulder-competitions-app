@@ -37,7 +37,9 @@ Route::post('competitionsBackend/{competitionId}/sendRegistrationEmail', [Compet
 Route::post('competitionsBackend/{competitionId}/register', [CompetitionsBackendController::class, 'register']);
 Route::get('competitionsBackend/{competitionId}/{athleteId}/downloadConsent', [CompetitionsBackendController::class, 'downloadConsent']);
 Route::get('competitionsBackend/{competitionId}/downloadAllConsents', [CompetitionsBackendController::class, 'downloadAllConsents']);
-
+Route::post('competitionsBackend/{competitionId}/setRankingsVisibility', [CompetitionsBackendController::class, 'setRankingsVisibility']);
+// TEST
+Route::get('competitions/sendEmail', [CompetitionsController::class, 'sendEmail']);
 
 // FRONTEND
 Route::get('competitions/getAll', [CompetitionsController::class, 'getAll']);

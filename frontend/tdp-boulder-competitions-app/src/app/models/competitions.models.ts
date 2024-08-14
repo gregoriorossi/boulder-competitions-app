@@ -6,6 +6,7 @@ export interface ICompetition {
   EventDate: Date;
   PublicPath: string;
   State: CompetitionStateType;
+  RankingsVisibility: boolean;
 }
 
 export interface ICompetitionInfo extends ICompetition {

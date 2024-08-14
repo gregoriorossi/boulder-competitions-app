@@ -69,7 +69,8 @@ class CompetitionsRepository {
             'EventDate' => $info->event_date,
             'PublicPath'=> $info->public_path,
             'State' => $info->state,
-            'Title' => $info->title
+            'Title' => $info->title,
+            'RankingsVisibility' => $info->rankings_visibility > 0
         ];
     }
 
@@ -87,7 +88,8 @@ class CompetitionsRepository {
             'PublicPath'=> $info->public_path,
             'State' => $info->state,
             'Title' => $info->title,
-            'CoverImage' => asset("storage/" . $info->cover_image)
+            'CoverImage' => asset("storage/" . $info->cover_image),
+            'RankingsVisibility' => $info->rankings_visibility > 0
         ];
     }
 
@@ -105,7 +107,8 @@ class CompetitionsRepository {
             'PublicPath'=> $info->public_path,
             'State' => $info->state,
             'Title' => $info->title,
-            'CoverImage' => asset("storage/" . $info->cover_image)
+            'CoverImage' => asset("storage/" . $info->cover_image),
+            'RankingsVisibility' => $info->rankings_visibility > 0
         ];
     }
 
@@ -261,6 +264,13 @@ class CompetitionsRepository {
         return DB::table('competitions_registrations')
             ->where('id_registration', $registrationId)
             ->update(['consent_downloaded' => 1]);
+    }
+
+     function setRankingsVisibility(string $competitionId, $visibility) {
+        
+        return DB::table('competitions')
+            ->where('id', $competitionId)
+            ->update(['rankings_visibility' => $visibility ? 1 : 0]);
     }
 
     function toAvailableUrlFriendly(string $text, string $competitionId = "", int $number = 1) {

@@ -184,6 +184,13 @@ class CompetitionsBackendController extends Controller {
         }
     }
 
+     public function setRankingsVisibility(string $competitionId, Request $request) {
+        $visibility = $request->input('Visibility');
+        $this->competitionsRepository->setRankingsVisibility($competitionId, $visibility);
+
+        return response()->json(null, 200);
+    }
+
     public function downloadAllConsents(string $competitionId) {
         $competition = $this->competitionsRepository->getInfo($competitionId);
         $athletes = $this->competitionsRepository->getAthletes($competitionId);

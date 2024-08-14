@@ -32,6 +32,7 @@ export interface ICompetitionInfo {
   State: number;
   Title: string;
   CoverImage: string;
+  RankingsVisibility: boolean;
 }
 
 export interface IGetCompetitionInfoResponse {

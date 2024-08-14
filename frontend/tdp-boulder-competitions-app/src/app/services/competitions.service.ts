@@ -33,6 +33,19 @@ export class CompetitionsService extends BaseTdpApiService {
     return await this.get(TDPApiEndpoints.Competitions.GetInfo(id));
   }
 
+  public async SetRankingsVisibility(competitionId: number, visibility: boolean): Promise<StatusTypes> {
+    try {
+      const body = {
+        Visibility: visibility
+      };
+      await this.post(TDPApiEndpoints.Competitions.SetRankingsVisibility(competitionId), body);
+      return StatusTypes.OK;
+    } catch (err) {
+      console.log(err);
+      return StatusTypes.ERROR;
+    }
+  }
+
   public async UpdateInfo(id: number, data: IUpdateCompetitionInfoRequest) {
     try {
       const formData: FormData = new FormData();
