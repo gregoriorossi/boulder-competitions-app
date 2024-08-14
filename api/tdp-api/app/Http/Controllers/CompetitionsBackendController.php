@@ -18,6 +18,11 @@ class CompetitionsBackendController extends Controller {
     ) {
         $this->competitionsRepository = $competitionsRepository;
         $this->problemsRepository = $problemsRepository;
+
+        // $isProdEnv = env('APP_ENV', "local");
+        // if ($isProdEnv == "production") {
+        //     $this->middleware('auth');
+        // }
     }
     
     public function index()
@@ -164,8 +169,8 @@ class CompetitionsBackendController extends Controller {
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
-            $this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
-            $this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
+            //$this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
+            //$this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
             
             $data = array(
                 'Status' => 'OK'
@@ -205,6 +210,8 @@ class CompetitionsBackendController extends Controller {
         $data["athletes"] = $athletes;
         $viewName = "athlete_module_container";
         $pdf = Pdf::loadView($viewName,  $data);
+
+        $this->competitionsRepository->setDownloadConsent($athleteId);
         return $pdf->download($fileName);
     }
 

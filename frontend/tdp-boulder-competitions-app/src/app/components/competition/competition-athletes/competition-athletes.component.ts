@@ -50,8 +50,12 @@ export class CompetitionAthletesComponent implements OnInit {
     return gender === Gender.FEMALE ? "female-row" : "male-row";
   }
 
-  OnEditAthleteClick = (athlete: IAthlete) => {
-    console.log(athlete);
+  GetOnDownloadConsentClass = (athlete: IAthlete): string => {
+    return athlete.ConsentDownloaded ? "consent-downloaded" : "";
+  }
+
+  GetOnDownloadConsentTitle = (athlete: IAthlete): string => {
+    return athlete.ConsentDownloaded ? "Delibera già scaricata" : "Scarica la delibera";
   }
 
   OnDeleteAthleteClick = async (athlete: IAthlete): Promise<void> => {
@@ -79,6 +83,7 @@ export class CompetitionAthletesComponent implements OnInit {
 
   OnDownloadConsentClick = (athlete: IAthlete): void => {
     this.competitionsService.DownloadConsent(this.Competition.Id, athlete.Id);
+    athlete.ConsentDownloaded = true;
   }
 
   OnDownloadAllConsentsClick = (): void => {

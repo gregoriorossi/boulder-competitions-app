@@ -257,6 +257,12 @@ class CompetitionsRepository {
         return $result;
     }
 
+    function setDownloadConsent(string $registrationId){
+        return DB::table('competitions_registrations')
+            ->where('id_registration', $registrationId)
+            ->update(['consent_downloaded' => 1]);
+    }
+
     function toAvailableUrlFriendly(string $text, string $competitionId = "", int $number = 1) {
         $slug = Str::slug($text, "-");
         
@@ -380,7 +386,8 @@ class CompetitionsRepository {
             'TutorAddressStreet'  => $athlete->tutor_address_street,
             'TutorAddressNumber'  => $athlete->tutor_address_number,
             'TutorAddressProvince'=> $athlete->tutor_address_province,
-            'TutorTelephone' => $athlete->tutor_telephone
+            'TutorTelephone' => $athlete->tutor_telephone,
+            'ConsentDownloaded' => $athlete->consent_downloaded > 0
         ];
     }
 }

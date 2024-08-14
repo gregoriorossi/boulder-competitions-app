@@ -4,6 +4,7 @@ export interface IAthlete {
   Name: string;
   Surname: string;
   BirthDate: Date;
+  ConsentDownloaded: boolean;
   Gender: Gender;
   Email: string;
   BirthPlace: string;
