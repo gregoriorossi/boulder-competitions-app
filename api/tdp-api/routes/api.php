@@ -30,8 +30,8 @@ Route::delete('competitionsBackend/{competitionId}', [CompetitionsBackendControl
 Route::get('competitionsBackend/basicInfoByPublicPath/{publicPath}', [CompetitionsBackendController::class, 'basicInfoByPublicPath']);
 Route::get('competitionsBackend/{id}/info', [CompetitionsBackendController::class, 'info']);
 Route::post('competitionsBackend/{competitionId}/info', [CompetitionsBackendController::class, 'updateInfo']);
-Route::get('competitionsBackend/{competitionId}/{type}/download/ranking', [CompetitionsBackendController::class, 'downloadRanking']);
-Route::get('competitionsBackend/{competitionId}/{type}/ranking', [CompetitionsBackendController::class, 'getRanking']);
+Route::get('competitionsBackend/{competitionId}/{gender}/download/ranking', [CompetitionsBackendController::class, 'downloadRanking']);
+Route::get('competitionsBackend/{competitionId}/{gender}/ranking', [CompetitionsBackendController::class, 'getRanking']);
 Route::get('competitionsBackend/{competitionId}/results', [CompetitionsBackendController::class, 'getResults']);
 Route::post('competitionsBackend/{competitionId}/sendRegistrationEmail', [CompetitionsBackendController::class, 'sendRegistrationEmail']);
 Route::post('competitionsBackend/{competitionId}/register', [CompetitionsBackendController::class, 'register']);
