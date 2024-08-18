@@ -31,13 +31,13 @@ class ProblemsRepository {
             ->get();
 
         return $result->map(function($problem, $key) {
-            $score = $this->getProblemScore($problem->competition_id, $problem->id);
+           //$score = $this->getProblemScore($problem->competition_id, $problem->id, $gender);
             return [
                 'Id' => $problem->id,
                 'Title' => $problem->title,
                 'CompetitionId' => $problem->competition_id,
                 'Color' => $problem->color,
-                'Score' => $score,
+                'Score' => 0, // $score,
                'SortableTitle' => $problem->sortable_title
             ];
         });
@@ -69,7 +69,6 @@ class ProblemsRepository {
                 $problem = $group['Problems'][$j];
                 $problem['Sent'] = $this->isSentProblem($problem['Id'], $sentProblems);
                 $group['Problems'][$j] = $problem;
-                //print_r($group['Problems'][$j]);
             }
         }
         return $groups;
@@ -164,13 +163,13 @@ class ProblemsRepository {
         }
     }
 
-    function getProblemsScores($competitionId) {
+    function getProblemsScores($competitionId, string $gender) {
         $problems = DB::Table('problems')
             ->where('competition_id', $competitionId)
             ->get();
 
-        return $problems->map(function($problem, $key) {
-            $score = $this->getProblemScore($problem->competition_id, $problem->id); 
+        return $problems->map(function($problem, $key) use($gender) {
+            $score = $this->getProblemScore($problem->competition_id, $problem->id, $gender); 
             return [
                 'Id' => $problem->id,
                 'CompetitionId' => $problem->competition_id,
@@ -179,11 +178,13 @@ class ProblemsRepository {
         });
     }
 
-    private function getProblemScore($competitionId, $problemId) {
+    private function getProblemScore($competitionId, $problemId, string $gender) {
         $score = 0;
         $timesSent = DB::Table('sent_problems')
+            ->join('competitions_registrations', 'sent_problems.athlete_id', '=', 'competitions_registrations.id_registration')
             ->where('problem_id', $problemId)
             ->where('competition_id', $competitionId)
+            ->where('competitions_registrations.gender', $gender)
             ->count();
 
         if ($timesSent > 0) {

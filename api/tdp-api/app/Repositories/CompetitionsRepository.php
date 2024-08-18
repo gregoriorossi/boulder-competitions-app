@@ -201,10 +201,10 @@ class CompetitionsRepository {
         return $problemsGroupsWithSentProblems;
     }
 
-    function getRanking(string $competitionId, string $type = "") {
-        $athletes = $this->getAthletesByType($competitionId, $type);
+    function getRanking(string $competitionId, string $gender) {
+        $athletes = $this->getAthletesByType($competitionId, $gender);
 
-        $problemsScores = $this->problemsRepository->getProblemsScores($competitionId);
+        $problemsScores = $this->problemsRepository->getProblemsScores($competitionId, $gender);
         $ranking = array();
 
         foreach($athletes as $currAthlete) {

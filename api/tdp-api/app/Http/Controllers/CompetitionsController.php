@@ -15,6 +15,8 @@ use App\Repositories\ProblemsRepository;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Exports\AthletesExport;
 
+use Illuminate\Support\Facades\Mail;
+
 class CompetitionsController extends Controller
 {
     protected $competitionsRepository;
@@ -53,6 +55,17 @@ class CompetitionsController extends Controller
         return response()->json($data, 200);
     }
 
+    public function sendEmail()
+    {
+          $details = [
+            'subject' => "Oggetto bello",
+            'body'=> "Corpo ancora più bello"
+        ];
+
+        $result = Mail::to("gregorio.rossi89@gmail.com")->send(new \App\Mail\RegistrationMail($details));
+        echo var_dump($result);
+    }
+
     public function infoByPath(string $publicPath)
     {
         return $this->competitionsRepository->getInfoByPath($publicPath);
@@ -86,6 +99,10 @@ class CompetitionsController extends Controller
         $this->competitionsRepository->setState($competitionId, $stateId);
 
         return response()->json(null, 204);
+    }
+
+    public function getRanking(string $competitionId, string $type) {
+        return $this->competitionsRepository->getRanking($competitionId, $type);
     }
 
     public function register(string $competitionId, Request $request) {
@@ -122,8 +139,8 @@ class CompetitionsController extends Controller
             );
 
             $this->competitionsRepository->RegisterUserToCompetition($registrationData);
-            $this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
-            $this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
+            // $this->competitionsRepository->sendRegistrationEmailToUser($registrationData);
+            //$this->competitionsRepository->sendRegistrationEmailToTDP($registrationData);
 
             $data = array(
                 'Status' => 'OK'

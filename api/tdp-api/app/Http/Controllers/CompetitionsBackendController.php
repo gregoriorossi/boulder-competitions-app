@@ -100,16 +100,16 @@ class CompetitionsBackendController extends Controller {
         return response()->json(null, 204);
     }
 
-    public function getRanking(string $competitionId, string $type) {
-        return $this->competitionsRepository->getRanking($competitionId, $type);
+    public function getRanking(string $competitionId, string $gender) {
+        return $this->competitionsRepository->getRanking($competitionId, $gender);
     }
 
     public function getResults(string $competitionId) {
         return $this->competitionsRepository->getResults($competitionId);
     }
 
-    public function downloadRanking(string $competitionId, string $type) {
-        $ranking = $this->competitionsRepository->getRanking($competitionId, $type);
+    public function downloadRanking(string $competitionId, string $gender) {
+        $ranking = $this->competitionsRepository->getRanking($competitionId, $gender);
         $export = new RankingExport(collect($ranking));
         return Excel::download($export, 'classifica.xlsx');
     }
