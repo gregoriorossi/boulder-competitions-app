@@ -199,7 +199,7 @@ class CompetitionsBackendController extends Controller {
 
     public function downloadAllConsents(string $competitionId) {
         $competition = $this->competitionsRepository->getInfo($competitionId);
-        $athletes = $this->competitionsRepository->getAthletes($competitionId);
+        $athletes = $this->athletesRepository->getAthletes($competitionId);
 
         for ($i = 0; $i < count($athletes); $i++) {
             $athlete = $this->FormatDatesForConsent($athletes[$i]);

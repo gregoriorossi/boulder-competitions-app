@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Mail;
 class CompetitionsRepository {
     
     protected ProblemsRepository $problemsRepository;
+    protected AthletesRepository $athletesRepository;
 
     public function __construct(
-        ProblemsRepository $problemsRepository
+        ProblemsRepository $problemsRepository,
+        AthletesRepository $athletesRepository
     ) {
         $this->problemsRepository = $problemsRepository;
+        $this->athletesRepository = $athletesRepository;
     }
 
     function CreateNewCompetition($data) {
@@ -133,51 +136,9 @@ class CompetitionsRepository {
         );
         DB::Table('competitions_colors')->insert($data);
     }
-    
-    function getAthleteById($competitionId, string $athleteId) {
-        $athlete = DB::table('competitions_registrations')
-            ->where('id_competition', $competitionId)
-            ->where('id_registration', $athleteId)
-            ->first();
-
-        return $this->mapAthlete($athlete);
-    }
-
-    function getAthlete($competitionId, string $email) {
-        $athlete = DB::table('competitions_registrations')
-            ->where('id_competition', $competitionId)
-            ->where('email', $email)
-            ->first();
-
-        return $this->mapAthlete($athlete);
-    }
-
-    function getAthletes($competitionId) {
-        $result = DB::table('competitions_registrations')
-            ->where('id_competition', $competitionId)
-            ->orderBy('surname')
-            ->orderBy('name')
-            ->get();
-
-        return $result->map(function($athlete, $key) {
-            return $this->mapAthlete($athlete);
-        });
-    }
-
-    function getAthletesByType($competitionId, string $type) {
-        $athletes = $this->getAthletes($competitionId);
-
-        if (strlen($type) == 0 || $type == "GENERAL") {
-            return $athletes;
-        }
-
-        return $athletes->filter(function($athlete) use ($type) {
-            return $athlete["Gender"] == $type;
-        });
-    }
 
     function getResults(string $competitionId) {
-        $athletes = $this->getAthletes($competitionId);
+        $athletes = $this->athletesRepository->getAthletes($competitionId);
         $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
         $specialProblems = $this->problemsRepository->getSpecialProblemsByCompetitionId($competitionId);
 
@@ -195,7 +156,7 @@ class CompetitionsRepository {
     }
 
     function getResultsByAthlete(string $competitionId, string $athleteId) {
-        $athlete = $this->getAthleteById($competitionId, $athleteId);
+        $athlete = $this->athletesRepository->getAthleteById($competitionId, $athleteId);
         $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
         $specialProblems = $this->problemsRepository->getSpecialProblemsByCompetitionId($competitionId);
 
@@ -209,7 +170,7 @@ class CompetitionsRepository {
     }
 
     function getRanking(string $competitionId, string $gender) {
-        $athletes = $this->getAthletesByType($competitionId, $gender);
+        $athletes = $this->athletesRepository->getAthletesByType($competitionId, $gender);
 
         $problemsScores = $this->problemsRepository->getProblemsScores($competitionId, $gender);
         $ranking = array();

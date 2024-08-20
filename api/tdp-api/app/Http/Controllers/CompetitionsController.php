@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Repositories\CompetitionsRepository;
 use App\Repositories\ProblemsRepository;
+use App\Repositories\AthletesRepository;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Exports\AthletesExport;
 
@@ -21,13 +22,16 @@ class CompetitionsController extends Controller
 {
     protected $competitionsRepository;
     protected $problemsRepository;
+    protected AthletesRepository $athletesRepository;
 
     public function __construct(
         CompetitionsRepository $competitionsRepository,
-        ProblemsRepository $problemsRepository
+        ProblemsRepository $problemsRepository,
+        AthletesRepository $athletesRepository
     ) {
         $this->competitionsRepository = $competitionsRepository;
         $this->problemsRepository = $problemsRepository;
+        $this->athletesRepository = $athletesRepository;
     }
 
     public function getAll() {
@@ -43,7 +47,7 @@ class CompetitionsController extends Controller
             $info = $this->competitionsRepository->getInfo($competitionId);
             $publicPath = $info["PublicPath"];
 
-            $athlete = $this->competitionsRepository->getAthlete($competitionId, $email);
+            $athlete = $this->athletesRepository->getAthlete($competitionId, $email);
         }
 
         $data = array(
@@ -72,11 +76,11 @@ class CompetitionsController extends Controller
     }
 
     public function getAthletes(string $competitionId) {
-        return $this->competitionsRepository->getAthletes($competitionId);
+        return $this->athletesRepository->getAthletes($competitionId);
     }
 
     public function downloadAthletes(string $competitionId) {
-        $athletes = $this->competitionsRepository->getAthletes($competitionId);
+        $athletes = $this->athletesRepository->getAthletes($competitionId);
         $export = new AthletesExport($athletes);
         return Excel::download($export, 'partecipanti.xlsx');
     }
