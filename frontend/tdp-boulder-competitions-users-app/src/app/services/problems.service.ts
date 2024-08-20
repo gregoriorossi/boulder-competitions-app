@@ -13,10 +13,11 @@ export class ProblemsService extends BaseTdpApiService {
     super(httpClient);
   }
 
-  public SetSent = async (competitionId: number, problemId: number, athleteId: number, sent: boolean): Promise<ISetSentResponse> => {
+  public SetSent = async (competitionId: number, problemId: number, athleteId: number, gender: string, sent: boolean): Promise<ISetSentResponse> => {
     return await this.post(TDPApiEndpoints.Problems.SetSent(competitionId), {
       AthleteId: athleteId,
       ProblemId: problemId,
+      Gender: gender,
       Sent: sent
     });
   }

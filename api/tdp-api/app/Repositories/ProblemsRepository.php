@@ -5,6 +5,14 @@ use Illuminate\Support\Facades\DB;
 
 class ProblemsRepository {
 
+    protected AthletesRepository $athletesRepository;
+
+    public function __construct(
+        AthletesRepository $athletesRepository
+    ) {
+        $this->athletesRepository = $athletesRepository;
+    }
+
     function getColorsByCompetitionId(string $competitionId) {
         $result = DB::Table('competitions_colors')
             ->where('id_competition', $competitionId)
@@ -43,6 +51,46 @@ class ProblemsRepository {
         });
     }
 
+    function getSpecialProblemsWinners(string $competitionId) {
+        $problems = DB::table('problems')
+            ->select('*')
+            ->where('competition_id', $competitionId)
+            ->where('problems.is_special', 1)
+            ->get();
+
+        return $problems->map(function($problem, $key) {
+             $results = DB::table('sent_problems')
+                ->join('competitions_registrations', 'competitions_registrations.id_registration', '=', 'sent_problems.athlete_id')
+                ->select('*')
+                ->where('problem_id', $problem->id)
+                ->orderBy('send_datetime', 'asc')
+                ->get();
+
+            
+            $sent = count($results) > 0;
+            $athlete = null;
+            $sendDateTime = null;
+
+            if ($sent) {
+                $first = $results[0];
+                $athlete = [
+                    "Id" => $first->id_registration,
+                    "Name" => $first->name,
+                    "Surname" => $first->surname
+                ];
+
+                $sendDateTime = $first->send_datetime;
+            }
+
+            return [
+                "Title" => $problem->title,
+                "Sent" =>$sent,
+                "Athlete" => $athlete,
+                "SendDateTime" => $sendDateTime
+            ];
+        });
+    }
+
     function getSentProblemsByAthlete($athleteId, $competitionId) {
         $result = DB::Table('sent_problems')
             ->where('athlete_id', $athleteId)
@@ -54,6 +102,7 @@ class ProblemsRepository {
                 'Id' => $sentProblem->id,
                 'ProblemId' => $sentProblem->problem_id,
                 'AthleteId' => $sentProblem->athlete_id,
+                'SendDateTime' => $sentProblem->send_datetime,
                 'CompetitionId' => $sentProblem->competition_id
             ];
         }); 
@@ -74,6 +123,20 @@ class ProblemsRepository {
         return $groups;
     }
 
+    function setSentProblemsToSpecialProblems($specialProblems, $sentProblems) {
+        $problems = unserialize(serialize($specialProblems));
+
+        for($i = 0; $i < count($problems); $i++) {
+            $problem = $problems[$i];
+            $isSent = $this->isSentSpecialProblem($problem['Id'], $sentProblems);
+            $problem['Sent'] = $isSent != null;
+            $problem['SendDateTime'] =  $isSent != null ? $isSent["SendDateTime"] : '';
+            $problems[$i] = $problem;
+        }
+        
+        return $problems;
+    }
+
     function isSentProblem($problemId, $sentProblems) {
         foreach($sentProblems as $problem) {
             $isSent = $problem['ProblemId'] == $problemId;
@@ -85,9 +148,42 @@ class ProblemsRepository {
         return false;
     }
 
+     function isSentSpecialProblem($problemId, $sentProblems) {
+        foreach($sentProblems as $problem) {
+            $isSent = $problem['ProblemId'] == $problemId;
+            if ($isSent) {
+                return $problem;
+            }
+        }
+
+        return null;
+    }
+
     function getColorGroupsByCompetitionId(string $competitionId) {
         $colors = $this->getColorsByCompetitionId($competitionId);
         
+        return $colors->map(function($color, $key) {
+            $color['Problems'] = $this->getProblemsByColorId($color['Id']);
+            return $color;
+        });
+    }
+
+    function getSpecialProblemsByCompetitionId(string $competitionId) {
+        $result = DB::Table('problems')
+            ->select("*")
+            ->where('is_special', 1)
+            ->where('competition_id', $competitionId)
+            ->orderBy('title')
+            ->get();
+
+        return $result->map(function($problem, $key) {
+            return [
+                'Id' => $problem->id,
+                'Title' => $problem->title,
+                'CompetitionId' => $problem->competition_id,
+                'SortableTitle' => $problem->title
+            ];
+        });
         return $colors->map(function($color, $key) {
             $color['Problems'] = $this->getProblemsByColorId($color['Id']);
             return $color;
@@ -129,6 +225,18 @@ class ProblemsRepository {
         }
     }
 
+     function storeSpecialProblem($competitionId, $problem) {
+         $data = array(
+                "title" => $problem["Title"],
+                "competition_id" => $competitionId,
+                "color_id" => -1,
+                "is_special" => 1
+            );
+
+            DB::Table('problems')
+                ->insert($data);
+    }
+
     function deleteSentProblems(string $competitionId, string $athleteId) {
         $result = DB::Table('sent_problems')
         ->where('competition_id', $competitionId)
@@ -166,6 +274,7 @@ class ProblemsRepository {
     function getProblemsScores($competitionId, string $gender) {
         $problems = DB::Table('problems')
             ->where('competition_id', $competitionId)
+            ->where('is_special', 0)
             ->get();
 
         return $problems->map(function($problem, $key) use($gender) {

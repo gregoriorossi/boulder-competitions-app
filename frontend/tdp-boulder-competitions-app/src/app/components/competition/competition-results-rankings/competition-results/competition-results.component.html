@@ -14,7 +14,14 @@
       <thead>
         <tr>
           <th scope="col">Partecipanti</th>
-          <ng-container *ngFor="let group of Header">
+          <ng-container *ngFor="let problem of Header.SpecialProblems">
+            <th scope="col" class="text-center">
+              <h4>
+                <span class="header-problem-name badge bg-primary problem-special">{{problem.Title}}</span>
+              </h4>
+            </th>
+          </ng-container>
+          <ng-container *ngFor="let group of Header.ProblemsGroups">
             <ng-container *ngFor="let problem of group.Problems">
               <th scope="col" class="text-center">
                 <h4>
@@ -30,6 +37,19 @@
         <ng-container *ngFor="let result of CompetitionResults">
           <tr>
             <td>{{result.Athlete.Surname}} {{result.Athlete.Name}}</td>
+            <ng-container *ngFor="let problem of result.SpecialProblems">
+              <td class="text-center">
+                <input class="form-check-input"
+                       type="checkbox"
+                       [disabled]="IsCompetitionClosed"
+                       [checked]="problem.Sent"
+                       (click)="OnProblemClick(problem, result.Athlete)">
+                <span *ngIf="problem.Sent">
+                  <br />
+                  ({{GetShortSendDateTime(problem.SendDateTime!)}})
+                </span>
+              </td>
+            </ng-container>
             <ng-container *ngFor="let group of result.ProblemsGroups">
               <ng-container *ngFor="let problem of group.Problems">
                 <td class="text-center">

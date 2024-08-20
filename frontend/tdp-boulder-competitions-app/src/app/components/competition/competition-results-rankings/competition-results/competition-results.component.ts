@@ -6,6 +6,7 @@ import { DialogsService } from "../../../../services/dialogs.service";
 import { ProblemsService } from "../../../../services/problems.service";
 import { ToastService } from "../../../../services/toast.service";
 import { ColorsUtils } from "../../../../utils/colors.utils";
+import { DateUtils } from "../../../../utils/date.utils";
 
 
 @Component({
@@ -29,12 +30,15 @@ export class CompetitionResultsComponent implements OnInit {
     await this.LoadResults();
   }
 
-  get Header(): IProblemsGroupColor[] {
-    return this.CompetitionResults[0].ProblemsGroups;
+  get Header(): IHeader {
+    return {
+      ProblemsGroups: this.CompetitionResults[0].ProblemsGroups,
+      SpecialProblems: this.CompetitionResults[0].SpecialProblems
+    };
   }
 
   GetCssColorClass = (color: string): string => {
-    return ColorsUtils.GetCssCByColor(color);
+    return ColorsUtils.GetCssByColor(color);
   }
 
   OnProblemClick = async (problem: IProblem, athlete: IAthlete): Promise<void> => {
@@ -73,6 +77,11 @@ export class CompetitionResultsComponent implements OnInit {
     return this.Competition.RankingsVisibility ? "fa-eye-slash" : "fa-eye";
   }
 
+  GetShortSendDateTime = (dateStr: string) => {
+    const date = DateUtils.ParseDate(dateStr, "YYYY-MM-DD HH:mm:ss");
+    return date.isValid() ? `${date.format('HH:mm:ss')}` : '';
+  }
+
   OnChangeRankingsVisibilityClick = async (): Promise<void> => {
     const message = this.Competition.RankingsVisibility
       ? "Nascondere le classifiche?"
@@ -94,4 +103,9 @@ export class CompetitionResultsComponent implements OnInit {
   private LoadResults = async (): Promise<void> => {
     this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.Id);
   }
+}
+
+interface IHeader {
+  ProblemsGroups: IProblemsGroupColor[];
+  SpecialProblems: IProblem[];
 }

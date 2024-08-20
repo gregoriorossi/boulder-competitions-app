@@ -57,7 +57,7 @@ export class AddProblemsButtonComponent implements OnInit {
       Problems: problems
     };
 
-    this.problemsService.StoreMultiple(model)
+    await this.problemsService.StoreMultiple(model)
     this.problemsService.ProblemsUpdated();
     this.modalService.dismissAll();
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CompetitionStateType, ICompetition, IRank, RankingType } from '../../../../models/competitions.models';
+import { CompetitionStateType, ICompetition, IProblem, IRank, IRankingSpecialProblem, RankingType } from '../../../../models/competitions.models';
 import { CompetitionsService } from '../../../../services/competitions.service';
 
 @Component({
@@ -12,8 +12,9 @@ export class CompetitionRankingsComponent implements OnInit {
   @Input() Competition!: ICompetition;
 
   public RankingTypes = RankingType;
-  rankingType: RankingType = RankingType.GENERAL;
+  rankingType: RankingType = RankingType.MALE;
   ranking: IRank[] = [];
+  specialProblems: IRankingSpecialProblem[] = [];
 
   constructor(private competitionsService: CompetitionsService)
   { }
@@ -27,7 +28,9 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   LoadRanking = async (): Promise<void> => {
-    this.ranking = await this.competitionsService.GetRanking(this.Competition.Id, this.rankingType);
+    const result = await this.competitionsService.GetRanking(this.Competition.Id, this.rankingType);
+    this.ranking = result.Ranking;
+    this.specialProblems = result.SpecialProblems;
   }
 
   get HasCompetitionStarted(): boolean {
@@ -35,8 +38,6 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   GetSectionTitle = (): string => {
-    if (this.rankingType === RankingType.GENERAL)
-      return "Classifica Generale";
     if (this.rankingType === RankingType.MALE)
       return "Classifica Maschile";
     else 
@@ -48,7 +49,7 @@ export class CompetitionRankingsComponent implements OnInit {
   }
 
   OnRefreshClick = async (): Promise<void> => {
-    this.ranking = await this.competitionsService.GetRanking(this.Competition.Id, this.rankingType)
+    await this.LoadRanking();
   }
 }
 

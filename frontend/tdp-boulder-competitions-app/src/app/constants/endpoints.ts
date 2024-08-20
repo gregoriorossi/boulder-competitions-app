@@ -9,7 +9,7 @@ export const TDPApiEndpoints = {
     GetAthletes: (id: number) => `competitions/${id}/athletes`,
     GetInfo: (id: number) => `competitionsBackend/${id}/info`,
     GetBasicInfoByPublicPath: (path: string) => `competitionsBackend/basicInfoByPublicPath/${path}`,
-    GetRanking: (id: number, type: RankingType) => `competitionsBackend/${id}/${type}/ranking`,
+    GetRanking: (id: number, gender: RankingType) => `competitionsBackend/${id}/${gender}/ranking`,
     GetResults: (id: number) => `competitionsBackend/${id}/results`,
     DownloadAllConsents: (competitionId: number) => `competitionsBackend/${competitionId}/downloadAllConsents`,
     DownloadConsent: (competitionId: number, athleteId: number) => `competitionsBackend/${competitionId}/${athleteId}/downloadConsent`,
@@ -29,6 +29,7 @@ export const TDPApiEndpoints = {
     GetColorsByCompetitionId: (competitionId: number) => `problems/${competitionId}/colors`,
     SetSentStateToProblem: (competitionId: number) => `problems/${competitionId}/setSent`,
     StoreMultiple: "problems/storeMultiple",
+    StoreSpecialProblem: "problemsBackend/storeSpecialProblem",
     UpdateProblem: (competitionId: number, problemId: number) => `problems/${competitionId}/${problemId}`,
   }
 }

@@ -30,7 +30,13 @@ class ProblemsController extends Controller
     public function getProblemsByCompetitionId(string $competitionId)
     {
         $colorGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
-        return response()->json($colorGroups, 200);
+        $specialProblems =  $this->problemsRepository->getSpecialProblemsByCompetitionId($competitionId);
+
+        $response = array(
+            "ColorGroups" => $colorGroups,
+            "SpecialProblems" => $specialProblems
+        );
+        return response()->json($response, 200);
     }
 
     public function updateProblem(string $competitionId, string $problemId, Request $request)

@@ -12,13 +12,13 @@ export class CompetitionResultsRankingsComponent implements OnInit {
   @Input() Competition!: ICompetition;
 
   public RankingTypes = RankingType;
-  rankingType: RankingType = RankingType.GENERAL;
+  rankingType: RankingType = RankingType.MALE;
   ranking: IRank[] = [];
 
   activeTab: CompetitionResultsAndRankingsTabs = CompetitionResultsAndRankingsTabs.RESULTS;
   CompetitionResultsAndRankingsTabs = CompetitionResultsAndRankingsTabs;
 
-  constructor(private competitionsService: CompetitionsService)
+  constructor()
   { }
 
   async ngOnInit(): Promise<void> {

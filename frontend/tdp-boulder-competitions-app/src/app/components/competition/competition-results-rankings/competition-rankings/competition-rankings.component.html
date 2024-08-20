@@ -4,39 +4,51 @@
       <i class="fa fa-refresh"></i>&nbsp;Aggiorna Classifica
     </button>
   </div>
-  <div class="col-md-8">
-    <h3>{{ GetSectionTitle() }}</h3>
-  </div>
-
-  <div class="col-md-4">
-    <div class="input-group mb-3">
-      <select class="form-select" [(ngModel)]="rankingType" (ngModelChange)="OnRankingTypeChange($event)">
-        <option [value]="RankingTypes.GENERAL">Generale</option>
-        <option [value]="RankingTypes.MALE">Maschile</option>
-        <option [value]="RankingTypes.FEMALE">Femminile</option>
-      </select>
-      <button type="button" class="btn btn-secondary" (click)="OnDownloadButtonClick()">
-        <i class="fa fa-download"></i>&nbsp;Scarica classifica
-      </button>
+  <div class="row mb-3">
+    <div class="col-12">
+      <h3>Blocchi speciali</h3>
+      <div class="col-12">
+        <ng-container *ngFor="let problem of specialProblems">
+          <app-ranking-special-problem [Problem]="problem">
+          </app-ranking-special-problem>&nbsp;
+        </ng-container>
+      </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h3>{{ GetSectionTitle() }}</h3>
+    </div>
 
-  <div class="col-12">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Parteciante</th>
-          <th scope="col">Punteggio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let rank of ranking">
-          <th scope="row">{{ rank.Position }}</th>
-          <td>{{ rank.Surname }} {{ rank.Name }}</td>
-          <td>{{ rank.Score }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <select class="form-select" [(ngModel)]="rankingType" (ngModelChange)="OnRankingTypeChange($event)">
+          <option [value]="RankingTypes.MALE">Maschile</option>
+          <option [value]="RankingTypes.FEMALE">Femminile</option>
+        </select>
+        <button type="button" class="btn btn-secondary" (click)="OnDownloadButtonClick()">
+          <i class="fa fa-download"></i>&nbsp;Scarica classifica
+        </button>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Partecipante</th>
+            <th scope="col">Punteggio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rank of ranking">
+            <th scope="row">{{ rank.Position }}</th>
+            <td>{{ rank.Surname }} {{ rank.Name }}</td>
+            <td>{{ rank.Score }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

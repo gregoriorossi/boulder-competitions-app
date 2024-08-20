@@ -16,6 +16,7 @@ export class EditableProblemComponent implements OnInit {
   @Input() Competition!: ICompetition;
   @Input() Problem!: IProblem;
   @Input() Color!: string;
+  @Input() IsSpecial!: boolean;
 
   @Output() OnEdit: EventEmitter<void> = new EventEmitter<void>();
 
@@ -42,9 +43,9 @@ export class EditableProblemComponent implements OnInit {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  GetCssColorClass = (color: string): string => {
-    return ColorsUtils.GetCssCByColor(color);
-  }
+  get GetCssColorClass(): string {
+    return this.IsSpecial ? "problem-special" : ColorsUtils.GetCssByColor(this.Color);
+  } 
 
   OnEditClick = async (): Promise<void> => { 
     try {

@@ -6,7 +6,7 @@ use App\Models\Competition;
 use App\Http\Controllers\CompetitionsController;
 use App\Http\Controllers\CompetitionsBackendController;
 use App\Http\Controllers\ProblemsController;
-
+use App\Http\Controllers\ProblemsBackendController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,6 +38,8 @@ Route::post('competitionsBackend/{competitionId}/register', [CompetitionsBackend
 Route::get('competitionsBackend/{competitionId}/{athleteId}/downloadConsent', [CompetitionsBackendController::class, 'downloadConsent']);
 Route::get('competitionsBackend/{competitionId}/downloadAllConsents', [CompetitionsBackendController::class, 'downloadAllConsents']);
 Route::post('competitionsBackend/{competitionId}/setRankingsVisibility', [CompetitionsBackendController::class, 'setRankingsVisibility']);
+
+Route::post('problemsBackend/storeSpecialProblem', [ProblemsBackendController::class, 'storeSpecialProblem']);
 // TEST
 Route::get('competitions/sendEmail', [CompetitionsController::class, 'sendEmail']);
 
@@ -48,7 +50,7 @@ Route::get('competitions/{path}/infoByPath', [CompetitionsController::class, 'in
 Route::delete('competitions/{competitionId}/{athleteId}/register', [CompetitionsController::class, 'deleteRegistration']);
 Route::get('competitions/{competitionId}/{athleteId}/results', [CompetitionsController::class, 'getResults']);
 Route::post('problems/{competitionId}/setSent', [ProblemsController::class, 'setSent']);
-Route::get('competitions/{competitionId}/{type}/ranking', [CompetitionsController::class, 'getRanking']);
+Route::get('competitions/{competitionId}/{gender}/ranking', [CompetitionsController::class, 'getRanking']);
 
 
 Route::get('competitions/{competitionId}/athletes', [CompetitionsController::class, 'getAthletes']);

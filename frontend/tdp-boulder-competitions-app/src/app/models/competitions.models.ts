@@ -50,14 +50,31 @@ export interface IProblemsGroupColor {
 export interface IProblem {
   Id: number;
   Title: string;
-  Sent?: boolean; 
+  Sent?: boolean;
   CompetitionId: number;
   Color: string;
   Score: number;
+  SendDateTime?: string;
 }
 
 export interface ICompetitionAthlete extends IAthlete {
   BoulderProblemsSent: number[];
+}
+
+export interface IGetRankingResponse {
+  Ranking: IRank[];
+  SpecialProblems: IRankingSpecialProblem[];
+}
+
+export interface IRankingSpecialProblem {
+  Title: string;
+  Sent: boolean;
+  Athlete?: {
+    Id: number;
+    Name: string;
+    Surname: string;
+  };
+  SendDateTime?: string;
 }
 
 export enum BoulderProblemsColors {
@@ -81,7 +98,6 @@ export interface IRankingRow {
 }
 
 export enum RankingType {
-  GENERAL = "GENERAL",
   MALE = "MALE",
   FEMALE = "FEMALE"
 }
@@ -102,6 +118,7 @@ export interface IRank {
 export interface ICompetitionResult {
   Athlete: IAthlete;
   ProblemsGroups: IProblemsGroupColor[];
+  SpecialProblems: IProblem[];
 }
 
 export interface IRegisterToCompetitionRequest {

@@ -7,8 +7,26 @@
   <i class="fa fa-info-circle"></i>&nbsp;
   Seleziona i blocchi che hai chiuso!
 </div>
+<ng-container *ngIf="SpecialProblems.length > 0">
+  <h4>Blocchi speciali</h4>
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <label class="checkbox-inline" *ngFor="let problem of SpecialProblems">
+        <input type="checkbox"
+               class="form-check-input"
+               [checked]="problem.Sent"
+               [disabled]="AreProblemsDisabled"
+               (change)="OnProblemChange($event, problem)">
+        <label class="form-check-label" title="{{problem.SendDateTime}}">
+          <span class="badge bg-primary special-problem">{{problem.Title}} {{GetShortSendDateTime(problem.SendDateTime)}}</span>
+        </label>
+      </label>
+    </div>
+  </div>
+</ng-container>
 
 <ng-container *ngIf="ProblemsGroups.length > 0">
+  <h4>Blocchi gara</h4>
   <div class="row mb-3" *ngFor="let group of ProblemsGroups">
     <div class="col-sm-12">
       <label class="checkbox-inline" *ngFor="let problem of group.Problems">

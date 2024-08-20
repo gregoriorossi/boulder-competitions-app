@@ -1,5 +1,5 @@
 export class ColorsUtils {
-  public static GetCssCByColor = (colorRGB: string): string => {
+  public static GetCssByColor = (colorRGB: string): string => {
 
     const color = colorRGB.toLowerCase();
 

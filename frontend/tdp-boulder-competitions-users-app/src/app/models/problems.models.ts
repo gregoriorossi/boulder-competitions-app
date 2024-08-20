@@ -15,6 +15,7 @@ export interface IProblem {
   Sent: boolean;
   Title: string;
   Score: number;
+  SendDateTime: string;
 }
 
 export interface ISetSentResponse {

@@ -1,0 +1,16 @@
+<span class="badge {{cssType}}">
+  {{Problem.Title}}
+  <ng-container *ngIf="Problem.Sent">
+    <br /><br />
+    {{Problem?.Athlete?.Name}}&nbsp;{{Problem?.Athlete?.Surname}}
+    <br />
+    {{sendDateTime}}
+  </ng-container>
+
+  <ng-container *ngIf="!Problem.Sent">
+    <br /><br />
+    Non liberato
+    <br />
+   &nbsp;
+  </ng-container>
+</span>

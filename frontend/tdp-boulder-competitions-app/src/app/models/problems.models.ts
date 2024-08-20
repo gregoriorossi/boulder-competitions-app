@@ -1,3 +1,5 @@
+import { IProblem, IProblemsGroupColor } from "./competitions.models";
+
 export interface IStoreMultipleProblemsRequest {
   CompetitionId: number;
   ColorId: number;
@@ -14,3 +16,18 @@ export interface IUpdateProblemRequest {
   CompetitionId: number;
   Title: string;
 }
+
+export interface IStoreSpecialProblemRequest {
+  CompetitionId: number;
+  Problem: ISpecialProblem;
+}
+
+export interface ISpecialProblem {
+  Title: string;
+}
+
+export interface IGetProbemsByCompetitionId {
+  ColorGroups: IProblemsGroupColor[];
+  SpecialProblems: IProblem[];
+}
+

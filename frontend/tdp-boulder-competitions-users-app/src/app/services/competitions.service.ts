@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TDPApiEndpoints } from "../constants/endpoints";
-import { IRank, IRegisterToCompetitionRequest, RankingType, ICompetitionInfo, ICompetition, IIsUserRegisteredToCompetitionResponse } from "../models/competitions.models";
-import { IProblem } from "../models/problems.models";
+import { IRegisterToCompetitionRequest, RankingType, ICompetitionInfo, ICompetition, IIsUserRegisteredToCompetitionResponse, IGetResultsByAthleteIdResponse, IGetRankingResponse } from "../models/competitions.models";
 import { IResponse, StatusTypes } from "../models/services.models";
 import { BaseTdpApiService } from "./base.tdpApi.service";
 
@@ -57,11 +56,11 @@ export class CompetitionsService extends BaseTdpApiService {
     }
   }
 
-  public GetResultsByAthleteId = async (competitionId: number, athleteId: number): Promise<any> => {
+  public GetResultsByAthleteId = async (competitionId: number, athleteId: number): Promise<IGetResultsByAthleteIdResponse> => {
     return await this.get(TDPApiEndpoints.Competitions.GetResultsByAthleteId(competitionId, athleteId));
   }
 
-  public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IRank[]> => {
-    return await this.get(TDPApiEndpoints.Competitions.GetRanking(competitionId, rankingType));
+  public GetRanking = async (competitionId: number, gender: RankingType): Promise<IGetRankingResponse> => {
+    return await this.get(TDPApiEndpoints.Competitions.GetRanking(competitionId, gender));
   }
 }

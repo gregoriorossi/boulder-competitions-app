@@ -17,6 +17,7 @@ import { UsefulInformationComponent } from './components/common/useful-informati
 import { CompetitonInfoComponent } from './components/competition/competition-info/competition-info.component';
 import { CompetitonProblemsComponent } from './components/competition/competition-problems/competition-problems.component';
 import { CompetitionRankingsComponent } from './components/competition/competition-rankings/competition-rankings.component';
+import { RankingSpecialProblemComponent } from './components/competition/competition-rankings/ranking-special-problem/ranking-special-problem.component';
 import { CompetitonComponent } from './components/competition/competition.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RegistrationFormPageComponent } from './components/registration-form-page/registration-form-page.component';
@@ -37,6 +38,7 @@ import { NgbDateCustomParserFormatter } from './utils/ngbDateCustomParserFormatt
     RegistrationFormComponent,
     RegistrationFormPageComponent,
     ToastComponent,
+    RankingSpecialProblemComponent,
     UsefulInformationComponent
   ],
   imports: [

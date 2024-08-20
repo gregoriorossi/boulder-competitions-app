@@ -1,4 +1,17 @@
 <div class="row" *ngIf="Competition.RankingsVisibility">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <h3>Blocchi speciali</h3>
+      <div class="col-12">
+        <ng-container *ngFor="let problem of specialProblems">
+          <app-ranking-special-problem [Problem]="problem">
+          </app-ranking-special-problem>&nbsp;
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
   <div class="col-md-9">
     <h3>{{ GetSectionTitle() }}</h3>
   </div>
@@ -6,7 +19,6 @@
   <div class="col-md-3">
     <div class="input-group mb-3">
       <select class="form-select" [(ngModel)]="rankingType" (ngModelChange)="OnRankingTypeChange($event)">
-        <option [value]="RankingTypes.GENERAL">Generale</option>
         <option [value]="RankingTypes.MAN">Maschile</option>
         <option [value]="RankingTypes.WOMAN">Femminile</option>
       </select>
@@ -18,7 +30,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Parteciante</th>
+          <th scope="col">Partecipante</th>
           <th scope="col">Punteggio</th>
         </tr>
       </thead>

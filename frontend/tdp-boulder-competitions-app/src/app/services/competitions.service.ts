@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { TDPApiEndpoints } from '../constants/endpoints';
 import { IAthlete } from '../models/athletes.models';
-import { ICompetition, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, ICompetitionInfo, IUpdateCompetitionInfoRequest, IRegisterToCompetitionRequest } from '../models/competitions.models';
+import { ICompetition, IAddCompetitionRequest, CompetitionStateType, IRank, RankingType, ICompetitionResult, ICompetitionInfo, IUpdateCompetitionInfoRequest, IRegisterToCompetitionRequest, IGetRankingResponse } from '../models/competitions.models';
 import { IResponse, StatusTypes } from '../models/services.models';
 import { BaseTdpApiService } from './base.tdpApi.service';
 
@@ -162,7 +162,7 @@ export class CompetitionsService extends BaseTdpApiService {
     }
   }
 
-  public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IRank[]> => {
+  public GetRanking = async (competitionId: number, rankingType: RankingType): Promise<IGetRankingResponse> => {
     return await this.get(TDPApiEndpoints.Competitions.GetRanking(competitionId, rankingType));
   }
 

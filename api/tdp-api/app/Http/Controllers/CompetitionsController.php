@@ -101,8 +101,14 @@ class CompetitionsController extends Controller
         return response()->json(null, 204);
     }
 
-    public function getRanking(string $competitionId, string $type) {
-        return $this->competitionsRepository->getRanking($competitionId, $type);
+    public function getRanking(string $competitionId, string $gender) {
+        $ranking = $this->competitionsRepository->getRanking($competitionId, $gender);
+        $specialProblems = $this->problemsRepository->getSpecialProblemsWinners($competitionId);
+
+        return array(
+            "Ranking" => $ranking,
+            "SpecialProblems" => $specialProblems
+        );
     }
 
     public function register(string $competitionId, Request $request) {

@@ -6,6 +6,7 @@ import { CompetitionsService } from "../../../services/competitions.service";
 import { ProblemsService } from "../../../services/problems.service";
 import { ToastService } from "../../../services/toast.service";
 import { ColorsUtils } from "../../../utils/colors.utils";
+import { DateUtils } from "../../../utils/date.utils";
 
 @Component({
   selector: 'app-competition-problems',
@@ -18,6 +19,7 @@ export class CompetitonProblemsComponent implements OnInit {
   @Input() Competition!: ICompetitionInfo;
 
   protected ProblemsGroups: IProblemsGroupColor[] = [];
+  protected SpecialProblems: IProblem[] = [];
 
   constructor(private competitionsService: CompetitionsService,
     private problemsService: ProblemsService,
@@ -45,24 +47,31 @@ export class CompetitonProblemsComponent implements OnInit {
   }
 
   OnProblemChange = async ($event: any, problem: IProblem): Promise<void> => {
-
+    
     try {
       const isSent = $event.target.checked;
-      const result = await this.problemsService.SetSent(this.Competition.Id, problem.Id, this.Athlete.Id, isSent);
+      const result = await this.problemsService.SetSent(this.Competition.Id, problem.Id, this.Athlete.Id, this.Athlete.Gender, isSent);
 
       if (result.Status === StatusTypes.ERR_COMPETITION_NOT_ONGOING) {
         this.toastService.showDanger('Non è possibile effettuare modifiche se la gara non è in corso');
       }
 
       await this.LoadResults();
-    } catch (err) {
+    } catch (err) { 
       console.log(err);
       this.toastService.showDanger("Errore, riprovare più tardi");
       await this.LoadResults();
     }
   }
 
+  GetShortSendDateTime = (dateStr: string) => {
+    const date = DateUtils.ParseDate(dateStr, "YYYY-MM-DD HH:mm:ss");
+    return date.isValid() ? `(${date.format('HH:mm:ss')})` : '';
+  }
+
   private LoadResults = async (): Promise<void> => {
-    this.ProblemsGroups = await this.competitionsService.GetResultsByAthleteId(this.Competition.Id, this.Athlete.Id);
+    const result = await this.competitionsService.GetResultsByAthleteId(this.Competition.Id, this.Athlete.Id);
+    this.ProblemsGroups = result.ProblemGroups;
+    this.SpecialProblems = result.SpecialProblems;
   }
 }

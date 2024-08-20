@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProblemsRepository::class, function() {
             return new ProblemsRepository();
         });
+
+        $this->app->bind(AthletesRepository::class, function() {
+            return new AthletesRepository();
+        });
     }
 
     /**

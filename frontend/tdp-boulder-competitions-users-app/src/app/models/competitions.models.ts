@@ -1,4 +1,4 @@
-import { IProblemsGroupColor } from "./problems.models";
+import { IProblem, IProblemsGroupColor } from "./problems.models";
 
 export interface ICompetition {
   Id: number;
@@ -46,6 +46,11 @@ export interface IGetCompetitionInfoResponse {
   Title: string;
 }
 
+export interface IGetResultsByAthleteIdResponse {
+  ProblemGroups: IProblemsGroupColor[];
+  SpecialProblems: IProblem[];
+}
+
 export enum GetCompetitionToRegisterForStatus {
   OPEN = 1,
   DRAFT = 2,
@@ -89,7 +94,6 @@ export interface IGetCompetitionProblemsByAthleteRequest {
 
 
 export enum RankingType {
-  GENERAL = "GENERAL",
   MAN = "MALE",
   WOMAN = "FEMALE"
 }
@@ -105,6 +109,22 @@ export interface IRank {
   Telephone: string;
   Gender: string;
   Score: number;
+}
+
+export interface IGetRankingResponse {
+  Ranking: IRank[];
+  SpecialProblems: IRankingSpecialProblem[];
+}
+
+export interface IRankingSpecialProblem {
+  Title: string;
+  Sent: boolean;
+  Athlete?: {
+    Id: number;
+    Name: string;
+    Surname: string;
+  };
+  SendDateTime?: string;
 }
 
 export enum CompetitionStateType {

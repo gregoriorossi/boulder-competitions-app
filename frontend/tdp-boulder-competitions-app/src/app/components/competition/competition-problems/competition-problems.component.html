@@ -4,6 +4,8 @@
       <div class="btn-group float-end" role="group">
         <app-add-problems-button [CompetitionId]="Competition.Id">
         </app-add-problems-button>&nbsp;
+        <app-add-special-problems-button [CompetitionId]="Competition.Id">
+        </app-add-special-problems-button>&nbsp;
         <app-edit-colors-button [CompetitionId]="Competition.Id">
         </app-edit-colors-button>
       </div>
@@ -11,14 +13,37 @@
   </div>
 </div>
 
+<div class="row mb-3">
+  <div class="col-sm-12">
+    <h4>Blocchi speciali</h4>
+    <div class="alert alert-warning" *ngIf="SpecialProblems.length === 0">
+      <p><i class="fa fa-warning"></i>&nbsp;Nessun blocco speciale</p>
+    </div>
+    <ng-container *ngFor="let problem of SpecialProblems">
+
+      <app-editable-problem [Competition]="Competition"
+                            [Problem]="problem"
+                            [Color]="'special'"
+                            [IsSpecial]="true"
+                            (OnEdit)="OnProblemEdited()">
+      </app-editable-problem>
+    </ng-container>
+  </div>
+</div>
+
+<h4>Blocchi gara</h4>
 <div class="row mb-3" *ngFor="let group of ProblemGroups">
   <div class="col-sm-12">
+    <div class="alert alert-warning" *ngIf="ProblemGroups.length === 0">
+      <p><i class="fa fa-warning"></i>&nbsp;Nessun blocco</p>
+    </div>
     <ng-container *ngFor="let problem of group.Problems">
       <app-editable-problem [Competition]="Competition"
                             [Problem]="problem"
                             [Color]="group.Color"
+                            [IsSpecial]="false"
                             (OnEdit)="OnProblemEdited()">
-    </app-editable-problem>
+      </app-editable-problem>
     </ng-container>
   </div>
 </div>

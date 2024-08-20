@@ -179,14 +179,17 @@ class CompetitionsRepository {
     function getResults(string $competitionId) {
         $athletes = $this->getAthletes($competitionId);
         $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
+        $specialProblems = $this->problemsRepository->getSpecialProblemsByCompetitionId($competitionId);
 
-        return $athletes->map(function($athlete, $key) use ($problemsGroups, $competitionId) {
+        return $athletes->map(function($athlete, $key) use ($problemsGroups, $competitionId, $specialProblems) {
             $sentProblems = $this->problemsRepository->getSentProblemsByAthlete($athlete['Id'], $competitionId);
             $problemsGroupsWithSentProblems = $this->problemsRepository->setSentProblemsToProblemsGroups($problemsGroups, $sentProblems);
+            $specialProblemsWithSent =  $this->problemsRepository->setSentProblemsToSpecialProblems($specialProblems, $sentProblems);
 
             return [
                 'Athlete' => $athlete,
-                'ProblemsGroups' => $problemsGroupsWithSentProblems
+                'ProblemsGroups' => $problemsGroupsWithSentProblems,
+                'SpecialProblems' => $specialProblemsWithSent
             ];
         });
     }
@@ -194,11 +197,15 @@ class CompetitionsRepository {
     function getResultsByAthlete(string $competitionId, string $athleteId) {
         $athlete = $this->getAthleteById($competitionId, $athleteId);
         $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
+        $specialProblems = $this->problemsRepository->getSpecialProblemsByCompetitionId($competitionId);
 
         $sentProblems = $this->problemsRepository->getSentProblemsByAthlete($athleteId, $competitionId);
         $problemsGroupsWithSentProblems = $this->problemsRepository->setSentProblemsToProblemsGroups($problemsGroups, $sentProblems);
-
-        return $problemsGroupsWithSentProblems;
+        $specialProblemsWithSent =  $this->problemsRepository->setSentProblemsToSpecialProblems($specialProblems, $sentProblems);
+        return array(
+            "ProblemGroups" => $problemsGroupsWithSentProblems,
+            "SpecialProblems" => $specialProblemsWithSent
+        );
     }
 
     function getRanking(string $competitionId, string $gender) {

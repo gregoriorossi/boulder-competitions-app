@@ -5,6 +5,10 @@ export class DateUtils {
     return moment(date).format(format);
   }
 
+  public static ParseDate(date: string, format: string): moment.Moment {
+    return moment(date, format);
+  }
+
   public static ToNoTimeZoneDate(year: number, month: number, day: number): Date {
     return new Date(Date.UTC(year, month, day));
   }

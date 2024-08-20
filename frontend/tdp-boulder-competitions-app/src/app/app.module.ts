@@ -34,6 +34,8 @@ import { EditColorsButtonComponent } from './components/competition/competition-
 import { EditAthleteFormComponent } from './components/common/edit-athlete-form/edit-athlete-form.component';
 import { CompetitionSendCommunicationComponent } from './components/competition/competition-send-communication/competition-send-communication.component';
 import { SanitizeUrlPipe } from './pipes/sanitizeUrl.pipe';
+import { AddSpecialProblemsButtonComponent } from './components/competition/competition-problems/add-special-problems-button/add-special-problems-button.component';
+import { RankingSpecialProblemComponent } from './components/competition/competition-results-rankings/competition-rankings/ranking-special-problem/ranking-special-problem.component';
 
 
 @NgModule({
@@ -62,9 +64,11 @@ import { SanitizeUrlPipe } from './pipes/sanitizeUrl.pipe';
     CompetitionResultsRankingsComponent,
     CompetitionStateLabelComponent,
     AddProblemsButtonComponent,
+    AddSpecialProblemsButtonComponent,
     EditColorsButtonComponent,
     EditAthleteFormComponent,
-    SanitizeUrlPipe
+    SanitizeUrlPipe,
+    RankingSpecialProblemComponent
   ],
   imports: [
     BrowserModule,

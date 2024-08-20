@@ -101,7 +101,13 @@ class CompetitionsBackendController extends Controller {
     }
 
     public function getRanking(string $competitionId, string $gender) {
-        return $this->competitionsRepository->getRanking($competitionId, $gender);
+        $ranking = $this->competitionsRepository->getRanking($competitionId, $gender);
+        $specialProblems = $this->problemsRepository->getSpecialProblemsWinners($competitionId);
+
+        return array(
+            "Ranking" => $ranking,
+            "SpecialProblems" => $specialProblems
+        );
     }
 
     public function getResults(string $competitionId) {
