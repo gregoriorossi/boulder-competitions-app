@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\CompetitionsRepository;
 use App\Repositories\ProblemsRepository;
+use App\Repositories\AthletesRepository;
 use Carbon\Carbon;
 use App\Models\Exports\RankingExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -12,13 +13,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class CompetitionsBackendController extends Controller {
 
+    protected AthletesRepository $athletesRepository;
+
     public function __construct(
         CompetitionsRepository $competitionsRepository,
-        ProblemsRepository $problemsRepository
+        ProblemsRepository $problemsRepository,
+        AthletesRepository $athletesRepository
     ) {
         $this->competitionsRepository = $competitionsRepository;
         $this->problemsRepository = $problemsRepository;
-
+         $this->athletesRepository = $athletesRepository;
         // $isProdEnv = env('APP_ENV', "local");
         // if ($isProdEnv == "production") {
         //     $this->middleware('auth');
@@ -214,7 +218,7 @@ class CompetitionsBackendController extends Controller {
     }
     
     public function downloadConsent(string $competitionId, string $athleteId) {
-        $athlete = $this->competitionsRepository->getAthleteById($competitionId, $athleteId);
+        $athlete = $this->athletesRepository->getAthleteById($competitionId, $athleteId);
         $fileName = 'delibera_' . $athlete["Surname"] . "_" . $athlete["Name"] . ".pdf";
 
         $athlete = $this->FormatDatesForConsent($athlete);
