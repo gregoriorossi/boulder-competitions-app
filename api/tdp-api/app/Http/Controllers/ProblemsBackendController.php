@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\CompetitionsRepository;
 use App\Repositories\ProblemsRepository;
-use Carbon\Carbon;
-use App\Models\Exports\RankingExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ProblemsBackendController extends Controller {
 

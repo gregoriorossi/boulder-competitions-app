@@ -120,6 +120,8 @@ class CompetitionsBackendController extends Controller {
 
     public function downloadRanking(string $competitionId, string $gender) {
         $ranking = $this->competitionsRepository->getRanking($competitionId, $gender);
+        $specialProblems = $this->problemsRepository->getSpecialProblemsWinners($competitionId);
+
         $export = new RankingExport(collect($ranking));
         return Excel::download($export, 'classifica.xlsx');
     }
