@@ -38,6 +38,7 @@ Route::post('competitionsBackend/{competitionId}/register', [CompetitionsBackend
 Route::get('competitionsBackend/{competitionId}/{athleteId}/downloadConsent', [CompetitionsBackendController::class, 'downloadConsent']);
 Route::get('competitionsBackend/{competitionId}/downloadAllConsents', [CompetitionsBackendController::class, 'downloadAllConsents']);
 Route::post('competitionsBackend/{competitionId}/setRankingsVisibility', [CompetitionsBackendController::class, 'setRankingsVisibility']);
+Route::post('competitionsBackend/{competitionId}/setRegistrationsOpen', [CompetitionsBackendController::class, 'setRegistrationsOpen']);
 
 Route::post('problemsBackend/storeSpecialProblem', [ProblemsBackendController::class, 'storeSpecialProblem']);
 // TEST
