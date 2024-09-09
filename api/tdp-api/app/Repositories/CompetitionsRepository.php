@@ -73,7 +73,8 @@ class CompetitionsRepository {
             'PublicPath'=> $info->public_path,
             'State' => $info->state,
             'Title' => $info->title,
-            'RankingsVisibility' => $info->rankings_visibility > 0
+            'RankingsVisibility' => $info->rankings_visibility > 0,
+            'RegistrationsOpen' => $info->registrations_open > 0
         ];
     }
 
@@ -92,7 +93,8 @@ class CompetitionsRepository {
             'State' => $info->state,
             'Title' => $info->title,
             'CoverImage' => asset("storage/" . $info->cover_image),
-            'RankingsVisibility' => $info->rankings_visibility > 0
+            'RankingsVisibility' => $info->rankings_visibility > 0,
+            'RegistrationsOpen' => $info->registrations_open > 0
         ];
     }
 
@@ -111,7 +113,8 @@ class CompetitionsRepository {
             'State' => $info->state,
             'Title' => $info->title,
             'CoverImage' => asset("storage/" . $info->cover_image),
-            'RankingsVisibility' => $info->rankings_visibility > 0
+            'RankingsVisibility' => $info->rankings_visibility > 0,
+            'RegistrationsOpen' => $info->registrations_open > 0
         ];
     }
 
@@ -234,7 +237,14 @@ class CompetitionsRepository {
             ->update(['consent_downloaded' => 1]);
     }
 
-     function setRankingsVisibility(string $competitionId, $visibility) {
+    function setRegistrationsOpen(string $competitionId, $open) {
+        
+        return DB::table('competitions')
+            ->where('id', $competitionId)
+            ->update(['registrations_open' => $open ? 1 : 0]);
+    }
+
+    function setRankingsVisibility(string $competitionId, $visibility) {
         
         return DB::table('competitions')
             ->where('id', $competitionId)

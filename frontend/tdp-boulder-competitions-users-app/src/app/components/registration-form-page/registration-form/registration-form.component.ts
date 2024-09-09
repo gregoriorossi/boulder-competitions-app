@@ -144,7 +144,9 @@ export class RegistrationFormComponent implements OnInit {
         this.formSubmittedAtLeastOnce = false;
       }, 200);
     } else if (result.Status === StatusTypes.ERR_USER_ALREADY_REGISTERED) {
-      this.toastService.showDanger('Errore nella registrazione, utente gi‡ registrato');
+      this.toastService.showDanger('Errore nella registrazione, utente gi√† registrato');
+    } else if (result.Status === StatusTypes.ERR_REGISTRATIONS_CLOSED) {
+      this.toastService.showDanger('Errore nella registrazione, le iscrizioni sono chiuse');
     } else {
       this.toastService.showDanger('Errore nella registrazione della gara');
       this.OnRegistrationError.emit();

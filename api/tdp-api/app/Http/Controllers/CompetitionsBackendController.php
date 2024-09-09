@@ -63,16 +63,18 @@ class CompetitionsBackendController extends Controller {
     {
         $title = $request->input('title');
         $public_path = $this->competitionsRepository->toAvailableUrlFriendly($title, $competitionId);
-
+        
         $competitionData = array(
             'title' => $title,
             'description' => $request->input('description'),
             'event_date' => Carbon::parse($request->input('event_date')),
             'email_subject' => $request->input('email_subject'),
             'email_body' => $request->input('email_body'),
-            'public_path' => $public_path
+            'public_path' => $public_path,
+            'registrations_open' => $request->boolean('registrations_open') ? 1 : 0,
+            'rankings_visibility' => $request->boolean('rankings_visibility') ? 1 : 0
         );
-        
+
         $cover_image = $this->handleCoverImage($request);
         if (!empty($cover_image)) {
             $competitionData['cover_image'] = $cover_image;
@@ -196,7 +198,14 @@ class CompetitionsBackendController extends Controller {
         }
     }
 
-     public function setRankingsVisibility(string $competitionId, Request $request) {
+    public function setRegistrationsOpen(string $competitionId, Request $request) {
+        $open = $request->input('RegistrationsOpen');
+        $this->competitionsRepository->setRegistrationsOpen($competitionId, $open);
+
+        return response()->json(null, 200);
+    }
+
+    public function setRankingsVisibility(string $competitionId, Request $request) {
         $visibility = $request->input('Visibility');
         $this->competitionsRepository->setRankingsVisibility($competitionId, $visibility);
 

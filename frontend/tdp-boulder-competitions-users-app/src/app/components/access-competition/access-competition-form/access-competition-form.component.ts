@@ -42,13 +42,14 @@ export class AccessCompetitionFormComponent implements OnInit {
     });
 
     this.activetedRoute.params.subscribe(async params => {
-      const competitionId = params["id"];
+      const path = params["id"];
+      console.log(path);
+      console.log(this.Competitions);
+      const competition = this.Competitions.find(c => c.PublicPath == path);
 
-      const competitionIdExists = this.Competitions.findIndex(c => c.Id == competitionId) > -1;
-      
-      if (competitionIdExists) {
+      if (competition) {
         this.form.patchValue({
-          CompetitionId: competitionId
+          CompetitionId: competition.Id
         });
       } else if (this.Competitions.length) {
         this.form.patchValue({

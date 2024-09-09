@@ -49,6 +49,8 @@ export class CompetitionInfoGaraComponent implements OnInit {
     this.form = new FormGroup({
       Title: new FormControl(this.competitionInfo.Title, [Validators.required]),
       Date: new FormControl({ day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear()}, [Validators.required]),
+      RankingsVisibility:new FormControl(this.competitionInfo.RankingsVisibility, [Validators.required]),
+      RegistrationsOpen:new FormControl(this.competitionInfo.RegistrationsOpen, [Validators.required]),
       Description: new FormControl(this.competitionInfo.Description, [Validators.required]),
       EmailSubject: new FormControl(this.competitionInfo.EmailSubject, [Validators.required]),
       EmailBody: new FormControl(this.competitionInfo.EmailBody, [Validators.required]),
@@ -60,6 +62,8 @@ export class CompetitionInfoGaraComponent implements OnInit {
 
   get title() { return this.form!.get('Title') }
   get date() { return this.form!.get('Date') }
+  get rankingsVisibility() { return this.form!.get('RankingsVisibility') }
+  get registrationsOpen() { return this.form!.get('RegistrationsOpen') }
   get description() { return this.form!.get('Description') }
   get emailSubject() { return this.form!.get('EmailSubject') }
   get emailBody() { return this.form!.get('EmailBody') }
@@ -72,6 +76,8 @@ export class CompetitionInfoGaraComponent implements OnInit {
     const data: IUpdateCompetitionInfoRequest = {
       title: this.title?.value,
       event_date: DateUtils.ToNoTimeZoneDate(date.year, date!.month - 1, date!.day),
+      registrations_open: this.registrationsOpen?.value,
+      rankings_visibility: this.rankingsVisibility?.value,
       description: this.description?.value,
       email_subject: this.emailSubject?.value,
       email_body: this.emailBody?.value,

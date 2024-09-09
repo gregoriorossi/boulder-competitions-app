@@ -7,6 +7,7 @@ export interface ICompetition {
   PublicPath: string;
   State: CompetitionStateType;
   RankingsVisibility: boolean;
+  RegistrationsOpen: boolean;
 }
 
 export interface ICompetitionInfo extends ICompetition {
@@ -19,6 +20,8 @@ export interface ICompetitionInfo extends ICompetition {
 export interface IUpdateCompetitionInfoRequest {
   title: string;
   event_date: Date;
+  registrations_open: string;
+  rankings_visibility: string;
   description: string;
   cover_image: string;
   cover_image_file: File | null;

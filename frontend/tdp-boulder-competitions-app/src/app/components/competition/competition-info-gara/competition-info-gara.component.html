@@ -40,6 +40,16 @@
         </div>
       </div>
       <div class="form-group mb-2">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" formControlName="RegistrationsOpen">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Registrazioni aperte</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" formControlName="RankingsVisibility">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Classifiche visibili ai partecipanti</label>
+        </div>
+      </div>
+      <div class="form-group mb-2">
         <label for="competition-description" class="col-sm-2 col-form-label">Descrizione</label>
         <div class="col-sm-12">
           <angular-editor formControlName="Description" name="description" [config]="descriptionEditorConfig" required></angular-editor>

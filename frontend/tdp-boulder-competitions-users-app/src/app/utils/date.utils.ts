@@ -1,8 +1,7 @@
-import * as moment from "moment";
-
+import * as moment from 'moment';
 export class DateUtils {
   public static FormatDate(date: Date, format: string): string {
-    return moment(date).format(format);
+    return moment(date).utcOffset(120).format(format);
   }
 
   public static ParseDate(date: string, format: string): moment.Moment {

@@ -69,35 +69,9 @@ export class CompetitionResultsComponent implements OnInit {
     await this.LoadResults();
   }
 
-  get GetRankingsVisibilityButtonText() {
-    return this.Competition.RankingsVisibility ? "Nascondi le classifiche" : "Pubblica le classifiche";
-  }
-
-  get GetRankingsVisibilityButtonIcon() {
-    return this.Competition.RankingsVisibility ? "fa-eye-slash" : "fa-eye";
-  }
-
   GetShortSendDateTime = (dateStr: string) => {
     const date = DateUtils.ParseDate(dateStr, "YYYY-MM-DD HH:mm:ss");
     return date.isValid() ? `${date.format('HH:mm:ss')}` : '';
-  }
-
-  OnChangeRankingsVisibilityClick = async (): Promise<void> => {
-    const message = this.Competition.RankingsVisibility
-      ? "Nascondere le classifiche?"
-      : "Pubblicare le classifiche?";
-    const competitionId: number = this.Competition.Id;
-    const visibility: boolean = !this.Competition.RankingsVisibility;
-
-    const confirmFn = async () => {
-      await this.competitionsService.SetRankingsVisibility(competitionId, visibility);
-      this.Competition.RankingsVisibility = visibility;
-    }
-
-    const confirmText: string = this.Competition.RankingsVisibility
-      ? "Vuoi nascondere le classifiche ai partecipanti della gara?"
-      : "Vuoi rendere visibili le classifiche ai partecipanti della gara?";
-    this.dialogsService.Confirm(message, confirmText, "Conferma", "Annulla", confirmFn, () => { });
   }
 
   private LoadResults = async (): Promise<void> => {

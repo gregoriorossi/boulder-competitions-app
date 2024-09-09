@@ -118,6 +118,14 @@ class CompetitionsController extends Controller
     public function register(string $competitionId, Request $request) {
         $email = trim($request->input('Email'));
 
+        $competition = $this->competitionsRepository->getInfo($competitionId);
+        if (!$competition['RegistrationsOpen']) {
+             $data = array(
+                'Status' => 'ERR_REGISTRATIONS_CLOSED'
+            );
+            return response()->json($data, 200);
+        }
+
         $isRegisteredToCompetition = $this->competitionsRepository->IsRegisteredToCompetition($competitionId, $email);
 
         if (!$isRegisteredToCompetition) {

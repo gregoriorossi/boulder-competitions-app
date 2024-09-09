@@ -54,6 +54,8 @@ export class CompetitionsService extends BaseTdpApiService {
       formData.append('description', data.description);
       formData.append('email_subject', data.email_subject);
       formData.append('email_body', data.email_body);
+      formData.append('registrations_open', data.registrations_open);
+      formData.append('rankings_visibility', data.rankings_visibility);
 
       if (data.cover_image_file) {
         formData.append('cover_image', data.cover_image_file as Blob, data.cover_image);

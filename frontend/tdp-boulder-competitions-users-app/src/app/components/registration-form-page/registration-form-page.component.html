@@ -10,7 +10,15 @@
             <div [innerHTML]="competition.Description">
             </div>
 
-            <app-registration-form [CompetitionId]="competition.Id"
+            <div *ngIf="!competition.RegistrationsOpen"
+                 class="alert alert-danger"
+                 role="alert" >
+              <b>Le iscrizioni sono chiuse</b><br />
+              Non &egrave; pi&ugrave; possibile registrarsi
+            </div>
+
+            <app-registration-form *ngIf="competition.RegistrationsOpen"
+                                   [CompetitionId]="competition.Id"
                                    (OnRegistration)="OnRegistration()"
                                    (OnRegistrationError)="OnRegistrationError()">
             </app-registration-form>
