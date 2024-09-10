@@ -53,14 +53,6 @@ export class CompetitionResultsComponent implements OnInit {
     }
   }
 
-  GetScore = (problem: IProblem): string => {
-    if (this.Competition.State === CompetitionStateType.DRAFT) {
-      return "";
-    }
-
-    return `${problem.Score}pt`;
-  }
-
   get IsCompetitionClosed(): boolean {
     return this.Competition.State === CompetitionStateType.CLOSED;
   }

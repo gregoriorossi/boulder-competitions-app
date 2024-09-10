@@ -163,8 +163,10 @@ class CompetitionsRepository {
         $problemsGroups = $this->problemsRepository->getColorGroupsByCompetitionId($competitionId);
         $specialProblems = $this->problemsRepository->getSpecialProblemsByCompetitionId($competitionId);
 
+        $scores = $this->problemsRepository->getProblemsScores($competitionId, $athlete['Gender']);
+
         $sentProblems = $this->problemsRepository->getSentProblemsByAthlete($athleteId, $competitionId);
-        $problemsGroupsWithSentProblems = $this->problemsRepository->setSentProblemsToProblemsGroups($problemsGroups, $sentProblems);
+        $problemsGroupsWithSentProblems = $this->problemsRepository->setSentProblemsToProblemsGroups($problemsGroups, $sentProblems, $scores);
         $specialProblemsWithSent =  $this->problemsRepository->setSentProblemsToSpecialProblems($specialProblems, $sentProblems);
         return array(
             "ProblemGroups" => $problemsGroupsWithSentProblems,

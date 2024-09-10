@@ -108,7 +108,7 @@ class ProblemsRepository {
         }); 
     }
 
-    function setSentProblemsToProblemsGroups($problemsGroups, $sentProblems) {
+    function setSentProblemsToProblemsGroups($problemsGroups, $sentProblems, $scores = null) {
         $groups = unserialize(serialize($problemsGroups));
 
         for($i = 0; $i < count($groups); $i++) {
@@ -117,6 +117,17 @@ class ProblemsRepository {
             for($j = 0; $j < count($group['Problems']); $j++) {
                 $problem = $group['Problems'][$j];
                 $problem['Sent'] = $this->isSentProblem($problem['Id'], $sentProblems);
+
+                if ($scores !== null) {
+                    $score = $scores->first(function($obj) use ($problem) {
+                        return $obj['Id'] == $problem['Id'];
+                    });
+
+                    if ($score != null) {
+                        $problem['Score'] = $score['Score'];
+                    }
+                }
+
                 $group['Problems'][$j] = $problem;
             }
         }
@@ -276,15 +287,15 @@ class ProblemsRepository {
             ->where('competition_id', $competitionId)
             ->where('is_special', 0)
             ->get();
-
-        return $problems->map(function($problem, $key) use($gender) {
-            $score = $this->getProblemScore($problem->competition_id, $problem->id, $gender); 
-            return [
-                'Id' => $problem->id,
-                'CompetitionId' => $problem->competition_id,
-                'Score' => $score
-            ];
-        });
+     
+         return $problems->map(function($problem, $key) use($gender) {
+             $score = $this->getProblemScore($problem->competition_id, $problem->id, $gender);
+             return [
+                 'Id' => $problem->id,
+                 'CompetitionId' => $problem->competition_id,
+                 'Score' => $score
+             ];
+         });
     }
 
     private function getProblemScore($competitionId, $problemId, string $gender) {
