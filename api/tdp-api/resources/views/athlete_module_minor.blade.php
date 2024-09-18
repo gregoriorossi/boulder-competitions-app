@@ -108,7 +108,7 @@
             </p>
         </div>
     </div>
-    <!-- START MINOR --> 
+    <!-- START TUTOR --> 
     <div class="col-12 mb-1" style="font-size:1rem">
         <div class="col-6 text-bold">
             Il/La sottoscritto/a:
@@ -116,6 +116,51 @@
         <div class="col-6 text-right" style="font-style: italic">
             *si prega di scrivere in stampatello
         </div>
+    </div>
+    <div class="col-12">
+        <div class="col-12">
+            <div class="col-6">
+                Cognome<span class="form-value">{{ $TutorSurname }}</span>
+            </div>
+            <div class="col-6">
+                Nome<span class="form-value">{{ $TutorName }}</span>
+            </div>
+        </div>
+         <div class="col-12">
+            <div class="col-6">
+                Email<span class="form-value">{{ $Email }}</span>
+            </div>
+            <div class="col-6">
+                Telefono tutore/tutrice<span class="form-value">{{ $TutorTelephone }}</span>
+            </div>
+        </div>
+        <div class="col-12 mb-1">
+            <div class="col-6">
+                Nato/a a<span class="form-value">{{ $TutorBirthPlace }}</span>
+            </div>
+            <div class="col-6">
+                Prov.<span class="form-value">{{ $TutorBirthProvince  }}</span>&nbsp;&nbsp;&nbsp;il
+                    <span class="form-value">{{ $TutorBirthDate  }}</span>
+            </div>
+        </div>
+        <div class="col-12 mb-1">
+            <div class="col-6">
+                Residente a<span class="form-value">{{ $TutorAddressCity }}</span>
+            </div>
+            <div class="col-6">
+                Via<span class="form-value">{{ $TutorAddressStreet }}</span>&nbsp;&nbsp;&nbsp;n°
+                    <span class="form-value">{{ $TutorAddressNumber }}</span>
+            </div>
+            <div class="col-6">
+                Prov.&nbsp;<span class="form-value">{{ $TutorAddressProvince }}</span>
+            </div>
+        </div>
+    </div>
+     <!-- END TUTOR --> 
+
+     <!-- START MINOR --> 
+    <div class="col-12 mb-1 text-bold" style="font-size:1rem">
+        In qualit&agrave; di tutore/tutrice legale del/della minorenne:
     </div>
     <div class="col-12">
         <div class="col-12">
@@ -149,51 +194,6 @@
         </div>
     </div>
      <!-- END MINOR --> 
-
-     <!-- START TUTOR --> 
-    <div class="col-12 mb-1 text-bold" style="font-size:1rem">
-        In qualit&agrave; di tutore/tutrice legale del/della minorenne:
-    </div>
-    <div class="col-12">
-        <div class="col-12">
-            <div class="col-6">
-                Cognome<span class="form-value">{{ $TutorSurname }}</span>
-            </div>
-            <div class="col-6">
-                Nome<span class="form-value">{{ $TutorName }}</span>
-            </div>
-        </div>
-        <div class="col-12 mb-1">
-            <div class="col-6">
-                Nato/a a<span class="form-value">{{ $TutorBirthPlace }}</span>
-            </div>
-            <div class="col-6">
-                Prov.<span class="form-value">{{ $TutorBirthProvince }}</span>&nbsp;&nbsp;&nbsp;il
-                    <span class="form-value">{{ $TutorBirthDate }}</span>
-            </div>
-        </div>
-        <div class="col-12 mb-1">
-            <div class="col-6">
-                Residente a<span class="form-value">{{ $TutorAddressCity }}</span>
-            </div>
-            <div class="col-6">
-                Via<span class="form-value">{{ $TutorAddressStreet }}</span>&nbsp;&nbsp;&nbsp;n°
-                    <span class="form-value">{{ $TutorAddressNumber }}</span>
-            </div>
-            <div class="col-6">
-                Prov.&nbsp;<span class="form-value">{{ $TutorAddressProvince }}</span>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="col-6">
-                Email<span class="form-value">{{ $Email }}</span>
-            </div>
-            <div class="col-6">
-                Telefono tutore/tutrice<span class="form-value">{{ $TutorTelephone }}</span>
-            </div>
-        </div>
-    </div>
-     <!-- END TUTOR --> 
 
 
     <div class="col-12 mb-4">
