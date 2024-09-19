@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Cookies } from "../../constants/cookies";
-import { GetCompetitionToRegisterForStatus, IAthlete, ICompetitionInfo } from "../../models/competitions.models";
+import { CompetitionStateType, GetCompetitionToRegisterForStatus, IAthlete, ICompetitionInfo } from "../../models/competitions.models";
 import { StatusTypes } from "../../models/services.models";
 import { CompetitionsService } from "../../services/competitions.service";
 import { DialogsService } from "../../services/dialogs.service";
@@ -16,7 +16,7 @@ import { StringUtils } from "../../utils/string.utils";
   styleUrls: ['./competition.component.scss']
 })
 export class CompetitonComponent implements OnInit {
-
+  CompetitionStateType = CompetitionStateType;
   Competition!: ICompetitionInfo;
   Athlete!: IAthlete;
   CompetitionStatus!: GetCompetitionToRegisterForStatus;

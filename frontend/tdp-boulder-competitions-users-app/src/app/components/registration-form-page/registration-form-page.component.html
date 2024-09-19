@@ -12,16 +12,24 @@
 
             <div *ngIf="!competition.RegistrationsOpen"
                  class="alert alert-danger"
-                 role="alert" >
+                 role="alert">
               <b>Le iscrizioni sono chiuse</b><br />
               Non &egrave; pi&ugrave; possibile registrarsi
             </div>
 
-            <app-registration-form *ngIf="competition.RegistrationsOpen"
+            <app-registration-form *ngIf="registrationFormVisible"
                                    [CompetitionId]="competition.Id"
                                    (OnRegistration)="OnRegistration()"
                                    (OnRegistrationError)="OnRegistrationError()">
             </app-registration-form>
+
+            <div class="alert alert-success text-center" role="alert" *ngIf="isRegistrationConfirmationMessageVisible">
+              <h4>Registrazione avvenuta con successo</h4>
+              <p>
+                <i class="fa fa-warning"></i>&nbsp;<b>Attenzione</b>&nbsp;<i class="fa fa-warning"></i><br />
+                NON riceverai email di conferma
+              </p>
+            </div>
 
             <div class="alert alert-danger" role="alert" *ngIf="isErrorMessageVisible">
               {{ content.ErrorMessage }}

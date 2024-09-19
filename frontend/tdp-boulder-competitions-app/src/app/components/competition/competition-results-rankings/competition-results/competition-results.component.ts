@@ -8,6 +8,11 @@ import { ToastService } from "../../../../services/toast.service";
 import { ColorsUtils } from "../../../../utils/colors.utils";
 import { DateUtils } from "../../../../utils/date.utils";
 
+enum ResultsTypes {
+  ALL = "ALL",
+  MALE = "MALE",
+  FEMALE = "FEMALE"
+}
 
 @Component({
   selector: 'app-competition-results',
@@ -15,6 +20,8 @@ import { DateUtils } from "../../../../utils/date.utils";
   styleUrls: ['./competition-results.component.scss']
 })
 export class CompetitionResultsComponent implements OnInit {
+  public ResultsTypes = ResultsTypes;
+  resultType: ResultsTypes = ResultsTypes.ALL;
 
   @Input() Competition!: ICompetition;
 
@@ -35,6 +42,10 @@ export class CompetitionResultsComponent implements OnInit {
       ProblemsGroups: this.CompetitionResults[0].ProblemsGroups,
       SpecialProblems: this.CompetitionResults[0].SpecialProblems
     };
+  }
+
+  OnResultTypeChange = async (e: any): Promise<void> => {
+    await this.LoadResults();
   }
 
   GetCssColorClass = (color: string): string => {
@@ -67,7 +78,10 @@ export class CompetitionResultsComponent implements OnInit {
   }
 
   private LoadResults = async (): Promise<void> => {
-    this.CompetitionResults = await this.competitionsService.GetResults(this.Competition.Id);
+    const results: ICompetitionResult[] = await this.competitionsService.GetResults(this.Competition.Id);
+    this.CompetitionResults = results.filter(r => {
+      return this.resultType === ResultsTypes.ALL || (r.Athlete.Gender as string) === this.resultType;
+    });
   }
 }
 

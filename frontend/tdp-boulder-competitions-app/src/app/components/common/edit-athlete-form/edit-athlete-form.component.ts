@@ -53,7 +53,7 @@ export class EditAthleteFormComponent implements OnInit {
       TutorBirthPlace: new FormControl(this.Athlete.TutorBirthPlace, [this.TutorFieldsValidator]),
       TutorBirthProvince: new FormControl(this.Athlete.TutorBirthProvince, [this.TutorFieldsValidator]),
       TutorAddressCity: new FormControl(this.Athlete.TutorAddressCity, [this.TutorFieldsValidator]),
-      TutorAddressStreet: new FormControl(this.Athlete.TutorAddressCity, [this.TutorFieldsValidator]),
+      TutorAddressStreet: new FormControl(this.Athlete.TutorAddressStreet, [this.TutorFieldsValidator]),
       TutorAddressNumber: new FormControl(this.Athlete.AddressNumber, [this.TutorFieldsValidator]),
       TutorAddressProvince: new FormControl(this.Athlete.TutorAddressProvince, [this.TutorFieldsValidator]),
       TutorTelephone: new FormControl(this.Athlete.TutorTelephone, [this.TutorFieldsValidator])

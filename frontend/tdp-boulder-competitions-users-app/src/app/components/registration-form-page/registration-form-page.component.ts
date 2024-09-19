@@ -15,6 +15,8 @@ export class RegistrationFormPageComponent implements OnInit {
 
   content!: IRegistrationFormPageContent;
   isErrorMessageVisible: boolean = false;
+  isRegistrationConfirmationMessageVisible: boolean = false;
+  registrationFormVisible: boolean = false;
 
   constructor(
     private router: Router,
@@ -33,11 +35,14 @@ export class RegistrationFormPageComponent implements OnInit {
       
       const result = await this.competitionsService.GetCompetitionInfoByPath(competitionId);
       this.competition = result;
+      this.registrationFormVisible = this.competition.RegistrationsOpen;
     });
   }
 
   OnRegistration = (): void => {
-    this.router.navigate(["/accedi", this.competition.Id]);
+    this.isRegistrationConfirmationMessageVisible = true;
+    this.registrationFormVisible = false;
+    // this.router.navigate(["/accedi", this.competition.Id]);
   }
 
   OnRegistrationError = (): void => {
