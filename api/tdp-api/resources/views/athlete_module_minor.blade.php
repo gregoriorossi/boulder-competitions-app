@@ -208,7 +208,7 @@
         finora raccolti, nonchè quelli che saranno in futuro raccolti verranno trattati sia in forma cartacea che con strumenti
         informatici e/o telematici, in modo lecito e per finalità di legge connessi a norme civilistiche, fiscali, contabili, etc. e
         gestione delrapporto associativo. Informiamo inoltre che il titolare dei dati personali a norma di legge e I&#39;Associazione
-        Sportiva Dilettantistica Teste di Pietra con sede in San Quirino (PN) Via S. Eurosia, 32.</p>
+        Sportiva Dilettantistica Teste di Pietra con sede in Cavasso Nuovo (PN) Via Borgo Zamboni, 11.</p>
     </div>
     <div class="col-12 mb-3">
         <div class="col-6">
